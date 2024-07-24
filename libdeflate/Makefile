@@ -1,13 +1,18 @@
+#
+# Copyright (C) 2022 OpenWrt.org
+#
+# This is free software, licensed under the GNU General Public License v2.
+# See /LICENSE for more information.
+
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libdeflate
-PKG_VERSION:=1.19
-PKG_RELEASE:=1
+PKG_VERSION:=1.20
+PKG_RELEASE:=2
 
-PKG_SOURCE_URL:=https://github.com/ebiggers/libdeflate.git
-PKG_SOURCE_PROTO:=git
-PKG_SOURCE_VERSION:=v$(PKG_VERSION)
-PKG_MIRROR_HASH:=5aac9801815384a5e417c8345d25d07547648e28403566ef73a46295ec26b6c4
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://github.com/ebiggers/libdeflate/releases/download/v$(PKG_VERSION)
+PKG_HASH:=c52cf0239fd644d71c9e88613dd7431a5306ebee1280c5791c71ca264869250a
 
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=COPYING
@@ -26,6 +31,8 @@ endef
 define Package/libdeflate/description
   libdeflate is a library for fast, whole-buffer DEFLATE-based compression and decompression.
 endef
+
+DECOMPRESS_CMD:=$(STAGING_DIR_HOST)/bin/gzip -dc $(DL_DIR)/$(PKG_SOURCE) |
 
 define Host/Compile
 	$(HOSTCC_NOCACHE) $(HOST_CFLAGS) $(HOST_LDFLAGS) \
