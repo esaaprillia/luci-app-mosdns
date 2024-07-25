@@ -10,20 +10,17 @@ include $(INCLUDE_DIR)/uclibc++.mk
 
 PKG_NAME:=mariadb
 PKG_VERSION:=5.3.12
-PKG_RELEASE:=2
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://archive.mariadb.org/mariadb-5.3.12/kvm-tarbake-jaunty-x86/
+PKG_HASH:=skip
 
-PKG_MD5SUM:=2e90a44564888adc87dba52a5fdd0a2e
 PKG_MAINTAINER:=Jo-Philipp Wich <jo@mein.io>
 PKG_LICENSE:=GPL-2.0
 
-PKG_BUILD_DEPENDS:=libncurses libreadline
 PKG_BUILD_PARALLEL:=1
 PKG_USE_MIPS16:=0
-
-PKG_FIXUP:=libtool
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -38,7 +35,7 @@ endef
 define Package/mariadb-server
   SECTION:=utils
   CATEGORY:=Utilities
-  DEPENDS:=+libmariadbclient +libpthread +libncursesw +libreadline
+  DEPENDS:=+libmariadbclient +libpthread +libncurses +libreadline
   TITLE:=MariaDB Server
   URL:=https://mariadb.org/
   SUBMENU:=database
@@ -151,6 +148,7 @@ define Package/libmariadbclient/install
 	$(INSTALL_DIR) $(1)/usr/lib
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/mysql/libmysqlclient.so.* $(1)/usr/lib/
 endef
+
 define Package/libmariadbclient-r/install
 	$(INSTALL_DIR) $(1)/usr/lib
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/mysql/libmysqlclient_r.so.* $(1)/usr/lib/
