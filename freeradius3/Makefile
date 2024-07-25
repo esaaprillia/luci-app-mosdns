@@ -581,7 +581,7 @@ endef
 
 define Package/freeradius3-mod-sql-mysql
   $(call Package/freeradius3/Default)
-  DEPENDS:=freeradius3-mod-sql +libmysqlclient
+  DEPENDS:=freeradius3-mod-sql +libmysqlclient-r
   TITLE:=Radius MySQL back-end drivers
 endef
 
@@ -901,7 +901,8 @@ endif
 ifneq ($(SDK)$(CONFIG_PACKAGE_freeradius3-mod-sql-mysql),)
   CONFIGURE_ARGS+= \
 		--with-rlm_sql_mysql \
-		--with-mysql-include-dir="$(STAGING_DIR)/usr/include/mysql"
+		--with-mysql-include-dir="$(STAGING_DIR)/usr/include/mysql" \
+		--with-mysql-lib-dir="$(STAGING_DIR)/usr/lib/mysql"
 else
   CONFIGURE_ARGS+= --without-rlm_sql_mysql
 endif
