@@ -1,0 +1,136 @@
+From 2f96dc6105122d3deadb87634163b743f489a0b1 Mon Sep 17 00:00:00 2001
+From: Predators <31931530+predators46@users.noreply.github.com>
+Date: Tue, 20 Dec 2022 06:13:53 +0800
+Subject: [PATCH] Update plug.in
+
+---
+ storage/xtradb/plug.in | 86 +++++++++++-------------------------------
+ 1 file changed, 22 insertions(+), 64 deletions(-)
+
+diff --git a/storage/xtradb/plug.in b/storage/xtradb/plug.in
+index 3fadacc..ea1517d 100644
+--- a/storage/xtradb/plug.in
++++ b/storage/xtradb/plug.in
+@@ -56,10 +56,8 @@ MYSQL_PLUGIN_ACTIONS(xtradb,  [
+   esac
+   AC_SUBST(INNODB_DYNAMIC_CFLAGS)
+ 
+-  AC_MSG_CHECKING(whether GCC atomic builtins are available)
+-  # either define HAVE_IB_GCC_ATOMIC_BUILTINS or not
+-  AC_TRY_RUN(
+-    [
++  AC_CACHE_CHECK([whether GCC atomic builtins are available],
++		 [mysql_cv_gcc_atomic_builtins], [AC_TRY_RUN([
+       int main()
+       {
+ 	long	x;
+@@ -95,57 +93,17 @@ MYSQL_PLUGIN_ACTIONS(xtradb,  [
+ 	}
+ 	return(0);
+       }
+-    ],
+-    [
+-      AC_DEFINE([HAVE_IB_GCC_ATOMIC_BUILTINS], [1],
+-                [GCC atomic builtins are available])
+-      AC_MSG_RESULT(yes)
+-    ],
+-    [
+-      AC_MSG_RESULT(no)
+-    ]
+-  )
+-
+-  AC_MSG_CHECKING(whether GCC 64-bit atomic builtins are available)
+-  # either define HAVE_IB_GCC_ATOMIC_BUILTINS_64 or not
+-  AC_TRY_RUN(
+-    [
+-      #include <stdint.h>
+-      int main()
+-      {
+-        int64_t x, y, res;
+-
+-	x = 10;
+-	y = 123;
+-	res = __sync_bool_compare_and_swap(&x, x, y);
+-	if (!res || x != y) {
+-	  return(1);
+-	}
+-
+-	x = 10;
+-	y = 123;
+-	res = __sync_add_and_fetch(&x, y);
+-	if (res != 123 + 10 || x != 123 + 10) {
+-	  return(1);
+-	}
++    ], [mysql_cv_gcc_atomic_builtins=yes],
++       [mysql_cv_gcc_atomic_builtins=no],
++       [mysql_cv_gcc_atomic_builtins=no])])
+ 
+-	return(0);
+-      }
+-    ],
+-    [
+-      AC_DEFINE([HAVE_IB_GCC_ATOMIC_BUILTINS_64], [1],
+-                [GCC 64-bit atomic builtins are available])
+-      AC_MSG_RESULT(yes)
+-    ],
+-    [
+-      AC_MSG_RESULT(no)
+-    ]
+-  )
++  if test "x$mysql_cv_gcc_atomic_builtins" = xyes; then
++    AC_DEFINE(HAVE_IB_GCC_ATOMIC_BUILTINS, 1,
++              [Define to 1 if compiler provides atomic builtins.])
++  fi
+ 
+-  AC_MSG_CHECKING(whether pthread_t can be used by GCC atomic builtins)
+-  # either define HAVE_IB_ATOMIC_PTHREAD_T_GCC or not
+-  AC_TRY_RUN(
+-    [
++  AC_CACHE_CHECK([whether pthread_t can be used by GCC atomic builtins],
++		 [mysql_cv_gcc_atomic_builtins_pthread_t], [AC_TRY_RUN([
+       #include <pthread.h>
+       #include <string.h>
+ 
+@@ -162,16 +120,14 @@ MYSQL_PLUGIN_ACTIONS(xtradb,  [
+ 
+         return(0);
+       }
+-    ],
+-    [
+-      AC_DEFINE([HAVE_IB_ATOMIC_PTHREAD_T_GCC], [1],
+-                [pthread_t can be used by GCC atomic builtins])
+-      AC_MSG_RESULT(yes)
+-    ],
+-    [
+-      AC_MSG_RESULT(no)
+-    ]
+-  )
++    ], [mysql_cv_gcc_atomic_builtins_pthread_t=yes],
++       [mysql_cv_gcc_atomic_builtins_pthread_t=no],
++       [mysql_cv_gcc_atomic_builtins_pthread_t=no])])
++
++  if test "x$mysql_cv_gcc_atomic_builtins_pthread_t" = xyes; then
++    AC_DEFINE(HAVE_IB_ATOMIC_PTHREAD_T_GCC, 1,
++              [Define to 1 if pthread_t can be used by GCC atomic builtins])
++  fi
+ 
+   AC_MSG_CHECKING(whether Solaris libc atomic functions are available)
+   # Define HAVE_IB_SOLARIS_ATOMICS if _all_ of the following
+@@ -191,7 +147,7 @@ MYSQL_PLUGIN_ACTIONS(xtradb,  [
+     AC_DEFINE([HAVE_IB_SOLARIS_ATOMICS], [1],
+       [Define to 1 if Solaris libc atomic functions are available]
+     )
+-  fi
++
+ 
+   AC_MSG_CHECKING(whether pthread_t can be used by Solaris libc atomic functions)
+   # either define HAVE_IB_ATOMIC_PTHREAD_T_SOLARIS or not
+@@ -265,6 +221,8 @@ MYSQL_PLUGIN_ACTIONS(xtradb,  [
+       AC_MSG_RESULT(no)
+     ]
+   )
++  fi
++
+   ])
+ 
+ # vim: set ft=config:
