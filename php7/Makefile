@@ -254,7 +254,8 @@ else
 endif
 
 ifneq ($(SDK)$(CONFIG_PACKAGE_php7-mod-iconv),)
-  CONFIGURE_ARGS+= --with-iconv=shared,"$(STAGING_DIR)/usr/lib/libiconv-full"
+  CONFIGURE_VARS+= iconv_impl_name="gnu_libiconv"
+  CONFIGURE_ARGS+= --with-iconv=shared,"$(ICONV_PREFIX)"
 else
   CONFIGURE_ARGS+= --without-iconv
 endif
@@ -471,7 +472,6 @@ endif
 CONFIGURE_VARS+= \
 	ac_cv_c_bigendian_php=$(if $(CONFIG_BIG_ENDIAN),yes,no) \
 	php_cv_cc_rpath="no" \
-	iconv_impl_name="gnu_libiconv" \
 	ac_cv_php_xml2_config_path="$(STAGING_DIR)/host/bin/xml2-config" \
 	ac_cv_u8t_decompose=yes \
 	ac_cv_have_pcre2_jit=no
@@ -629,7 +629,7 @@ $(eval $(call BuildModule,ftp,FTP,+PACKAGE_php7-mod-ftp:libopenssl))
 $(eval $(call BuildModule,gd,GD graphics,+PACKAGE_php7-mod-gd:libgd-full))
 $(eval $(call BuildModule,gettext,Gettext,+PACKAGE_php7-mod-gettext:libintl-full))
 $(eval $(call BuildModule,gmp,GMP,+PACKAGE_php7-mod-gmp:libgmp))
-$(eval $(call BuildModule,iconv,iConv,+PACKAGE_php7-mod-iconv:libiconv-full))
+$(eval $(call BuildModule,iconv,iConv,$(ICONV_DEPENDS)))
 $(eval $(call BuildModule,imap,IMAP,+PACKAGE_php7-mod-imap:libopenssl +PACKAGE_libpam:libpam +PACKAGE_php7-mod-imap:uw-imap))
 $(eval $(call BuildModule,intl,Internationalization Functions,+PACKAGE_php7-mod-intl:icu +PHP7_FULLICUDATA:icu-full-data))
 $(eval $(call BuildModule,json,JSON))
