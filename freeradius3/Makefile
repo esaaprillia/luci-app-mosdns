@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=freeradius3
 PKG_VERSION:=3.0.21
-PKG_RELEASE:=1
+PKG_RELEASE:=3
 
 PKG_SOURCE:=freeradius-server-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://www.freeradius.org/ftp/pub/freeradius/old/
