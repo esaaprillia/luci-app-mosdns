@@ -841,6 +841,15 @@ else
   CONFIGURE_ARGS+= --without-rlm_json
 endif
 
+ifneq ($(SDK)$(CONFIG_PACKAGE_freeradius3-mod-krb5),)
+  CONFIGURE_VARS+= krb5_is_thread_safe=yes
+  CONFIGURE_ARGS+= \
+		--with-rlm_krb5 \
+		--with-rlm-krb5-dir="$(STAGING_DIR)/host/bin/krb5-config"
+else
+  CONFIGURE_ARGS+= --without-rlm_krb5
+endif
+
 ifneq ($(SDK)$(CONFIG_PACKAGE_freeradius3-mod-ldap),)
   CONFIGURE_ARGS+= --with-rlm_ldap \
 		--with-rlm_ldap-include-dir="$(STAGING_DIR)/usr/include" \
