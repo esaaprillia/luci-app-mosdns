@@ -8,11 +8,11 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=freeradius3
-PKG_VERSION:=3.2.5
+PKG_VERSION:=3.0.21
 PKG_RELEASE:=1
 
 PKG_SOURCE:=freeradius-server-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://freeradius.org/ftp/pub/freeradius
+PKG_SOURCE_URL:=https://www.freeradius.org/ftp/pub/freeradius/old/
 PKG_HASH:=skip
 
 PKG_MAINTAINER:=
@@ -179,6 +179,12 @@ define Package/freeradius3-mod-counter/conffiles
 /etc/freeradius3/mods-available/counter
 endef
 
+define Package/freeradius3-mod-cram
+  $(call Package/freeradius3/Default)
+  DEPENDS:=freeradius3
+  TITLE:=MODULE CRAM
+endef
+
 define Package/freeradius3-mod-date
   $(call Package/freeradius3/Default)
   DEPENDS:=freeradius3
@@ -209,16 +215,6 @@ endef
 define Package/freeradius3-mod-digest/conffiles
 /etc/freeradius3/mods-available/digest
 /etc/freeradius3/mods-enabled/digest
-endef
-
-define Package/freeradius3-mod-dpsk
-  $(call Package/freeradius3/Default)
-  DEPENDS:=freeradius3
-  TITLE:=MODULE DPSK
-endef
-
-define Package/freeradius3-mod-dpsk/conffiles
-/etc/freeradius3/mods-available/dpsk
 endef
 
 define Package/freeradius3-mod-dynamic-clients
@@ -1039,6 +1035,7 @@ define Package/freeradius3-democerts/install
 	$(INSTALL_DIR) $(1)/etc/freeradius3/certs
 	$(CP) \
 		$(PKG_INSTALL_DIR)/etc/freeradius3/certs/ca.pem \
+		$(PKG_INSTALL_DIR)/etc/freeradius3/certs/dh \
 		$(PKG_INSTALL_DIR)/etc/freeradius3/certs/server.pem \
 		$(1)/etc/freeradius3/certs/
 endef
@@ -1078,10 +1075,10 @@ $(eval $(call BuildPlugin,freeradius3-mod-cache-rbtree,rlm_cache_rbtree,))
 $(eval $(call BuildPlugin,freeradius3-mod-cache-redis,rlm_cache_redis,))
 $(eval $(call BuildPlugin,freeradius3-mod-chap,rlm_chap,))
 $(eval $(call BuildPlugin,freeradius3-mod-counter,rlm_counter,))
+$(eval $(call BuildPlugin,freeradius3-mod-cram,rlm_cram,))
 $(eval $(call BuildPlugin,freeradius3-mod-date,rlm_date,))
 $(eval $(call BuildPlugin,freeradius3-mod-detail,rlm_detail,))
 $(eval $(call BuildPlugin,freeradius3-mod-digest,rlm_digest,))
-$(eval $(call BuildPlugin,freeradius3-mod-dpsk,rlm_dpsk,))
 $(eval $(call BuildPlugin,freeradius3-mod-dynamic-clients,rlm_dynamic_clients,))
 $(eval $(call BuildPlugin,freeradius3-mod-eap,rlm_eap,))
 $(eval $(call BuildPlugin,freeradius3-mod-eap-fast,rlm_eap_fast,))
