@@ -1,14 +1,3 @@
-From 978622cb1518d3c9fad5806ddc9f48e8add40aa2 Mon Sep 17 00:00:00 2001
-From: esaaprillia <esaapriliasalsabila@gmail.com>
-Date: Sun, 28 Jul 2024 08:32:11 +0800
-Subject: [PATCH] Add files via upload
-
----
- src/modules/rlm_krb5/configure | 7 -------
- 1 file changed, 7 deletions(-)
-
-diff --git a/src/modules/rlm_krb5/configure b/src/modules/rlm_krb5/configure
-index 672ef92..dc84aae 100644
 --- a/src/modules/rlm_krb5/configure
 +++ b/src/modules/rlm_krb5/configure
 @@ -4302,12 +4302,6 @@ if test "x$smart_lib" != "x"; then
