@@ -152,12 +152,6 @@ define Package/freeradius3-mod-cache-rbtree
   TITLE:=DATASTORE CACHE RBTREE
 endef
 
-define Package/freeradius3-mod-cache-redis
-  $(call Package/freeradius3/Default)
-  DEPENDS:=freeradius3 +freeradius3-mod-cache +libhiredis
-  TITLE:=DATASTORE CACHE REDIS
-endef
-
 define Package/freeradius3-mod-chap
   $(call Package/freeradius3/Default)
   DEPENDS:=freeradius3
@@ -766,15 +760,6 @@ PKG_DICTIONARIES:= \
 	microsoft \
 	wispr \
 
-ifneq ($(SDK)$(CONFIG_PACKAGE_freeradius3-mod-cache-redis),)
-  CONFIGURE_ARGS+= \
-		--with-rlm_cache_redis \
-		--with-rlm_cache_redis-include-dir="$(STAGING_DIR)/usr/include" \
-		--with-rlm_cache_redis-lib-dir="$(STAGING_DIR)/usr/lib"
-else
-  CONFIGURE_ARGS+= --without-rlm_cache_redis
-endif
-
 ifneq ($(SDK)$(CONFIG_PACKAGE_freeradius3-mod-eap-fast),)
   CONFIGURE_ARGS+= \
 		--with-rlm_eap_fast \
@@ -1080,7 +1065,6 @@ $(eval $(call BuildPlugin,freeradius3-mod-always,rlm_always,))
 $(eval $(call BuildPlugin,freeradius3-mod-attr-filter,rlm_attr_filter,))
 $(eval $(call BuildPlugin,freeradius3-mod-cache,rlm_cache,))
 $(eval $(call BuildPlugin,freeradius3-mod-cache-rbtree,rlm_cache_rbtree,))
-$(eval $(call BuildPlugin,freeradius3-mod-cache-redis,rlm_cache_redis,))
 $(eval $(call BuildPlugin,freeradius3-mod-chap,rlm_chap,))
 $(eval $(call BuildPlugin,freeradius3-mod-counter,rlm_counter,))
 $(eval $(call BuildPlugin,freeradius3-mod-cram,rlm_cram,))
