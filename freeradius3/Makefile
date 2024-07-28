@@ -132,7 +132,6 @@ define Package/freeradius3-mod-attr-filter/conffiles
 /etc/freeradius3/mods-config/attr_filter/access_challenge
 /etc/freeradius3/mods-config/attr_filter/access_reject
 /etc/freeradius3/mods-config/attr_filter/accounting_response
-/etc/freeradius3/mods-config/attr_filter/coa
 /etc/freeradius3/mods-config/attr_filter/post-proxy
 /etc/freeradius3/mods-config/attr_filter/pre-proxy
 endef
