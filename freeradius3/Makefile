@@ -63,7 +63,7 @@ endef
 define Package/freeradius3-common
   $(call Package/freeradius3/Default)
   TITLE:=common files
-  DEPENDS:=+USE_GLIBC:libpthread +USE_GLIBC:libbsd +FREERADIUS3_OPENSSL:libopenssl +libcap +libpcap +libncurses +libreadline +libtalloc +libatomic
+  DEPENDS:=+USE_GLIBC:libpthread +USE_GLIBC:libbsd +FREERADIUS3_OPENSSL:libopenssl +libcap +libpcap +libncurses +libpcre +libreadline +libtalloc +libatomic
 endef
 
 define Package/freeradius3-default
@@ -77,6 +77,7 @@ define Package/freeradius3-default
 +freeradius3-mod-digest \
 +freeradius3-mod-eap \
 +freeradius3-mod-eap-gtc \
++freeradius3-mod-eap-leap \
 +freeradius3-mod-eap-md5 \
 +freeradius3-mod-eap-mschapv2 \
 +freeradius3-mod-eap-peap \
@@ -246,6 +247,12 @@ define Package/freeradius3-mod-eap-gtc
   $(call Package/freeradius3/Default)
   DEPENDS:=freeradius3-mod-eap
   TITLE:=EAP/GTC module
+endef
+
+define Package/freeradius3-mod-eap-leap
+  $(call Package/freeradius3/Default)
+  DEPENDS:=freeradius3-mod-eap
+  TITLE:=EAP/LEAP module
 endef
 
 define Package/freeradius3-mod-eap-md5
@@ -549,16 +556,6 @@ define Package/freeradius3-mod-sql/conffiles
 /etc/freeradius3/mods-available/sql
 endef
 
-define Package/freeradius3-mod-sql-map
-  $(call Package/freeradius3/Default)
-  DEPENDS:=freeradius3
-  TITLE:=Map module
-endef
-
-define Package/freeradius3-mod-map/conffiles
-/etc/freeradius3/mods-available/sql_map
-endef
-
 define Package/freeradius3-mod-sql-mysql
   $(call Package/freeradius3/Default)
   DEPENDS:=freeradius3-mod-sql +libmysqlclient-r
@@ -727,7 +724,6 @@ CONFIGURE_ARGS+= \
 	--with-raddbdir=/etc/freeradius3 \
 	--with-radacctdir=/var/db/radacct \
 	--with-logdir=/var/log \
-	--without-pcre \
 	--without-rlm_cache_memcached \
 	--without-rlm_couchbase \
 	--without-rlm_eap_ikev2 \
@@ -1057,6 +1053,7 @@ $(eval $(call BuildPlugin,freeradius3-mod-dynamic-clients,rlm_dynamic_clients,))
 $(eval $(call BuildPlugin,freeradius3-mod-eap,rlm_eap,))
 $(eval $(call BuildPlugin,freeradius3-mod-eap-fast,rlm_eap_fast,))
 $(eval $(call BuildPlugin,freeradius3-mod-eap-gtc,rlm_eap_gtc,))
+$(eval $(call BuildPlugin,freeradius3-mod-eap-leap,rlm_eap_leap,))
 $(eval $(call BuildPlugin,freeradius3-mod-eap-md5,rlm_eap_md5,))
 $(eval $(call BuildPlugin,freeradius3-mod-eap-mschapv2,rlm_eap_mschapv2,))
 $(eval $(call BuildPlugin,freeradius3-mod-eap-peap,rlm_eap_peap,))
@@ -1088,7 +1085,6 @@ $(eval $(call BuildPlugin,freeradius3-mod-rest,rlm_rest,))
 $(eval $(call BuildPlugin,freeradius3-mod-soh,rlm_soh,))
 $(eval $(call BuildPlugin,freeradius3-mod-sometimes,rlm_sometimes,))
 $(eval $(call BuildPlugin,freeradius3-mod-sql,rlm_sql,))
-$(eval $(call BuildPlugin,freeradius3-mod-sql-map,rlm_sql_map,))
 $(eval $(call BuildPlugin,freeradius3-mod-sql-mysql,rlm_sql_mysql,))
 $(eval $(call BuildPlugin,freeradius3-mod-sql-null,rlm_sql_null,))
 $(eval $(call BuildPlugin,freeradius3-mod-sql-postgresql,rlm_sql_postgresql,))
