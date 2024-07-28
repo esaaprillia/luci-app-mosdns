@@ -297,12 +297,6 @@ define Package/freeradius3-mod-eap-ttls
   TITLE:=EAP/TTLS module
 endef
 
-define Package/freeradius3-mod-example
-  $(call Package/freeradius3/Default)
-  DEPENDS:=freeradius3
-  TITLE:=Example module
-endef
-
 define Package/freeradius3-mod-exec
   $(call Package/freeradius3/Default)
   DEPENDS:=freeradius3
@@ -1067,7 +1061,6 @@ $(eval $(call BuildPlugin,freeradius3-mod-eap-pwd,rlm_eap_pwd,))
 $(eval $(call BuildPlugin,freeradius3-mod-eap-sim,rlm_eap_sim,))
 $(eval $(call BuildPlugin,freeradius3-mod-eap-tls,rlm_eap_tls,))
 $(eval $(call BuildPlugin,freeradius3-mod-eap-ttls,rlm_eap_ttls,))
-$(eval $(call BuildPlugin,freeradius3-mod-example,rlm_example,))
 $(eval $(call BuildPlugin,freeradius3-mod-exec,rlm_exec,))
 $(eval $(call BuildPlugin,freeradius3-mod-expiration,rlm_expiration,))
 $(eval $(call BuildPlugin,freeradius3-mod-expr,rlm_expr,))
