@@ -347,16 +347,6 @@ define Package/freeradius3-mod-ippool/conffiles
 /etc/freeradius3/mods-available/ippool
 endef
 
-define Package/freeradius3-mod-json
-  $(call Package/freeradius3/Default)
-  DEPENDS:=freeradius3 +libjson-c
-  TITLE:=Json module
-endef
-
-define Package/freeradius3-mod-json/conffiles
-/etc/freeradius3/mods-available/json
-endef
-
 define Package/freeradius3-mod-krb5
   $(call Package/freeradius3/Default)
   DEPENDS:=freeradius3 +krb5-libs
@@ -818,14 +808,6 @@ else
   CONFIGURE_ARGS+= --without-rlm_ippool
 endif
 
-ifneq ($(SDK)$(CONFIG_PACKAGE_freeradius3-mod-json),)
-  CONFIGURE_ARGS+= --with-rlm_json \
-		--with-rlm_json-include-dir="$(STAGING_DIR)/usr/include" \
-		--with-rlm_json-lib-dir="$(STAGING_DIR)/usr/lib"
-else
-  CONFIGURE_ARGS+= --without-rlm_json
-endif
-
 ifneq ($(SDK)$(CONFIG_PACKAGE_freeradius3-mod-krb5),)
   CONFIGURE_ARGS+= \
 		--with-rlm_krb5 \
@@ -1087,7 +1069,6 @@ $(eval $(call BuildPlugin,freeradius3-mod-expiration,rlm_expiration,))
 $(eval $(call BuildPlugin,freeradius3-mod-expr,rlm_expr,))
 $(eval $(call BuildPlugin,freeradius3-mod-files,rlm_files,))
 $(eval $(call BuildPlugin,freeradius3-mod-ippool,rlm_ippool,))
-$(eval $(call BuildPlugin,freeradius3-mod-json,rlm_json,))
 $(eval $(call BuildPlugin,freeradius3-mod-krb5,rlm_krb5,))
 $(eval $(call BuildPlugin,freeradius3-mod-ldap,rlm_ldap,))
 $(eval $(call BuildPlugin,freeradius3-mod-linelog,rlm_linelog,))
