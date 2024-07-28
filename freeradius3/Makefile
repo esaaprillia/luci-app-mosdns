@@ -405,6 +405,16 @@ define Package/freeradius3-mod-mschap/conffiles
 /etc/freeradius3/mods-enabled/mschap
 endef
 
+define Package/freeradius3-mod-otp
+  $(call Package/freeradius3/Default)
+  DEPENDS:=freeradius3
+  TITLE:=Otp module
+endef
+
+define Package/freeradius3-mod-otp/conffiles
+/etc/freeradius3/mods-available/otp
+endef
+
 define Package/freeradius3-mod-pam
   $(call Package/freeradius3/Default)
   DEPENDS:=freeradius3 +libpam
@@ -619,17 +629,6 @@ define Package/freeradius3-mod-sqlippool/conffiles
 /etc/freeradius3/mods-config/sql/ippool-dhcp
 /etc/freeradius3/mods-available/dhcp_sqlippool
 /etc/freeradius3/mods-available/sqlippool
-endef
-
-define Package/freeradius3-mod-unbound
-  $(call Package/freeradius3/Default)
-  DEPENDS:=freeradius3 +libunbound
-  TITLE:=Unbound module
-endef
-
-define Package/freeradius3-mod-unbound/conffiles
-/etc/freeradius3/mods-available/unbound
-/etc/freeradius3/mods-config/unbound
 endef
 
 define Package/freeradius3-mod-unix
@@ -895,15 +894,6 @@ else
   CONFIGURE_ARGS+= --without-rlm_sqlippool
 endif
 
-ifneq ($(SDK)$(CONFIG_PACKAGE_freeradius3-mod-unbound),)
-  CONFIGURE_ARGS+= \
-		--with-rlm_unbound \
-		--with-rlm_unbound-include-dir="$(STAGING_DIR)/usr/include" \
-		--with-rlm_unbound-lib-dir="$(STAGING_DIR)/usr/lib"
-else
-  CONFIGURE_ARGS+= --without-rlm_unbound
-endif
-
 ifneq ($(SDK)$(CONFIG_PACKAGE_freeradius3-mod-unix),)
   CONFIGURE_ARGS+= --with-rlm_unix
 else
@@ -1059,6 +1049,7 @@ $(eval $(call BuildPlugin,freeradius3-mod-ldap,rlm_ldap,))
 $(eval $(call BuildPlugin,freeradius3-mod-linelog,rlm_linelog,))
 $(eval $(call BuildPlugin,freeradius3-mod-logintime,rlm_logintime,))
 $(eval $(call BuildPlugin,freeradius3-mod-mschap,rlm_mschap,))
+$(eval $(call BuildPlugin,freeradius3-mod-otp,rlm_otp,))
 $(eval $(call BuildPlugin,freeradius3-mod-pam,rlm_pam,))
 $(eval $(call BuildPlugin,freeradius3-mod-pap,rlm_pap,))
 $(eval $(call BuildPlugin,freeradius3-mod-passwd,rlm_passwd,))
@@ -1080,7 +1071,6 @@ $(eval $(call BuildPlugin,freeradius3-mod-sql-sqlite,rlm_sql_sqlite,))
 $(eval $(call BuildPlugin,freeradius3-mod-sql-unixodbc,rlm_sql_unixodbc,))
 $(eval $(call BuildPlugin,freeradius3-mod-sqlcounter,rlm_sqlcounter,))
 $(eval $(call BuildPlugin,freeradius3-mod-sqlippool,rlm_sqlippool,))
-$(eval $(call BuildPlugin,freeradius3-mod-unbound,rlm_unbound,))
 $(eval $(call BuildPlugin,freeradius3-mod-unix,rlm_unix,))
 $(eval $(call BuildPlugin,freeradius3-mod-unpack,rlm_unpack,))
 $(eval $(call BuildPlugin,freeradius3-mod-utf8,rlm_utf8,))
