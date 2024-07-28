@@ -622,17 +622,6 @@ define Package/freeradius3-mod-sqlippool/conffiles
 /etc/freeradius3/mods-available/sqlippool
 endef
 
-define Package/freeradius3-mod-totp
-  $(call Package/freeradius3/Default)
-  DEPENDS:=freeradius3
-  TITLE:=Totp module
-endef
-
-define Package/freeradius3-mod-totp/conffiles
-/etc/freeradius3/mods-available/totp
-/etc/freeradius3/sites-available/totp
-endef
-
 define Package/freeradius3-mod-unbound
   $(call Package/freeradius3/Default)
   DEPENDS:=freeradius3 +libunbound
@@ -1092,7 +1081,6 @@ $(eval $(call BuildPlugin,freeradius3-mod-sql-sqlite,rlm_sql_sqlite,))
 $(eval $(call BuildPlugin,freeradius3-mod-sql-unixodbc,rlm_sql_unixodbc,))
 $(eval $(call BuildPlugin,freeradius3-mod-sqlcounter,rlm_sqlcounter,))
 $(eval $(call BuildPlugin,freeradius3-mod-sqlippool,rlm_sqlippool,))
-$(eval $(call BuildPlugin,freeradius3-mod-totp,rlm_totp,))
 $(eval $(call BuildPlugin,freeradius3-mod-unbound,rlm_unbound,))
 $(eval $(call BuildPlugin,freeradius3-mod-unix,rlm_unix,))
 $(eval $(call BuildPlugin,freeradius3-mod-unpack,rlm_unpack,))
