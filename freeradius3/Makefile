@@ -842,7 +842,6 @@ else
 endif
 
 ifneq ($(SDK)$(CONFIG_PACKAGE_freeradius3-mod-krb5),)
-  CONFIGURE_VARS+=ac_cv_lib_krb5_krb5_is_thread_safe=yes
   CONFIGURE_ARGS+= \
 		--with-rlm_krb5 \
 		--with-rlm-krb5-dir="$(STAGING_DIR)/host/bin/krb5-config"
