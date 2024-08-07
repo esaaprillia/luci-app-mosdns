@@ -288,12 +288,12 @@ jobs:
         id: compile
         run: |
           cd sdk
-          make -j$(nproc) package/luci-app-mosdns/compile V=99
+          #make -j$(nproc) package/luci-app-mosdns/compile V=99
           #make package/luci-app-mosdns/compile V=99
-          #make package/freeradius3/download
-          #make package/freeradius3/check
-          #make package/freeradius3/refresh
-          #make package/freeradius3/clean
+          make package/freeradius3/download
+          make package/freeradius3/check
+          make package/freeradius3/refresh
+          make package/freeradius3/clean
 
           echo "status=success" >> $GITHUB_OUTPUT
 
@@ -305,12 +305,12 @@ jobs:
           mkdir upload
 
           #zip -jr upload/mosdns_ipk_${{ matrix.platform }}.zip bin/packages/*/xorg/
-          zip -r upload/mosdns_ipk_${{ matrix.platform }}.zip bin/packages/*/mosdns/
+          #zip -r upload/mosdns_ipk_${{ matrix.platform }}.zip bin/packages/*/mosdns/
           #zip -r upload/mosdns_ipk_${{ matrix.platform }}.zip bin/packages/*/packages/
           #zip -r upload/mosdns_ipk_${{ matrix.platform }}.zip /home/runner/work/mosdns/mosdns/sdk/build_dir/hostpkg/telegram-tdlib-1.8.30
           #zip -r upload/mosdns_ipk_${{ matrix.platform }}.zip /home/runner/work/mosdns/mosdns/sdk/build_dir/target-aarch64_generic_musl/telegram-tt-10.9.7/
           #zip -r upload/mosdns_ipk_${{ matrix.platform }}.zip /home/runner/work/mosdns/mosdns/sdk/build_dir/target-aarch64_generic_musl/qtbase-everywhere-src-5.15.13/
-          #zip -r upload/mosdns_ipk_${{ matrix.platform }}.zip /home/runner/work/mosdns/mosdns/sdk/feeds/mosdns/
+          zip -r upload/mosdns_ipk_${{ matrix.platform }}.zip /home/runner/work/mosdns/mosdns/sdk/feeds/mosdns/
 
           echo "FIRMWARE=$PWD" >> $GITHUB_ENV
           echo "status=success" >> $GITHUB_OUTPUT
