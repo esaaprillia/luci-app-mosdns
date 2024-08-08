@@ -63,7 +63,7 @@ endef
 define Package/freeradius4-common
   $(call Package/freeradius4/Default)
   TITLE:=common files
-  DEPENDS:=+USE_GLIBC:libpthread +USE_GLIBC:libbsd +FREERADIUS4_OPENSSL:libopenssl +libcap +libpcap +libncurses +libreadline +libtalloc +libatomic
+  DEPENDS:=+USE_GLIBC:libpthread +USE_GLIBC:libbsd +FREERADIUS4_OPENSSL:libopenssl +libcap +libpcap +libncurses +libpcre2 +libreadline +libtalloc +libatomic
 endef
 
 define Package/freeradius4-default
@@ -747,7 +747,6 @@ CONFIGURE_ARGS+= \
 	--with-raddbdir=/etc/freeradius4 \
 	--with-radacctdir=/var/db/radacct \
 	--with-logdir=/var/log \
-	--without-pcre \
 	--without-rlm_cache_memcached \
 	--without-rlm_couchbase \
 	--without-rlm_eap_ikev2 \
