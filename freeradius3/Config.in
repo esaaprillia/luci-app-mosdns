@@ -2,13 +2,13 @@
 
 choice
 	prompt "SSL library"
-	default FREERADIUS3_OPENSSL
-	depends on PACKAGE_freeradius3-common
+	default FREERADIUS4_OPENSSL
+	depends on PACKAGE_freeradius4-common
 
-config FREERADIUS3_NOSSL
+config FREERADIUS4_NOSSL
 	bool "No SSL support"
 
-config FREERADIUS3_OPENSSL
+config FREERADIUS4_OPENSSL
 	bool "OpenSSL"
 
 endchoice
