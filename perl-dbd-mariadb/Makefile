@@ -14,7 +14,7 @@ PKG_LICENSE_FILES:=LICENSES
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/perl/DBD-MariaDB-$(PKG_VERSION)
 
-PKG_BUILD_DEPENDS:=perl-dbi/host
+PKG_BUILD_DEPENDS:=perl-dbi/host perl-devel-checklib/host
 
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/perl/perlmod.mk
