@@ -25,7 +25,7 @@ define Package/perl-dbd-mysql
   CATEGORY:=Languages
   TITLE:=Perl DBD mysql
   URL:=https://metacpan.org/dist/DBD-mysql
-  DEPENDS:=+perl-dbd-mysql
+  DEPENDS:=+perl-dbi +libmariadb
 endef
 
 define Build/Configure
