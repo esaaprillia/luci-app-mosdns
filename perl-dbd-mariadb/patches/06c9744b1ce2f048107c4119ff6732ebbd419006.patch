@@ -1,14 +1,14 @@
-From fa04947944141be0f2dc6423708307eb010f2e37 Mon Sep 17 00:00:00 2001
+From 26e90e483e5e871c66473fc1b1fc401f4016b6d7 Mon Sep 17 00:00:00 2001
 From: esaaprillia <esaapriliasalsabila@gmail.com>
-Date: Wed, 4 Sep 2024 16:55:14 +0800
+Date: Wed, 4 Sep 2024 18:39:47 +0800
 Subject: [PATCH] Update Makefile.PL
 
 ---
- Makefile.PL | 184 ----------------------------------------------------
- 1 file changed, 184 deletions(-)
+ Makefile.PL | 191 ----------------------------------------------------
+ 1 file changed, 191 deletions(-)
 
 diff --git a/Makefile.PL b/Makefile.PL
-index 078152f..b0069af 100644
+index 078152f..8e07082 100644
 --- a/Makefile.PL
 +++ b/Makefile.PL
 @@ -9,7 +9,6 @@ use Config;
@@ -19,7 +19,7 @@ index 078152f..b0069af 100644
  use File::Spec;
  require DBI;
  require DBI::DBD;
-@@ -227,190 +226,8 @@ MSG
+@@ -227,192 +226,8 @@ MSG
  
  print "Checking if libs and header files are available for compiling...\n";
  
@@ -207,10 +207,24 @@ index 078152f..b0069af 100644
 -EOF
 -);
 -
- print "Client library deinitialize OpenSSL library functions: " . ($have_problem_with_openssl ? "yes" : "no") . "\n\n";
- 
+-print "Client library deinitialize OpenSSL library functions: " . ($have_problem_with_openssl ? "yes" : "no") . "\n\n";
+-
  my $fileName = File::Spec->catfile("t", "MariaDB.mtest");
-@@ -589,7 +406,6 @@ my %o =
+ (open(FILE, ">$fileName") &&
+  (print FILE ("{ local " . Data::Dumper->Dump([$opt], ["opt"]) .
+@@ -440,11 +255,6 @@ my $fileName = File::Spec->catfile("t", "MariaDB.mtest");
+ my $cflags = "-I\$(DBI_INSTARCH_DIR) $opt->{'cflags'}";
+ $cflags .= " -DHAVE_DBI_1_634" if eval { DBI->VERSION(1.634) };
+ $cflags .= " -DHAVE_DBI_1_642" if eval { DBI->VERSION(1.642) };
+-$cflags .= " -DHAVE_EMBEDDED" if $have_embedded;
+-$cflags .= " -DHAVE_GET_CHARSET_NUMBER" if $have_get_charset_number;
+-$cflags .= " -DHAVE_GET_OPTION" if $have_get_option;
+-$cflags .= " -DHAVE_DEINITIALIZE_SSL" if $have_deinitialize_ssl;
+-$cflags .= " -DHAVE_PROBLEM_WITH_OPENSSL" if $have_problem_with_openssl;
+ my %o =
+   (
+     'NAME' => 'DBD::MariaDB',
+@@ -589,7 +399,6 @@ my %o =
        'Config' => 0,
        'Data::Dumper' => 0,
        'DBI' => '1.608',
