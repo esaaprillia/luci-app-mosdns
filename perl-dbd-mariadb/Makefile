@@ -29,7 +29,7 @@ define Package/perl-dbd-mariadb
 endef
 
 define Build/Configure
-	$(call perlmod/Configure,,DBD_MARIADB_CONFIG="$(STAGING_DIR)/host/bin/mysql_config",)
+	$(call perlmod/Configure,,DBD_MARIADB_CFLAGS="$(STAGING_DIR)/usr",)
 endef
 
 define Build/Compile
