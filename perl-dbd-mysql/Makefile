@@ -37,7 +37,7 @@ define Build/Compile
 endef
 
 define Package/perl-dbd-mysql/install
-	$(call perlmod/Install,$(1),DBD auto/DBD DBD)
+	$(call perlmod/Install,$(1),auto/DBD DBD)
 endef
 
 $(eval $(call BuildPackage,perl-dbd-mysql))
