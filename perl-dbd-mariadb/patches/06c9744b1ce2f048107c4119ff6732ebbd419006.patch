@@ -1,14 +1,14 @@
-From fe17b89f17da877a6e53e07de20d20708183717a Mon Sep 17 00:00:00 2001
+From df47c6d55149b7fcf76da1c2cca4fba4cf2a7d33 Mon Sep 17 00:00:00 2001
 From: esaaprillia <esaapriliasalsabila@gmail.com>
-Date: Wed, 4 Sep 2024 19:53:28 +0800
+Date: Wed, 4 Sep 2024 20:38:57 +0800
 Subject: [PATCH] Update Makefile.PL
 
 ---
- Makefile.PL | 244 ----------------------------------------------------
- 1 file changed, 244 deletions(-)
+ Makefile.PL | 237 ----------------------------------------------------
+ 1 file changed, 237 deletions(-)
 
 diff --git a/Makefile.PL b/Makefile.PL
-index 078152f..4004b45 100644
+index 078152f..dceff2b 100644
 --- a/Makefile.PL
 +++ b/Makefile.PL
 @@ -9,7 +9,6 @@ use Config;
@@ -232,7 +232,7 @@ index 078152f..4004b45 100644
        'ExtUtils::MakeMaker' => 0,
        'File::Spec' => 0,
        'Getopt::Long' => 0,
-@@ -757,59 +566,6 @@ sub Configure {
+@@ -757,52 +566,6 @@ sub Configure {
                      push @ldflags, $_;
                  }
              }
@@ -282,13 +282,6 @@ index 078152f..4004b45 100644
 -                    last;
 -                }
 -            }
--            # libs param is checked as last, so ensure that mysql_config
--            # error is reported back to the caller
--            next unless $_ eq 'libs' or $check_passed;
--            $opt->{$param} = $str;
--            $source->{$param} = "mysql_config";
--            return;
--        }
-     }
- 
-     # Ok, mysql_config doesn't work. We need to do our best
+             # libs param is checked as last, so ensure that mysql_config
+             # error is reported back to the caller
+             next unless $_ eq 'libs' or $check_passed;
