@@ -1,14 +1,14 @@
-From 26e90e483e5e871c66473fc1b1fc401f4016b6d7 Mon Sep 17 00:00:00 2001
+From 697793bb48695a7d7f6ea36c41d2e56f4d9126ed Mon Sep 17 00:00:00 2001
 From: esaaprillia <esaapriliasalsabila@gmail.com>
-Date: Wed, 4 Sep 2024 18:39:47 +0800
+Date: Wed, 4 Sep 2024 19:14:52 +0800
 Subject: [PATCH] Update Makefile.PL
 
 ---
- Makefile.PL | 191 ----------------------------------------------------
- 1 file changed, 191 deletions(-)
+ Makefile.PL | 218 ----------------------------------------------------
+ 1 file changed, 218 deletions(-)
 
 diff --git a/Makefile.PL b/Makefile.PL
-index 078152f..8e07082 100644
+index 078152f..b606810 100644
 --- a/Makefile.PL
 +++ b/Makefile.PL
 @@ -9,7 +9,6 @@ use Config;
@@ -232,3 +232,37 @@ index 078152f..8e07082 100644
        'ExtUtils::MakeMaker' => 0,
        'File::Spec' => 0,
        'Getopt::Long' => 0,
+@@ -776,33 +585,6 @@ sub Configure {
+                 $function .= "version = mysql_get_client_version();\n";
+                 $function .= 'return (version == MYSQL_VERSION_ID) ? 0 : 1;';
+                 # libmysqld is built using g++ rather than gcc and sometimes
+-                # we have to use libstdc++ to resolve linking problems
+-                foreach my $add_ldflags (undef, '-lstdc++') {
+-                    my $ldflags = join ' ', @ldflags, (defined $add_ldflags ? $add_ldflags : ());
+-                    if ($Config{usedl}) {
+-                        # check that we can create a shared library (not executable)
+-                        check_lib(
+-                            LIBS => (join ' ', @libdirs, $main_lib),
+-                            ldflags => (join ' ', @libdirs, $ldflags, $Config{lddlflags}),
+-                            ccflags => (join ' ', $opt->{cflags}, $Config{cccdlflags}),
+-                            header => \@mysql_headers,
+-                            function => $function,
+-                            not_execute => 1,
+-                        ) or next;
+-                    }
+-                    # and now create executable and do real version check
+-                    check_lib(
+-                        LIBS => (join ' ', @libdirs, $main_lib),
+-                        ldflags => (join ' ', @libdirs, $ldflags),
+-                        ccflags => $opt->{cflags},
+-                        header => \@mysql_headers,
+-                        function => $function,
+-                    ) or next;
+-                    $str .= ' ' . $add_ldflags if defined $add_ldflags;
+-                    $check_passed = 1;
+-                    last;
+-                }
+-            }
+             # libs param is checked as last, so ensure that mysql_config
+             # error is reported back to the caller
+             next unless $_ eq 'libs' or $check_passed;
