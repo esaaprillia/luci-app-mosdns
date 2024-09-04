@@ -25,7 +25,7 @@ define Package/perl-dbd-mariadb
   CATEGORY:=Languages
   TITLE:=Perl DBD MariaDB
   URL:=https://metacpan.org/dist/DBD-MariaDB
-  DEPENDS:=+perl-dbi +libmariadb
+  DEPENDS:=+perl-dbi +libmariadb +libopenssl +zlib
 endef
 
 define Build/Configure
