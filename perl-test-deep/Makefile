@@ -57,7 +57,7 @@ define Build/Compile
 endef
 
 define Package/perl-test-deep/install
-	$(call perlmod/Install,$(1),Capture)
+	$(call perlmod/Install,$(1),Test)
 endef
 
 $(eval $(call BuildPackage,perl-test-deep))
