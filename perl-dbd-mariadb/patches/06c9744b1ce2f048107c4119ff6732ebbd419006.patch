@@ -1,14 +1,14 @@
-From df47c6d55149b7fcf76da1c2cca4fba4cf2a7d33 Mon Sep 17 00:00:00 2001
+From c10766f98b0396184b6cd12d5bfac71459b478c9 Mon Sep 17 00:00:00 2001
 From: esaaprillia <esaapriliasalsabila@gmail.com>
-Date: Wed, 4 Sep 2024 20:38:57 +0800
+Date: Wed, 4 Sep 2024 21:22:35 +0800
 Subject: [PATCH] Update Makefile.PL
 
 ---
- Makefile.PL | 237 ----------------------------------------------------
- 1 file changed, 237 deletions(-)
+ Makefile.PL | 238 ----------------------------------------------------
+ 1 file changed, 238 deletions(-)
 
 diff --git a/Makefile.PL b/Makefile.PL
-index 078152f..dceff2b 100644
+index 078152f..52a91aa 100644
 --- a/Makefile.PL
 +++ b/Makefile.PL
 @@ -9,7 +9,6 @@ use Config;
@@ -232,7 +232,7 @@ index 078152f..dceff2b 100644
        'ExtUtils::MakeMaker' => 0,
        'File::Spec' => 0,
        'Getopt::Long' => 0,
-@@ -757,52 +566,6 @@ sub Configure {
+@@ -757,55 +566,8 @@ sub Configure {
                      push @ldflags, $_;
                  }
              }
@@ -284,4 +284,7 @@ index 078152f..dceff2b 100644
 -            }
              # libs param is checked as last, so ensure that mysql_config
              # error is reported back to the caller
-             next unless $_ eq 'libs' or $check_passed;
+-            next unless $_ eq 'libs' or $check_passed;
+             $opt->{$param} = $str;
+             $source->{$param} = "mysql_config";
+             return;
