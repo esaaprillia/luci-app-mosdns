@@ -1,14 +1,14 @@
-From bab3be468b986020c044b4d24c2ad23597a688ab Mon Sep 17 00:00:00 2001
+From fed14ef2f5f951f5d87989cb3745d880b5fd8dc7 Mon Sep 17 00:00:00 2001
 From: esaaprillia <esaapriliasalsabila@gmail.com>
-Date: Wed, 4 Sep 2024 16:38:25 +0800
+Date: Wed, 4 Sep 2024 17:29:11 +0800
 Subject: [PATCH] Update Makefile.PL
 
 ---
- Makefile.PL | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ Makefile.PL | 30 +++++++++++++++---------------
+ 1 file changed, 15 insertions(+), 15 deletions(-)
 
 diff --git a/Makefile.PL b/Makefile.PL
-index 078152f..1f1f788 100644
+index 078152f..7608bf4 100644
 --- a/Makefile.PL
 +++ b/Makefile.PL
 @@ -9,7 +9,7 @@ use Config;
@@ -20,7 +20,7 @@ index 078152f..1f1f788 100644
  use File::Spec;
  require DBI;
  require DBI::DBD;
-@@ -227,13 +227,13 @@ MSG
+@@ -227,23 +227,23 @@ MSG
  
  print "Checking if libs and header files are available for compiling...\n";
  
@@ -41,3 +41,20 @@ index 078152f..1f1f788 100644
  
  print "Checking if correct version of MariaDB or MySQL client is present...\n";
  
+-check_lib(
+-  LIBS => (join ' ', @libdirs, $main_lib),
+-  ccflags => $opt->{cflags},
+-  ldflags => (join ' ', @libdirs, @libs, @ldflags),
+-  header => \@mysql_headers,
+-  function => "\n#ifndef MYSQL_VERSION_ID\n#include <mysql_version.h>\n#endif\nreturn (MYSQL_VERSION_ID >= 40108) ? 0 : 1;\n",
+-) or die <<"MSG";
++#check_lib(
++#  LIBS => (join ' ', @libdirs, $main_lib),
++#  ccflags => $opt->{cflags},
++#  ldflags => (join ' ', @libdirs, @libs, @ldflags),
++#  header => \@mysql_headers,
++#  function => "\n#ifndef MYSQL_VERSION_ID\n#include <mysql_version.h>\n#endif\nreturn (MYSQL_VERSION_ID >= 40108) ? 0 : 1;\n",
++#) or die <<"MSG";
+ 
+ ERROR: Wrong version or unable to check version of MariaDB/MySQL include files.
+ To build DBD::MariaDB it is needed MariaDB or MySQL client >= 4.1.8.
