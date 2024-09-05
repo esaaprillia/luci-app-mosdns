@@ -763,7 +763,6 @@ CONFIGURE_ARGS+= \
 	--without-rlm_couchbase \
 	--without-rlm_eap_ikev2 \
 	--without-rlm_eap_tnc \
-	--without-rlm_perl \
 	--without-rlm_python \
 	--without-rlm_sql_db2 \
 	--without-rlm_sql_firebird \
@@ -873,12 +872,12 @@ else
 endif
 
 ifneq ($(SDK)$(CONFIG_PACKAGE_freeradius3-mod-perl),)
+  PERL_SITELIB:=/usr/lib/perl$(PERL_MAJOR)/$(PERL_VERSION2)
   CONFIGURE_ARGS+= \
-		--with-rlm_perl \
-		--with-perl="$(STAGING_DIR_HOSTPKG)/usr/bin/perl$(PERL_VERSION)"
+		--with-rlm_perl
   CONFIGURE_VARS+= \
-	PERL_CFLAGS="-D_LARGEFILE_SOURCE $(if $(CONFIG_USE_MUSL),-D_LARGEFILE64_SOURCE) -D_FILE_OFFSET_BITS=64 -D_REENTRANT -D_GNU_SOURCE -I$(STAGING_DIR)$(PERL_SITELIB)/CORE" \
-	PERL_LDFLAGS="-Wl,-rpath,$(PERL_SITELIB)/CORE -L$(STAGING_DIR)$(PERL_SITELIB)/CORE -lperl"
+	CFLAGS="-D_LARGEFILE_SOURCE $(if $(CONFIG_USE_MUSL),-D_LARGEFILE64_SOURCE) -D_FILE_OFFSET_BITS=64 -D_REENTRANT -D_GNU_SOURCE -I$(STAGING_DIR)$(PERL_SITELIB)/CORE" \
+	LDFLAGS="-Wl,-rpath,$(PERL_SITELIB)/CORE -L$(STAGING_DIR)$(PERL_SITELIB)/CORE -lperl"
 else
   CONFIGURE_ARGS+= --without-rlm_perl
 endif
