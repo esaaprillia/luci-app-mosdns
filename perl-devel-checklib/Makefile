@@ -58,7 +58,6 @@ endef
 
 define Package/perl-devel-checklib/install
 	$(call perlmod/Install,$(1),Devel)
-	$(call perlmod/InstallBaseTests,$(1),t)
 endef
 
 $(eval $(call BuildPackage,perl-devel-checklib))
