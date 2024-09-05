@@ -63,7 +63,7 @@ endef
 define Package/freeradius3-common
   $(call Package/freeradius3/Default)
   TITLE:=common files
-  DEPENDS:=+USE_GLIBC:libpthread +USE_GLIBC:libbsd +FREERADIUS3_OPENSSL:libopenssl +libcap +libpcap +libncurses +libreadline +libtalloc +libatomic
+  DEPENDS:=+USE_GLIBC:libpthread +USE_GLIBC:libbsd +FREERADIUS3_OPENSSL:libopenssl +libcap +libpcap +libncurses +libreadline +libtalloc +libatomic +perl
 endef
 
 define Package/freeradius3-default
@@ -453,7 +453,7 @@ endef
 
 define Package/freeradius3-mod-perl
   $(call Package/freeradius3/Default)
-  DEPENDS:=freeradius3 perl
+  DEPENDS:=freeradius3 +perl
   TITLE:=Perl module
 endef
 
