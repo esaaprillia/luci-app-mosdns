@@ -453,7 +453,7 @@ endef
 
 define Package/freeradius3-mod-perl
   $(call Package/freeradius3/Default)
-  DEPENDS:=freeradius3 +perlbase-essential +perlbase-data
+  DEPENDS:=freeradius3 +perl +perlbase-essential +perlbase-data
   TITLE:=Perl module
 endef
 
