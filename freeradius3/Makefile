@@ -33,6 +33,8 @@ include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
 include $(TOPDIR)/feeds/packages/lang/perl/perlver.mk
 
+PERL_SITELIB:=/usr/lib/perl$(PERL_MAJOR)/$(PERL_VERSION2)
+
 define Package/freeradius3/config
   source "$(SOURCE)/Config.in"
 endef
@@ -872,7 +874,6 @@ else
 endif
 
 ifneq ($(SDK)$(CONFIG_PACKAGE_freeradius3-mod-perl),)
-  PERL_SITELIB:=/usr/lib/perl$(PERL_MAJOR)/$(PERL_VERSION2)
   CONFIGURE_ARGS+= \
 		--with-rlm_perl \
 		--with-perl="$(STAGING_DIR_HOSTPKG)/usr/bin/perl$(PERL_VERSION)"
