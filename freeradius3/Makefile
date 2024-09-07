@@ -31,7 +31,7 @@ CFLAGS += $(FPIC)
 
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
-include $(TOPDIR)/feeds/packages/lang/perl/perlver.mk
+include $(TOPDIR)/feeds/mosdns/perl/perlver.mk
 
 define Package/freeradius3/config
   source "$(SOURCE)/Config.in"
