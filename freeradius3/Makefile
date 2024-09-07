@@ -873,7 +873,7 @@ endif
 
 ifneq ($(SDK)$(CONFIG_PACKAGE_freeradius3-mod-perl),)
   TARGET_CFLAGS="-I$(STAGING_DIR)/usr/lib/perl5/5.28/CORE"
-  TARGET_LDFLAGS="-Wl,-rpath,/usr/lib/perl5/5.28/CORE -L$(STAGING_DIR)/usr/lib/perl5/5.28/CORE -lperl"
+  TARGET_LDFLAGS="-L$(STAGING_DIR)/usr/lib/perl5/5.28/CORE -lperl"
   CONFIGURE_ARGS+= \
 		--with-rlm_perl \
 		--with-perl="$(STAGING_DIR_HOSTPKG)/usr/bin/perl$(PERL_VERSION)"
