@@ -1,0 +1,31 @@
+From 104719a731a418eb39111fc9813449b5beb7be71 Mon Sep 17 00:00:00 2001
+From: esaaprillia <esaapriliasalsabila@gmail.com>
+Date: Sat, 7 Sep 2024 17:52:14 +0800
+Subject: [PATCH] Update configure
+
+---
+ src/modules/rlm_perl/configure | 4 ----
+ 1 file changed, 4 deletions(-)
+
+diff --git a/src/modules/rlm_perl/configure b/src/modules/rlm_perl/configure
+index 6ad58dd..1d07ff0 100644
+--- a/src/modules/rlm_perl/configure
++++ b/src/modules/rlm_perl/configure
+@@ -3339,8 +3339,6 @@ main ()
+ _ACEOF
+ if ac_fn_c_try_link "$LINENO"; then :
+   LINKS="yes"
+-else
+-  LINKS="no"
+ fi
+ rm -f core conftest.err conftest.$ac_objext \
+     conftest$ac_exeext conftest.$ac_ext
+@@ -3371,8 +3369,6 @@ main ()
+ _ACEOF
+ if ac_fn_c_try_link "$LINENO"; then :
+   LINKS="yes"
+-else
+-  LINKS="no"
+ fi
+ rm -f core conftest.err conftest.$ac_objext \
+     conftest$ac_exeext conftest.$ac_ext
