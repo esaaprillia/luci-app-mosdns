@@ -33,8 +33,6 @@ include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
 include $(TOPDIR)/feeds/packages/lang/perl/perlver.mk
 
-PERL_SITELIB:=/usr/lib/perl$(PERL_MAJOR)/$(PERL_VERSION2)
-
 define Package/freeradius3/config
   source "$(SOURCE)/Config.in"
 endef
@@ -874,12 +872,11 @@ else
 endif
 
 ifneq ($(SDK)$(CONFIG_PACKAGE_freeradius3-mod-perl),)
+  TARGET_CFLAGS="-D_LARGEFILE_SOURCE -D_REENTRANT -D_GNU_SOURCE -I$(STAGING_DIR)/usr/lib/perl5/5.28/CORE"
+  TARGET_LDFLAGS="-Wl,-rpath,/usr/lib/perl5/5.28/CORE -L$(STAGING_DIR)/usr/lib/perl5/5.28/CORE -lperl"
   CONFIGURE_ARGS+= \
 		--with-rlm_perl \
 		--with-perl="$(STAGING_DIR_HOSTPKG)/usr/bin/perl$(PERL_VERSION)"
-  CONFIGURE_VARS+= \
-	CFLAGS="-D_LARGEFILE_SOURCE $(if $(CONFIG_USE_MUSL),-D_LARGEFILE64_SOURCE) -D_FILE_OFFSET_BITS=64 -D_REENTRANT -D_GNU_SOURCE -I$(STAGING_DIR)$(PERL_SITELIB)/CORE" \
-	LDFLAGS="-Wl,-rpath,$(PERL_SITELIB)/CORE -L$(STAGING_DIR)$(PERL_SITELIB)/CORE -lperl"
 else
   CONFIGURE_ARGS+= --without-rlm_perl
 endif
