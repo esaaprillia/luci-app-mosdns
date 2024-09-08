@@ -7,33 +7,33 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=perl-module-pluggable
-PKG_VERSION:=5.2
+PKG_NAME:=perl-xstring
+PKG_VERSION:=0.005
 PKG_RELEASE:=1
 
-PKG_SOURCE:=Module-Pluggable-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://cpan.metacpan.org/authors/id/S/SI/SIMONW/
+PKG_SOURCE:=XString-$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://cpan.metacpan.org/authors/id/A/AT/ATOOMIC/
 PKG_HASH:=skip
 
 PKG_MAINTAINER:=Marcel Denia <naoir@gmx.net>
 PKG_LICENSE:=GPL-1.0-or-later Artistic-1.0-Perl
 
-HOST_BUILD_DIR:=$(BUILD_DIR_HOST)/perl/Module-Pluggable-$(PKG_VERSION)
+HOST_BUILD_DIR:=$(BUILD_DIR_HOST)/perl/XString-$(PKG_VERSION)
 HOST_BUILD_DEPENDS:=perl/host
-PKG_BUILD_DIR:=$(BUILD_DIR)/perl/Module-Pluggable-$(PKG_VERSION)
+PKG_BUILD_DIR:=$(BUILD_DIR)/perl/XString-$(PKG_VERSION)
 PKG_BUILD_DEPENDS:=perl/host
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/host-build.mk
 include $(TOPDIR)/feeds/mosdns/perl/perlmod.mk
 
-define Package/perl-module-pluggable
+define Package/perl-xstring
   SUBMENU:=Perl
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Perl Module Pluggable
-  URL:=https://metacpan.org/dist/Module-Pluggable
-  DEPENDS:=perl +perlbase-essential
+  TITLE:=Perl XString
+  URL:=https://metacpan.org/dist/XString
+  DEPENDS:=perl +perlbase-essential +perlbase-file +perlbase-test
 endef
 
 define Host/Configure
@@ -56,9 +56,9 @@ define Build/Compile
 	$(call perlmod/Compile,,)
 endef
 
-define Package/perl-module-pluggable/install
-	$(call perlmod/Install,$(1),Devel Module)
+define Package/perl-xstring/install
+	$(call perlmod/Install,$(1),XString.pm auto/XString)
 endef
 
-$(eval $(call BuildPackage,perl-module-pluggable))
+$(eval $(call BuildPackage,perl-xstring))
 $(eval $(call HostBuild))
