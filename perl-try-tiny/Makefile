@@ -62,3 +62,4 @@ define Package/perl-try-tiny/install
 endef
 
 $(eval $(call BuildPackage,perl-try-tiny))
+$(eval $(call HostBuild))
