@@ -34,7 +34,8 @@ endef
 
 CMAKE_OPTIONS += \
 	-DBUILD_SHARED_LIBS=ON \
-	-DBUILD_wireshark=OFF
+	-DBUILD_wireshark=OFF \
+	-DLEMON_C_COMPILER="$(CMAKE_HOST_C_COMPILER)"
 
 define Build/InstallDev
 	$(INSTALL_DIR) \
