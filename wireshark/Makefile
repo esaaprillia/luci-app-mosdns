@@ -34,7 +34,7 @@ endef
 
 CMAKE_OPTIONS += \
 	-DBUILD_SHARED_LIBS=ON \
-	-DUSE_qt6=OFF
+	-DBUILD_wireshark=OFF
 
 define Build/InstallDev
 	$(INSTALL_DIR) \
