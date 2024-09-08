@@ -33,7 +33,8 @@ define Package/wireshark/description
 endef
 
 CMAKE_OPTIONS += \
-	-DBUILD_SHARED_LIBS=ON
+	-DBUILD_SHARED_LIBS=ON \
+	-DUSE_qt6=OFF
 
 define Build/InstallDev
 	$(INSTALL_DIR) \
