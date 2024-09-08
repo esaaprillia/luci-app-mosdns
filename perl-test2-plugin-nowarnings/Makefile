@@ -19,9 +19,9 @@ PKG_MAINTAINER:=Marcel Denia <naoir@gmx.net>
 PKG_LICENSE:=GPL-1.0-or-later Artistic-1.0-Perl
 
 HOST_BUILD_DIR:=$(BUILD_DIR_HOST)/perl/Test2-Plugin-NoWarnings-$(PKG_VERSION)
-HOST_BUILD_DEPENDS:=perl/host
+HOST_BUILD_DEPENDS:=perl/host perl-test-simple/host perl-ipc-run3/host perl-module-pluggable/host
 PKG_BUILD_DIR:=$(BUILD_DIR)/perl/Test2-Plugin-NoWarnings-$(PKG_VERSION)
-PKG_BUILD_DEPENDS:=perl/host
+PKG_BUILD_DEPENDS:=perl/host perl-test-simple/host perl-ipc-run3/host perl-module-pluggable/host
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/host-build.mk
@@ -33,7 +33,7 @@ define Package/perl-test2-plugin-nowarnings
   CATEGORY:=Languages
   TITLE:=Perl Test2-Plugin-NoWarnings
   URL:=https://metacpan.org/dist/Test2-Plugin-NoWarnings
-  DEPENDS:=perl +perlbase-essential +perl-test-simple
+  DEPENDS:=perl +perlbase-essential +perl-test-simple +perl-ipc-run3 +perl-module-pluggable
 endef
 
 define Host/Configure
