@@ -33,7 +33,7 @@ define Package/perl-role-tiny
   CATEGORY:=Languages
   TITLE:=Perl Role Tiny
   URL:=https://metacpan.org/dist/Role-Tiny
-  DEPENDS:=perl
+  DEPENDS:=perl +perlbase-essential
 endef
 
 define Host/Configure
