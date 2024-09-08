@@ -33,7 +33,7 @@ define Package/perl-specio
   CATEGORY:=Languages
   TITLE:=Perl Specio
   URL:=https://metacpan.org/dist/Specio
-  DEPENDS:=perl +perlbase-essential +perl-sub-quote +perl-devel-stacktrace +perl-role-tiny +perl-mro-compat +perl-try-tiny +perl-test-fatal +perl-eval-closure +perl-module-runtime
+  DEPENDS:=perl +perlbase-essential +perl-sub-quote +perl-devel-stacktrace +perl-role-tiny +perl-mro-compat +perl-try-tiny +perl-test-fatal +perl-eval-closure +perl-module-runtime +perl-test-needs
 endef
 
 define Host/Configure
