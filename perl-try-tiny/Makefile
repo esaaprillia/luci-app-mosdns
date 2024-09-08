@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2014 - 2016 OpenWrt.org
+# Copyright (C) 2021 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -7,45 +7,29 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=perl-module-build
-PKG_VERSION:=0.4234
+PKG_NAME:=perl-try-tiny
+PKG_VERSION:=0.32
 PKG_RELEASE:=1
 
-PKG_SOURCE:=Module-Build-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://cpan.metacpan.org/authors/id/L/LE/LEONT/
-PKG_HASH:=skip
+PKG_SOURCE_URL:=https://cpan.metacpan.org/authors/id/E/ET/ETHER/
+PKG_SOURCE:=Try-Tiny-$(PKG_VERSION).tar.gz
+PKG_HASH:=ef2d6cab0bad18e3ab1c4e6125cc5f695c7e459899f512451c8fa3ef83fa7fc0
+PKG_BUILD_DIR:=$(BUILD_DIR)/perl/Try-Tiny-$(PKG_VERSION)
 
-PKG_MAINTAINER:=Marcel Denia <naoir@gmx.net>
-PKG_LICENSE:=GPL-1.0-or-later Artistic-1.0-Perl
-
-PKG_BUILD_DIR:=$(BUILD_DIR)/perl/Module-Build-$(PKG_VERSION)
-PKG_BUILD_DEPENDS:=perl/host
-HOST_BUILD_DIR:=$(BUILD_DIR_HOST)/perl/Module-Build-$(PKG_VERSION)
-HOST_BUILD_DEPENDS:=perl/host
+PKG_MAINTAINER:=Matt Merhar <mattmerhar@protonmail.com>
+PKG_LICENSE:=MIT
+PKG_LICENSE_FILES:=LICENSE
 
 include $(INCLUDE_DIR)/package.mk
-include $(INCLUDE_DIR)/host-build.mk
 include $(TOPDIR)/feeds/mosdns/perl/perlmod.mk
 
-define Package/perl-module-build
+define Package/perl-try-tiny
   SUBMENU:=Perl
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Perl Module Build
-  URL:=https://metacpan.org/dist/Module-Build
+  TITLE:=Minimal try/catch with proper preservation of $$$$@
+  URL:=https://metacpan.org/pod/Try::Tiny
   DEPENDS:=perl +perlbase-essential
-endef
-
-define Host/Configure
-        $(call perlmod/host/Configure,,,)
-endef
-
-define Host/Compile
-        $(call perlmod/host/Compile,,)
-endef
-
-define Host/Install
-        $(call perlmod/host/Install,$(1),)
 endef
 
 define Build/Configure
@@ -56,9 +40,8 @@ define Build/Compile
 	$(call perlmod/Compile,,)
 endef
 
-define Package/perl-module-build/install
-	$(call perlmod/Install,$(1),Module)
+define Package/perl-try-tiny/install
+	$(call perlmod/Install,$(1),Try auto/Try)
 endef
 
-$(eval $(call BuildPackage,perl-module-build))
-$(eval $(call HostBuild))
+$(eval $(call BuildPackage,perl-try-tiny))
