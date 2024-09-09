@@ -34,9 +34,8 @@ endef
 
 CMAKE_OPTIONS += \
 	-Wno-dev \
-	-DBUILD_SHARED_LIBS=ON \
 	-DBUILD_wireshark=OFF \
-	-DNL_LIBRARY="$(STAGING_DIR)/usr/lib" \
+	-DNL_LIBRARY="$(STAGING_DIR)/usr/lib/libnl-3.so" \
 	-DNL_INCLUDE_DIR="$(STAGING_DIR)/usr/include/libnl3" \
 	-DLEMON_C_COMPILER="$(CMAKE_HOST_C_COMPILER)"
 
