@@ -24,7 +24,7 @@ define Package/wireshark
 	SECTION:=libs
 	CATEGORY:=Libraries
 	TITLE:=Network protocol analyzer
-	DEPENDS:=+brotli +libcares +glib2 +libgnutls +krb5-libs +libgcrypt +libmaxminddb +libpcap +libcap +libssh +libxml2 +liblua5.4 +liblz4 +libnghttp2 +libpcre2 +libspeexdsp +zlib +libzstd
+	DEPENDS:=+brotli +libcares +glib2 +libgnutls +krb5-libs +libgcrypt +libmaxminddb +libnl +libsmi +libpcap +libcap +libssh +libxml2 +liblua5.4 +liblz4 +libnghttp2 +libpcre2 +libspeexdsp +zlib +libzstd
 	URL:=https://www.wireshark.org/
 endef
 
