@@ -29,6 +29,11 @@ define Package/libnl/description
 	Library for applications dealing with netlink sockets
 endef
 
+CONFIGURE_ARGS += \
+	--prefix=/usr \
+	--enable-shared \
+	--disable-static
+
 define Build/InstallDev
 	$(INSTALL_DIR) \
 	  $(1)/usr/include \
