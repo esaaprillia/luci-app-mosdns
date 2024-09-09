@@ -24,7 +24,7 @@ define Package/wireshark
 	SECTION:=libs
 	CATEGORY:=Libraries
 	TITLE:=Network protocol analyzer
-	DEPENDS:=+brotli +libcares +glib2 +libgnutls +krb5-libs +libgcrypt +libmaxminddb +libnl +libsmi +libpcap +libcap +libssh +libxml2 +liblua5.4 +liblz4 +libnghttp2 +libnghttp3 +libpcre2 +libspeexdsp +zlib +libzstd
+	DEPENDS:=+brotli +libcares +glib2 +libgnutls +krb5-libs +libgcrypt +libmaxminddb +libnl +libsmi +libpcap +libcap +libssh +libxml2 +liblua5.4 +liblz4 +libnghttp2 +libpcre2 +libspeexdsp +zlib +libzstd
 	URL:=https://www.wireshark.org/
 endef
 
@@ -36,6 +36,8 @@ CMAKE_OPTIONS += \
 	-Wno-dev \
 	-DBUILD_SHARED_LIBS=ON \
 	-DBUILD_wireshark=OFF \
+	-DNL_LIBRARY="$(STAGING_DIR)/usr/lib" \
+	-DNL_INCLUDE_DIR="$(STAGING_DIR)/usr/include/libnl3" \
 	-DLEMON_C_COMPILER="$(CMAKE_HOST_C_COMPILER)"
 
 define Build/InstallDev
