@@ -1,7 +1,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=wireshark
-PKG_VERSION:=4.2.7
+PKG_VERSION:=4.4.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
@@ -33,6 +33,7 @@ define Package/wireshark/description
 endef
 
 CMAKE_OPTIONS += \
+	-Wno-dev \
 	-DBUILD_SHARED_LIBS=ON \
 	-DBUILD_wireshark=OFF \
 	-DLEMON_C_COMPILER="$(CMAKE_HOST_C_COMPILER)"
