@@ -9,8 +9,8 @@ PKG_SOURCE_URL:=https://www.wireshark.org/download/src/
 PKG_HASH:=skip
 
 PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
-PKG_LICENSE:=MIT
-PKG_LICENSE_FILES:=LICENSE
+PKG_LICENSE:=GPL-2.0
+PKG_LICENSE_FILES:=COPYING
 
 CMAKE_BINARY_SUBDIR := build
 
