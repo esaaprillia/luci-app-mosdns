@@ -48,11 +48,7 @@ define Build/InstallDev
 	  $(1)/usr/lib/
 
 	$(SED) \
-	  's,^\(prefix\)=.*,\1=$$$${prefix},g' \
-	  $(1)/usr/lib/pkgconfig/{libnl-3.0.pc,libnl-cli-3.0.pc,libnl-genl-3.0.pc,libnl-idiag-3.0.pc,libnl-nf-3.0.pc,libnl-route-3.0.pc,libnl-xfrm-3.0.pc}
-
-	$(SED) \
-	  's,^\(exec_prefix\)=.*,\1=$$$${exec_prefix},g' \
+	  's,^\(prefix\|exec_prefix\)=.*,\1=$(STAGING_DIR)/usr,g' \
 	  $(1)/usr/lib/pkgconfig/{libnl-3.0.pc,libnl-cli-3.0.pc,libnl-genl-3.0.pc,libnl-idiag-3.0.pc,libnl-nf-3.0.pc,libnl-route-3.0.pc,libnl-xfrm-3.0.pc}
 endef
 
