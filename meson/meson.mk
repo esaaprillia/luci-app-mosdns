@@ -65,7 +65,7 @@ define Meson/CreateNativeFile
 		-e "s|@CFLAGS@|$(foreach FLAG,$(HOST_CFLAGS) $(HOST_CPPFLAGS),'$(FLAG)',)|" \
 		-e "s|@CXXFLAGS@|$(foreach FLAG,$(HOST_CXXFLAGS) $(HOST_CPPFLAGS),'$(FLAG)',)|" \
 		-e "s|@LDFLAGS@|$(foreach FLAG,$(HOST_LDFLAGS),'$(FLAG)',)|" \
-		-e "s|@PREFIX@|$(HOST_BUILD_PREFIX)|" \
+		-e "s|@PREFIX@|$(STAGING_DIR_HOSTPKG)|" \
 		< $(MESON2_DIR)/openwrt-native.txt.in \
 		> $(1)
 endef
@@ -85,7 +85,7 @@ define Meson/CreateCrossFile
 		-e "s|@CXXFLAGS@|$(foreach FLAG,$(TARGET_CXXFLAGS) $(EXTRA_CXXFLAGS) $(TARGET_CPPFLAGS) $(EXTRA_CPPFLAGS),'$(FLAG)',)|" \
 		-e "s|@LDFLAGS@|$(foreach FLAG,$(TARGET_LDFLAGS) $(EXTRA_LDFLAGS),'$(FLAG)',)|" \
 		-e "s|@ARCH@|$(MESON_ARCH)|" \
-		-e "s|@CPU@|$(MESON_CPU)|" \
+		-e "s|@CPU@|$(CONFIG_TARGET_SUBTARGET)|" \
 		-e "s|@ENDIAN@|$(if $(CONFIG_BIG_ENDIAN),big,little)|" \
 		< $(MESON2_DIR)/openwrt-cross.txt.in \
 		> $(1)
