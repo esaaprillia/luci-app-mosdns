@@ -11,12 +11,13 @@ PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
 
-#HOST_BUILD_DEPENDS:=pyproject-metadata/host python-wheel/host python-cython/host meson/host
+HOST_BUILD_DEPENDS:=pyproject-metadata/host python-wheel/host python-cython/host meson/host
 PKG_BUILD_DEPENDS:=pyproject-metadata/host python-wheel/host python-cython/host meson/host
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/host-build.mk
+include $(TOPDIR)/feeds/mosdns/meson/meson.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-host-build.mk
 
