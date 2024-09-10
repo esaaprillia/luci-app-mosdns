@@ -1,6 +1,7 @@
 # To build your package using meson:
 #
-# include $(INCLUDE_DIR)/meson.mk
+# PKG_BUILD_DEPENDS:=meson/host
+# include ../../devel/meson/meson.mk
 # MESON_ARGS+=-Dfoo -Dbar=baz
 #
 # To pass additional environment variables to meson:
@@ -19,10 +20,11 @@
 #
 # Host packages are built in the same fashion, just use these vars instead:
 #
+# HOST_BUILD_DEPENDS:=meson/host
 # MESON_HOST_ARGS+=-Dfoo -Dbar=baz
 # MESON_HOST_VARS+=FOO=bar
 
-MESON_DIR:=$(STAGING_DIR_HOST)/lib/meson
+MESON_DIR:=$(STAGING_DIR_HOSTPKG)
 
 MESON_HOST_BUILD_DIR:=$(HOST_BUILD_DIR)/openwrt-build
 MESON_HOST_VARS:=
@@ -48,15 +50,8 @@ else
 MESON_ARCH:=$(CONFIG_ARCH)
 endif
 
-# this is undefined for just x64_64
-ifeq ($(origin CPU_TYPE),undefined)
-MESON_CPU:="generic"
-else
-MESON_CPU:="$(CPU_TYPE)$(if $(CPU_SUBTYPE),+$(CPU_SUBTYPE))"
-endif
-
 define Meson
-	$(2) $(STAGING_DIR_HOST)/bin/$(PYTHON) $(STAGING_DIR_HOSTPKG)/bin/meson $(1)
+	$(2) $(STAGING_DIR_HOSTPKG)/bin/$(PYTHON3) $(MESON_DIR)/meson $(1)
 endef
 
 define Meson/CreateNativeFile
@@ -64,12 +59,10 @@ define Meson/CreateNativeFile
 		-e "s|@CC@|$(foreach BIN,$(HOSTCC),'$(BIN)',)|" \
 		-e "s|@CXX@|$(foreach BIN,$(HOSTCXX),'$(BIN)',)|" \
 		-e "s|@PKGCONFIG@|$(PKG_CONFIG)|" \
-		-e "s|@CMAKE@|$(STAGING_DIR_HOST)/bin/cmake|" \
-		-e "s|@PYTHON@|$(STAGING_DIR_HOST)/bin/python3|" \
 		-e "s|@CFLAGS@|$(foreach FLAG,$(HOST_CFLAGS) $(HOST_CPPFLAGS),'$(FLAG)',)|" \
 		-e "s|@CXXFLAGS@|$(foreach FLAG,$(HOST_CXXFLAGS) $(HOST_CPPFLAGS),'$(FLAG)',)|" \
 		-e "s|@LDFLAGS@|$(foreach FLAG,$(HOST_LDFLAGS),'$(FLAG)',)|" \
-		-e "s|@PREFIX@|$(HOST_BUILD_PREFIX)|" \
+		-e "s|@PREFIX@|$(STAGING_DIR_HOSTPKG)|" \
 		< $(MESON_DIR)/openwrt-native.txt.in \
 		> $(1)
 endef
@@ -78,18 +71,15 @@ define Meson/CreateCrossFile
 	$(STAGING_DIR_HOST)/bin/sed \
 		-e "s|@CC@|$(foreach BIN,$(TARGET_CC),'$(BIN)',)|" \
 		-e "s|@CXX@|$(foreach BIN,$(TARGET_CXX),'$(BIN)',)|" \
-		-e "s|@LD@|$(foreach FLAG,$(TARGET_LINKER),'$(FLAG)',)|" \
 		-e "s|@AR@|$(TARGET_AR)|" \
 		-e "s|@STRIP@|$(TARGET_CROSS)strip|" \
 		-e "s|@NM@|$(TARGET_NM)|" \
 		-e "s|@PKGCONFIG@|$(PKG_CONFIG)|" \
-		-e "s|@CMAKE@|$(STAGING_DIR_HOST)/bin/cmake|" \
-		-e "s|@PYTHON@|$(STAGING_DIR_HOST)/bin/python3|" \
 		-e "s|@CFLAGS@|$(foreach FLAG,$(TARGET_CFLAGS) $(EXTRA_CFLAGS) $(TARGET_CPPFLAGS) $(EXTRA_CPPFLAGS),'$(FLAG)',)|" \
 		-e "s|@CXXFLAGS@|$(foreach FLAG,$(TARGET_CXXFLAGS) $(EXTRA_CXXFLAGS) $(TARGET_CPPFLAGS) $(EXTRA_CPPFLAGS),'$(FLAG)',)|" \
 		-e "s|@LDFLAGS@|$(foreach FLAG,$(TARGET_LDFLAGS) $(EXTRA_LDFLAGS),'$(FLAG)',)|" \
 		-e "s|@ARCH@|$(MESON_ARCH)|" \
-		-e "s|@CPU@|$(MESON_CPU)|" \
+		-e "s|@CPU@|$(CONFIG_TARGET_SUBTARGET)|" \
 		-e "s|@ENDIAN@|$(if $(CONFIG_BIG_ENDIAN),big,little)|" \
 		< $(MESON_DIR)/openwrt-cross.txt.in \
 		> $(1)
@@ -98,36 +88,32 @@ endef
 define Host/Configure/Meson
 	$(call Meson/CreateNativeFile,$(HOST_BUILD_DIR)/openwrt-native.txt)
 	$(call Meson, \
-		setup \
 		--native-file $(HOST_BUILD_DIR)/openwrt-native.txt \
-		-Ddefault_library=static \
 		$(MESON_HOST_ARGS) \
 		$(MESON_HOST_BUILD_DIR) \
-		$(MESON_HOST_BUILD_DIR)/.., \
+		$(HOST_BUILD_DIR), \
 		$(MESON_HOST_VARS))
 endef
 
 define Host/Compile/Meson
-	+$(NINJA) -C $(MESON_HOST_BUILD_DIR) $(1)
+	$(call Ninja,-C $(MESON_HOST_BUILD_DIR),)
 endef
 
 define Host/Install/Meson
-	+$(NINJA) -C $(MESON_HOST_BUILD_DIR) install
+	$(call Ninja,-C $(MESON_HOST_BUILD_DIR) install,)
 endef
 
 define Host/Uninstall/Meson
-	+$(NINJA) -C $(MESON_HOST_BUILD_DIR) uninstall || true
+	-$(call Ninja,-C $(MESON_HOST_BUILD_DIR) uninstall,)
 endef
 
 define Build/Configure/Meson
 	$(call Meson/CreateNativeFile,$(PKG_BUILD_DIR)/openwrt-native.txt)
 	$(call Meson/CreateCrossFile,$(PKG_BUILD_DIR)/openwrt-cross.txt)
 	$(call Meson, \
-		setup \
 		--buildtype plain \
 		--native-file $(PKG_BUILD_DIR)/openwrt-native.txt \
 		--cross-file $(PKG_BUILD_DIR)/openwrt-cross.txt \
-		-Ddefault_library=both \
 		$(MESON_ARGS) \
 		$(MESON_BUILD_DIR) \
 		$(MESON_BUILD_DIR)/.., \
@@ -135,11 +121,11 @@ define Build/Configure/Meson
 endef
 
 define Build/Compile/Meson
-	+$(NINJA) -C $(MESON_BUILD_DIR) $(1)
+	$(call Ninja,-C $(MESON_BUILD_DIR),)
 endef
 
 define Build/Install/Meson
-	+DESTDIR="$(PKG_INSTALL_DIR)" $(NINJA) -C $(MESON_BUILD_DIR) install
+	$(call Ninja,-C $(MESON_BUILD_DIR) install,DESTDIR="$(PKG_INSTALL_DIR)")
 endef
 
 Host/Configure=$(call Host/Configure/Meson)
