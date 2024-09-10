@@ -35,6 +35,8 @@ endef
 CMAKE_OPTIONS += \
 	-Wno-dev \
 	-DBUILD_wireshark=OFF \
+	-DNL3_INCLUDE_DIR="$(STAGING_DIR)/usr/include/libnl3/netlink" \
+	-DNL3_LIBRARY="$(STAGING_DIR)/usr/lib" \
 	-DLEMON_C_COMPILER="$(CMAKE_HOST_C_COMPILER)"
 
 define Build/InstallDev
