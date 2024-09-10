@@ -17,7 +17,7 @@ PKG_BUILD_DEPENDS:=pyproject-metadata/host python-wheel/host python-cython/host 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/host-build.mk
-include $(TOPDIR)/feeds/mosdns/meson/meson.mk
+include $(INCLUDE_DIR)/meson.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-host-build.mk
 
@@ -35,6 +35,34 @@ define Package/meson-python/description
   It enables using Meson for the configuration and build steps of Python packages.
   Meson is an open source build system meant to be both extremely fast, and, even more importantly, as user friendly as possible.
   meson-python is best suited for building Python packages containing extension modules implemented in languages such as C, C++, Cython, Fortran, Pythran, or Rust. Consult the documentation for more details.
+endef
+
+define Py3Build/Compile/Default
+	$(call Py3Build/InstallBuildDepends)
+	$(call Python3/Run, \
+		$(PKG_BUILD_DIR), \
+		-m build \
+			--no-isolation \
+			--outdir "$(PYTHON3_PKG_BUILD_DIR)"/openwrt-build \
+			$(foreach setting,$(PYTHON3_PKG_BUILD_CONFIG_SETTINGS),--config-setting=$(setting)) \
+			$(PYTHON3_PKG_BUILD_ARGS) \
+			"$(PYTHON3_PKG_BUILD_DIR)" \
+			, \
+		$(PYTHON3_PKG_BUILD_VARS) \
+	)
+endef
+
+define Py3Build/Install/Default
+	$(call Python3/Run, \
+		$(PKG_BUILD_DIR), \
+		-m installer \
+			--destdir "$(PKG_INSTALL_DIR)" \
+			--no-compile-bytecode \
+			--prefix /usr \
+			"$(PYTHON3_PKG_BUILD_DIR)"/openwrt-build \
+			, \
+		$(PYTHON3_PKG_INSTALL_VARS) \
+	)
 endef
 
 $(eval $(call Py3Package,meson-python))
