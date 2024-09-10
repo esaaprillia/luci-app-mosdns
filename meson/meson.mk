@@ -24,6 +24,7 @@
 # MESON_HOST_ARGS+=-Dfoo -Dbar=baz
 # MESON_HOST_VARS+=FOO=bar
 
+MESON2_DIR:=$(STAGING_DIR_HOST)/lib/meson
 MESON_DIR:=$(STAGING_DIR_HOSTPKG)
 
 MESON_HOST_BUILD_DIR:=$(HOST_BUILD_DIR)/openwrt-build
@@ -63,7 +64,7 @@ define Meson/CreateNativeFile
 		-e "s|@CXXFLAGS@|$(foreach FLAG,$(HOST_CXXFLAGS) $(HOST_CPPFLAGS),'$(FLAG)',)|" \
 		-e "s|@LDFLAGS@|$(foreach FLAG,$(HOST_LDFLAGS),'$(FLAG)',)|" \
 		-e "s|@PREFIX@|$(STAGING_DIR_HOSTPKG)|" \
-		< $(MESON_DIR)/openwrt-native.txt.in \
+		< $(MESON2_DIR)/openwrt-native.txt.in \
 		> $(1)
 endef
 
@@ -81,7 +82,7 @@ define Meson/CreateCrossFile
 		-e "s|@ARCH@|$(MESON_ARCH)|" \
 		-e "s|@CPU@|$(CONFIG_TARGET_SUBTARGET)|" \
 		-e "s|@ENDIAN@|$(if $(CONFIG_BIG_ENDIAN),big,little)|" \
-		< $(MESON_DIR)/openwrt-cross.txt.in \
+		< $(MESON2_DIR)/openwrt-cross.txt.in \
 		> $(1)
 endef
 
