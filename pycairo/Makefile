@@ -70,7 +70,7 @@ define Meson/CreateCrossFile
 		> $(1)
 endef
 
-MAKE_VARS = \
+MESON_VARS += \
 	$(PYTHON3_VARS) \
 	$(HOST_PYTHON3_PIP_VARS)
 
