@@ -70,6 +70,9 @@ define Meson/CreateCrossFile
 		> $(1)
 endef
 
+MESON_VARS += \
+	$(PYTHON3_VARS)
+
 MESON_ARGS += \
 	-Dtests=false
 
