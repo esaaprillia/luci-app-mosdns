@@ -36,7 +36,7 @@ endef
 MESON_ARGS += \
 	-Dpython="$(STAGING_DIR_HOSTPKG)/bin/$(PYTHON3)" \
 	-Dtests=false \
-	-Dwheel=false
+	-Dwheel=true
 
 define Build/InstallDev
 	$(INSTALL_DIR) \
