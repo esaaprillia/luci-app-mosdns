@@ -38,6 +38,11 @@ MESON_ARGS += \
 	-Dtests=false \
 	-Dwheel=true
 
+define Build/Compile
+	$(call Build/Compile/Meson)
+	$(call Py3Build/Compile)
+endef
+
 define Build/InstallDev
 	$(INSTALL_DIR) \
 	  $(1)/usr/include \
