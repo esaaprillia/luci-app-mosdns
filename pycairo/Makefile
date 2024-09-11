@@ -15,7 +15,7 @@ PKG_LICENSE_FILES:=COPYING COPYING-LGPL-2.1 COPYING-MPL-1.1
 PKG_BUILD_PARALLEL:=1
 PKG_INSTALL:=1
 PKG_BUILD_DEPENDS:=python3/host python-build/host python-installer/host python-wheel/host python-packaging/host python-typing-extensions/host
-PYTHON3_PKG_BUILD:=0
+#PYTHON3_PKG_BUILD:=0
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/meson.mk
@@ -70,8 +70,9 @@ define Meson/CreateCrossFile
 		> $(1)
 endef
 
-MESON_VARS += \
-	$(PYTHON3_VARS)
+MAKE_VARS = \
+	$(PYTHON3_VARS) \
+	$(HOST_PYTHON3_PIP_VARS)
 
 MESON_ARGS += \
 	-Dtests=false
