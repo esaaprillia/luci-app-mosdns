@@ -70,19 +70,7 @@ define Meson/CreateCrossFile
 endef
 
 MESON_ARGS += \
-	-Dpython="$(STAGING_DIR_HOSTPKG)/bin/$(PYTHON3)" \
-	-Dtests=false \
-	-Dwheel=true
-
-define Build/Compile
-	$(call Build/Compile/Meson)
-	$(call Py3Build/Compile)
-endef
-
-define Build/Install
-	$(call Build/Install/Meson)
-	$(call Py3Build/Install/Default)
-endef
+	-Dtests=false
 
 define Build/InstallDev
 	$(INSTALL_DIR) \
