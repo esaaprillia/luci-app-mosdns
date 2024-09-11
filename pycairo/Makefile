@@ -34,11 +34,24 @@ define Package/pycairo/description
 	Pycairo is a Python module providing bindings for the cairo graphics library.
 endef
 
-MESON_VARS += \
-	$(PYTHON3_VARS)
-
 MESON_ARGS += \
 	-Dtests=false
+
+define Build/Configure/Meson
+	$(call Meson/CreateNativeFile,$(PKG_BUILD_DIR)/openwrt-native.txt)
+	$(call Meson/CreateCrossFile,$(PKG_BUILD_DIR)/openwrt-cross.txt)
+	$(call Meson, \
+		setup \
+		--buildtype plain \
+		--native-file $(PKG_BUILD_DIR)/openwrt-native.txt \
+		--cross-file $(PKG_BUILD_DIR)/openwrt-cross.txt \
+		-Ddefault_library=both \
+		$(MESON_ARGS) \
+		$(PYTHON3_VARS) \
+		$(MESON_BUILD_DIR) \
+		$(MESON_BUILD_DIR)/.., \
+		$(MESON_VARS))
+endef
 
 define Build/InstallDev
 	$(INSTALL_DIR) \
