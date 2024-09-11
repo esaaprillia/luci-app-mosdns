@@ -43,6 +43,11 @@ define Build/Compile
 	$(call Py3Build/Compile)
 endef
 
+define Build/Install
+	$(call Build/Install/Meson)
+	$(call Py3Build/Install/Default)
+endef
+
 define Build/InstallDev
 	$(INSTALL_DIR) \
 	  $(1)/usr/include \
