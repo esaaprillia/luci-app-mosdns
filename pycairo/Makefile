@@ -14,7 +14,7 @@ PKG_LICENSE_FILES:=COPYING COPYING-LGPL-2.1 COPYING-MPL-1.1
 
 PKG_BUILD_PARALLEL:=1
 PKG_INSTALL:=1
-PYTHON3_PKG_BUILD:=0
+PKG_BUILD_DEPENDS:=python3/host python-build/host python-installer/host python-wheel/host python-packaging/host python-typing-extensions/host
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/meson.mk
