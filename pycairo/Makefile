@@ -34,6 +34,10 @@ define Package/pycairo/description
 	Pycairo is a Python module providing bindings for the cairo graphics library.
 endef
 
+define Meson
+	$(2) $(STAGING_DIR_HOSTPKG)/bin/$(PYTHON3) $(STAGING_DIR_HOST)/bin/meson.py $(1)
+endef
+
 define Meson/CreateNativeFile
 	$(STAGING_DIR_HOST)/bin/sed \
 		-e "s|@CC@|$(foreach BIN,$(HOSTCC),'$(BIN)',)|" \
