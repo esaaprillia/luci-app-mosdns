@@ -1,15 +1,15 @@
 [binaries]
 c = [@CC@]
 cpp = [@CXX@]
-pkgconfig = '@PKGCONFIG@'
+pkg-config = '@PKGCONFIG@'
+cmake = '@CMAKE@'
+python = '@PYTHON@'
 
 [built-in options]
 c_args = [@CFLAGS@]
 c_link_args = [@LDFLAGS@]
 cpp_args = [@CXXFLAGS@]
 cpp_link_args = [@LDFLAGS@]
-
-[paths]
 prefix = '@PREFIX@'
 sbindir = 'bin'
 libdir = 'lib'
