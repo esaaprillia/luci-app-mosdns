@@ -26,7 +26,7 @@ define Package/meson
   CATEGORY:=Languages
   TITLE:=The Meson Build System
   URL:=https://github.com/mesonbuild/meson
-  DEPENDS:=+python3
+  DEPENDS:=+python3 +python3-pyproject-metadata
 endef
 
 define Package/meson/description
