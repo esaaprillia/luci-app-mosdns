@@ -1,39 +1,55 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=meson
-PKG_VERSION:=1.5.1
+PKG_VERSION:=0.56.0
 PKG_RELEASE:=1
 
 PYPI_NAME:=meson
-PKG_HASH:=567e533adf255de73a2de35049b99923caf872a455af9ce03e01077e0d384bed
+PKG_HASH:=291dd38ff1cd55fcfca8fc985181dd39be0d3e5826e5f0013bf867be40117213
 
-PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
+PKG_MAINTAINER:=Andre Heider <a.heider@gmail.com>
 PKG_LICENSE:=Apache-2.0
 PKG_LICENSE_FILES:=COPYING
 
-HOST_BUILD_DEPENDS:=python-setuptools-scm/host pyproject-metadata/host
-PKG_BUILD_DEPENDS:=python-setuptools-scm/host pyproject-metadata/host
+HOST_BUILD_DEPENDS:=ninja/host
 
-include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
-include $(INCLUDE_DIR)/package.mk
+include ../../lang/python/pypi.mk
 include $(INCLUDE_DIR)/host-build.mk
-include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
-include $(TOPDIR)/feeds/packages/lang/python/python3-host-build.mk
+include $(INCLUDE_DIR)/package.mk
+include ../../lang/python/python3-package.mk
+
+define Host/Configure
+endef
+
+define Host/Compile
+endef
+
+define Host/Install
+	$(INSTALL_DIR) $(STAGING_DIR_HOSTPKG)/lib/meson
+	$(CP) $(HOST_BUILD_DIR)/* $(STAGING_DIR_HOSTPKG)/lib/meson/
+endef
+
+define Host/Clean
+	$(call Host/Clean/Default)
+	rm -rf $(STAGING_DIR_HOSTPKG)/lib/meson
+endef
 
 define Package/meson
-  SUBMENU:=Python
-  SECTION:=lang
-  CATEGORY:=Languages
-  TITLE:=The Meson Build System
-  URL:=https://github.com/mesonbuild/meson
-  DEPENDS:=+python3 +python3-pyproject-metadata
+  SECTION:=devel
+  CATEGORY:=Development
+  TITLE:=meson
+  URL:=https://mesonbuild.com/
+  DEPENDS:=+ninja +python3-pkg-resources
 endef
 
 define Package/meson/description
-  Meson® is a project to create the best possible next-generation build system.
+  Meson is an open source build system meant to be both extremely fast, and, even more importantly, as user friendly as possible.
 endef
 
+define Package/meson/install
+endef
+
+$(eval $(call HostBuild))
 $(eval $(call Py3Package,meson))
 $(eval $(call BuildPackage,meson))
 $(eval $(call BuildPackage,meson-src))
-$(eval $(call HostBuild))
