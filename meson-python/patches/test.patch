@@ -1,16 +1,5 @@
-From 7eea207c4ac1c20bd95668a853ca7b838b236654 Mon Sep 17 00:00:00 2001
-From: esaaprillia <esaapriliasalsabila@gmail.com>
-Date: Fri, 13 Sep 2024 00:14:45 +0800
-Subject: [PATCH] Update __init__.py
-
----
- mesonbuild/__init__.py | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/mesonbuild/__init__.py b/mesonbuild/__init__.py
-index 6db5b5b..7e2df41 100644
---- a/mesonbuild/__init__.py
-+++ b/mesonbuild/__init__.py
+--- a/mesonpy/__init__.py
++++ b/mesonpy/__init__.py
 @@ -639,8 +639,8 @@ def __init__(
          self._source_dir = pathlib.Path(source_dir).absolute()
          self._build_dir = pathlib.Path(build_dir).absolute()
