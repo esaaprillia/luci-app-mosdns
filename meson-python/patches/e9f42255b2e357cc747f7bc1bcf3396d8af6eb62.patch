@@ -1,43 +1,124 @@
-From 521b66a3405e06acedf17fe5e5edff1c57facd0d Mon Sep 17 00:00:00 2001
+From 22d6e87d85319fb7b079b1a3a06b86e71bf2bb3c Mon Sep 17 00:00:00 2001
 From: esaaprillia <esaapriliasalsabila@gmail.com>
-Date: Sat, 14 Sep 2024 05:57:29 +0800
+Date: Sat, 14 Sep 2024 07:03:34 +0800
 Subject: [PATCH] Update __init__.py
 
 ---
- mesonpy/__init__.py | 23 ++++++++++++++++++++++-
- 1 file changed, 22 insertions(+), 1 deletion(-)
+ mesonpy/__init__.py | 90 ++++++++++++++++++++++-----------------------
+ 1 file changed, 45 insertions(+), 45 deletions(-)
 
 diff --git a/mesonpy/__init__.py b/mesonpy/__init__.py
-index 6db5b5b..8c5e550 100644
+index 6db5b5b..fd39109 100644
 --- a/mesonpy/__init__.py
 +++ b/mesonpy/__init__.py
-@@ -708,7 +708,28 @@ def __init__(
-         # write the native file
-         native_file_data = textwrap.dedent(f'''
-             [binaries]
+@@ -639,8 +639,8 @@ def __init__(
+         self._source_dir = pathlib.Path(source_dir).absolute()
+         self._build_dir = pathlib.Path(build_dir).absolute()
+         self._editable_verbose = editable_verbose
+-        self._meson_native_file = self._build_dir / 'meson-python-native-file.ini'
+-        self._meson_cross_file = self._build_dir / 'meson-python-cross-file.ini'
++        self._meson_native_file = self._build_dir / 'openwrt-native.txt.in'
++        self._meson_cross_file = self._build_dir / 'openwrt-cross.txt.in'
+         self._meson_args: MesonArgs = collections.defaultdict(list)
+         self._limited_api = False
+ 
+@@ -669,48 +669,48 @@ def __init__(
+         # make sure the build dir exists
+         self._build_dir.mkdir(exist_ok=True, parents=True)
+ 
+-        # setuptools-like ARCHFLAGS environment variable support
+-        if sysconfig.get_platform().startswith('macosx-'):
+-            archflags = os.environ.get('ARCHFLAGS', '').strip()
+-            if archflags:
+-
+-                # parse the ARCHFLAGS environment variable
+-                parser = argparse.ArgumentParser(add_help=False, allow_abbrev=False)
+-                parser.add_argument('-arch', action='append')
+-                args, unknown = parser.parse_known_args(archflags.split())
+-                if unknown:
+-                    raise ConfigError(f'Unknown flag specified in $ARCHFLAGS={archflags!r}')
+-                arch, *other = set(args.arch)
+-                if other:
+-                    raise ConfigError(f'Multi-architecture builds are not supported but $ARCHFLAGS={archflags!r}')
+-
+-                macver, _, nativearch = platform.mac_ver()
+-                if arch != nativearch:
+-                    x = os.environ.setdefault('_PYTHON_HOST_PLATFORM', f'macosx-{macver}-{arch}')
+-                    if not x.endswith(arch):
+-                        raise ConfigError(f'$ARCHFLAGS={archflags!r} and $_PYTHON_HOST_PLATFORM={x!r} do not agree')
+-                    family = 'aarch64' if arch == 'arm64' else arch
+-                    cross_file_data = textwrap.dedent(f'''
+-                        [binaries]
+-                        c = ['cc', '-arch', {arch!r}]
+-                        cpp = ['c++', '-arch', {arch!r}]
+-                        objc = ['cc', '-arch', {arch!r}]
+-                        objcpp = ['c++', '-arch', {arch!r}]
+-                        [host_machine]
+-                        system = 'darwin'
+-                        cpu = {arch!r}
+-                        cpu_family = {family!r}
+-                        endian = 'little'
+-                    ''')
+-                    self._meson_cross_file.write_text(cross_file_data)
+-                    self._meson_args['setup'].extend(('--cross-file', os.fspath(self._meson_cross_file)))
+-
+-        # write the native file
+-        native_file_data = textwrap.dedent(f'''
+-            [binaries]
 -            python = '{sys.executable}'
-+            c = ['aarch64-openwrt-linux-musl-gcc',]
-+            c_ld = ['bfd',]
-+            cpp = ['aarch64-openwrt-linux-musl-g++',]
-+            cpp_ld = ['bfd',]
-+            ar = 'aarch64-openwrt-linux-musl-gcc-ar'
-+            strip = 'aarch64-openwrt-linux-musl-strip'
-+            nm = 'aarch64-openwrt-linux-musl-gcc-nm'
-+            pkg-config = '/home/runner/work/mosdns/mosdns/sdk/staging_dir/host/bin/pkg-config'
-+            cmake = '/home/runner/work/mosdns/mosdns/sdk/staging_dir/host/bin/cmake'
-+            python = '/home/runner/work/mosdns/mosdns/sdk/staging_dir/host/bin/python3'
-+            [built-in options]
-+            c_args = ['-Os', '-pipe', '-mcpu=generic', '-fno-caller-saves', '-fno-plt', '-fhonour-copts', '-ffile-prefix-map=/home/runner/work/mosdns/mosdns/sdk/build_dir/target-aarch64_generic_musl/pypi/meson_python-0.16.0=meson_python-0.16.0', '-Wformat', '-Werror=format-security', '-fstack-protector', '-D_FORTIFY_SOURCE=1', '-Wl,-z,now', '-Wl,-z,relro', '-I/home/runner/work/mosdns/mosdns/sdk/staging_dir/toolchain-aarch64_generic_gcc-13.3.0_musl/usr/include', '-I/home/runner/work/mosdns/mosdns/sdk/staging_dir/toolchain-aarch64_generic_gcc-13.3.0_musl/include', '-I/home/runner/work/mosdns/mosdns/sdk/staging_dir/toolchain-aarch64_generic_gcc-13.3.0_musl/include/fortify',]
-+            c_link_args = ['-L/home/runner/work/mosdns/mosdns/sdk/staging_dir/toolchain-aarch64_generic_gcc-13.3.0_musl/usr/lib', '-L/home/runner/work/mosdns/mosdns/sdk/staging_dir/toolchain-aarch64_generic_gcc-13.3.0_musl/lib', '-fuse-ld=bfd', '-znow', '-zrelro',]
-+            cpp_args = ['-Os', '-pipe', '-mcpu=generic', '-fno-caller-saves', '-fno-plt', '-fhonour-copts', '-ffile-prefix-map=/home/runner/work/mosdns/mosdns/sdk/build_dir/target-aarch64_generic_musl/pypi/meson_python-0.16.0=meson_python-0.16.0', '-Wformat', '-Werror=format-security', '-fstack-protector', '-D_FORTIFY_SOURCE=1', '-Wl,-z,now', '-Wl,-z,relro', '-I/home/runner/work/mosdns/mosdns/sdk/staging_dir/toolchain-aarch64_generic_gcc-13.3.0_musl/usr/include', '-I/home/runner/work/mosdns/mosdns/sdk/staging_dir/toolchain-aarch64_generic_gcc-13.3.0_musl/include', '-I/home/runner/work/mosdns/mosdns/sdk/staging_dir/toolchain-aarch64_generic_gcc-13.3.0_musl/include/fortify',]
-+            cpp_link_args = ['-L/home/runner/work/mosdns/mosdns/sdk/staging_dir/toolchain-aarch64_generic_gcc-13.3.0_musl/usr/lib', '-L/home/runner/work/mosdns/mosdns/sdk/staging_dir/toolchain-aarch64_generic_gcc-13.3.0_musl/lib', '-fuse-ld=bfd', '-znow', '-zrelro',]
-+            [host_machine]
-+            system = 'linux'
-+            cpu_family = 'aarch64'
-+            cpu = 'generic'
-+            endian = 'little'
-+            [properties]
-+            needs_exe_wrapper = true
-         ''')
-         self._meson_native_file.write_text(native_file_data)
+-        ''')
+-        self._meson_native_file.write_text(native_file_data)
++#        # setuptools-like ARCHFLAGS environment variable support
++#        if sysconfig.get_platform().startswith('macosx-'):
++#            archflags = os.environ.get('ARCHFLAGS', '').strip()
++#            if archflags:
++#
++#                # parse the ARCHFLAGS environment variable
++#                parser = argparse.ArgumentParser(add_help=False, allow_abbrev=False)
++#                parser.add_argument('-arch', action='append')
++#                args, unknown = parser.parse_known_args(archflags.split())
++#                if unknown:
++#                    raise ConfigError(f'Unknown flag specified in $ARCHFLAGS={archflags!r}')
++#                arch, *other = set(args.arch)
++#                if other:
++#                    raise ConfigError(f'Multi-architecture builds are not supported but $ARCHFLAGS={archflags!r}')
++#
++#                macver, _, nativearch = platform.mac_ver()
++#                if arch != nativearch:
++#                    x = os.environ.setdefault('_PYTHON_HOST_PLATFORM', f'macosx-{macver}-{arch}')
++#                    if not x.endswith(arch):
++#                        raise ConfigError(f'$ARCHFLAGS={archflags!r} and $_PYTHON_HOST_PLATFORM={x!r} do not agree')
++#                    family = 'aarch64' if arch == 'arm64' else arch
++#                    cross_file_data = textwrap.dedent(f'''
++#                        [binaries]
++#                        c = ['cc', '-arch', {arch!r}]
++#                        cpp = ['c++', '-arch', {arch!r}]
++#                        objc = ['cc', '-arch', {arch!r}]
++#                        objcpp = ['c++', '-arch', {arch!r}]
++#                        [host_machine]
++#                        system = 'darwin'
++#                        cpu = {arch!r}
++#                        cpu_family = {family!r}
++#                        endian = 'little'
++#                    ''')
++#                    self._meson_cross_file.write_text(cross_file_data)
++#                    self._meson_args['setup'].extend(('--cross-file', os.fspath(self._meson_cross_file)))
++#
++#        # write the native file
++#        native_file_data = textwrap.dedent(f'''
++#            [binaries]
++#            python = '{sys.executable}'
++#        ''')
++#        self._meson_native_file.write_text(native_file_data)
+ 
+         # reconfigure if we have a valid Meson build directory. Meson
+         # uses the presence of the 'meson-private/coredata.dat' file
+@@ -943,7 +943,7 @@ def _project(config_settings: Optional[Dict[Any, Any]] = None) -> Iterator[Proje
+ 
+     with contextlib.ExitStack() as ctx:
+         if build_dir is None:
+-            build_dir = ctx.enter_context(tempfile.TemporaryDirectory(prefix='.mesonpy-', dir=source_dir))
++#            build_dir = ctx.enter_context(tempfile.TemporaryDirectory(prefix='.mesonpy-', dir=source_dir))
+         yield Project(source_dir, build_dir, meson_args, editable_verbose)
+ 
  
