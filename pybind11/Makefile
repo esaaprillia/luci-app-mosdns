@@ -37,6 +37,21 @@ CMAKE_OPTIONS += \
 	-Wno-dev \
 	-DPYTHON_EXECUTABLE="$(STAGING_DIR_HOSTPKG)/bin/$(PYTHON3)"
 
+define Build/Configure
+	$(call Build/Configure/Default)
+	$(call Py3Build/Configure)
+endef
+
+define Build/Compile
+	$(call Build/Compile/Default)
+	$(call Py3Build/Compile)
+endef
+
+define Build/Install
+	$(call Build/Install/Default)
+	$(call Py3Build/Install/Default)
+endef
+
 define Build/InstallDev
 	$(INSTALL_DIR) \
 	  $(1)/usr/include \
