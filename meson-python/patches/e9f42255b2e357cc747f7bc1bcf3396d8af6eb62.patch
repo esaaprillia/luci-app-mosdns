@@ -1,19 +1,4 @@
-From e9f42255b2e357cc747f7bc1bcf3396d8af6eb62 Mon Sep 17 00:00:00 2001
-From: esaaprillia <esaapriliasalsabila@gmail.com>
-Date: Fri, 13 Sep 2024 14:45:33 +0800
-Subject: [PATCH] Update and rename __init__.py to __init__.py
-
----
- {mesonbuild => mesonpy}/__init__.py | 28 +++++++++++++++++++++-------
- 1 file changed, 21 insertions(+), 7 deletions(-)
- rename {mesonbuild => mesonpy}/__init__.py (93%)
-
-diff --git a/mesonbuild/__init__.py b/mesonpy/__init__.py
-similarity index 93%
-rename from mesonbuild/__init__.py
-rename to mesonpy/__init__.py
-index 6db5b5b..d9695b9 100644
---- a/mesonbuild/__init__.py
+--- a/mesonpy/__init__.py
 +++ b/mesonpy/__init__.py
 @@ -692,15 +692,29 @@ def __init__(
                      family = 'aarch64' if arch == 'arm64' else arch
