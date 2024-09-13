@@ -1,3 +1,14 @@
+From cce70dd0d5ca852ad616df73f8c9d980d9c95e4b Mon Sep 17 00:00:00 2001
+From: esaaprillia <esaapriliasalsabila@gmail.com>
+Date: Fri, 13 Sep 2024 17:12:10 +0800
+Subject: [PATCH] Update __init__.py
+
+---
+ mesonpy/__init__.py | 44 +++++++++++++++++++++++++++++++++++---------
+ 1 file changed, 35 insertions(+), 9 deletions(-)
+
+diff --git a/mesonpy/__init__.py b/mesonpy/__init__.py
+index 6db5b5b..ed42d52 100644
 --- a/mesonpy/__init__.py
 +++ b/mesonpy/__init__.py
 @@ -692,15 +692,29 @@ def __init__(
@@ -8,32 +19,54 @@
 -                        cpp = ['c++', '-arch', {arch!r}]
 -                        objc = ['cc', '-arch', {arch!r}]
 -                        objcpp = ['c++', '-arch', {arch!r}]
-+                        c = ['aarch64-openwrt-linux-musl-gcc',]
-+                        c_ld = ['bfd',]
-+                        cpp = ['aarch64-openwrt-linux-musl-g++',]
-+                        cpp_ld = ['bfd',]
-+                        ar = 'aarch64-openwrt-linux-musl-gcc-ar'
-+                        strip = 'aarch64-openwrt-linux-musl-strip'
-+                        nm = 'aarch64-openwrt-linux-musl-gcc-nm'
-+                        pkg-config = '/home/runner/work/mosdns/mosdns/sdk/staging_dir/host/bin/pkg-config'
-+                        cmake = '/home/runner/work/mosdns/mosdns/sdk/staging_dir/host/bin/cmake'
-+                        python = '/home/runner/work/mosdns/mosdns/sdk/staging_dir/hostpkg/bin/python3'
++                        c = [$(foreach BIN,$(TARGET_CC),'$(BIN)',)]
++                        c_ld = [$(foreach FLAG,$(TARGET_LINKER),'$(FLAG)',)]
++                        cpp = [$(foreach BIN,$(TARGET_CXX),'$(BIN)',)]
++                        cpp_ld = [$(foreach FLAG,$(TARGET_LINKER),'$(FLAG)',)]
++                        ar = '$(TARGET_AR)'
++                        strip = '$(TARGET_CROSS)strip'
++                        nm = '$(TARGET_NM)'
++                        pkg-config = '$(PKG_CONFIG)'
++                        cmake = '$(STAGING_DIR_HOST)/bin/cmake'
++                        python = '$(STAGING_DIR_HOST)/bin/python3'
 +                        [built-in options]
-+                        c_args = ['-Os', '-pipe', '-mcpu=generic', '-fno-caller-saves', '-fno-plt', '-fhonour-copts', '-ffile-prefix-map=/home/runner/work/mosdns/mosdns/sdk/build_dir/target-aarch64_generic_musl/pypi/meson_python-0.16.0=meson_python-0.16.0', '-Wformat', '-Werror=format-security', '-fstack-protector', '-D_FORTIFY_SOURCE=1', '-Wl,-z,now', '-Wl,-z,relro', '-I/home/runner/work/mosdns/mosdns/sdk/staging_dir/toolchain-aarch64_generic_gcc-13.3.0_musl/usr/include', '-I/home/runner/work/mosdns/mosdns/sdk/staging_dir/toolchain-aarch64_generic_gcc-13.3.0_musl/include', '-I/home/runner/work/mosdns/mosdns/sdk/staging_dir/toolchain-aarch64_generic_gcc-13.3.0_musl/include/fortify',]
-+                        c_link_args = ['-L/home/runner/work/mosdns/mosdns/sdk/staging_dir/toolchain-aarch64_generic_gcc-13.3.0_musl/usr/lib', '-L/home/runner/work/mosdns/mosdns/sdk/staging_dir/toolchain-aarch64_generic_gcc-13.3.0_musl/lib', '-fuse-ld=bfd', '-znow', '-zrelro',]
-+                        cpp_args = ['-Os', '-pipe', '-mcpu=generic', '-fno-caller-saves', '-fno-plt', '-fhonour-copts', '-ffile-prefix-map=/home/runner/work/mosdns/mosdns/sdk/build_dir/target-aarch64_generic_musl/pypi/meson_python-0.16.0=meson_python-0.16.0', '-Wformat', '-Werror=format-security', '-fstack-protector', '-D_FORTIFY_SOURCE=1', '-Wl,-z,now', '-Wl,-z,relro', '-I/home/runner/work/mosdns/mosdns/sdk/staging_dir/toolchain-aarch64_generic_gcc-13.3.0_musl/usr/include', '-I/home/runner/work/mosdns/mosdns/sdk/staging_dir/toolchain-aarch64_generic_gcc-13.3.0_musl/include', '-I/home/runner/work/mosdns/mosdns/sdk/staging_dir/toolchain-aarch64_generic_gcc-13.3.0_musl/include/fortify',]
-+                        cpp_link_args = ['-L/home/runner/work/mosdns/mosdns/sdk/staging_dir/toolchain-aarch64_generic_gcc-13.3.0_musl/usr/lib', '-L/home/runner/work/mosdns/mosdns/sdk/staging_dir/toolchain-aarch64_generic_gcc-13.3.0_musl/lib', '-fuse-ld=bfd', '-znow', '-zrelro',]
++                        c_args = [$(foreach FLAG,$(TARGET_CFLAGS) $(EXTRA_CFLAGS) $(TARGET_CPPFLAGS) $(EXTRA_CPPFLAGS),'$(FLAG)',)]
++                        c_link_args = [$(foreach FLAG,$(TARGET_LDFLAGS) $(EXTRA_LDFLAGS),'$(FLAG)',)]
++                        cpp_args = [$(foreach FLAG,$(TARGET_CXXFLAGS) $(EXTRA_CXXFLAGS) $(TARGET_CPPFLAGS) $(EXTRA_CPPFLAGS),'$(FLAG)',)]
++                        cpp_link_args = [$(foreach FLAG,$(TARGET_LDFLAGS) $(EXTRA_LDFLAGS),'$(FLAG)',)]
 +                        prefix = '/usr'
                          [host_machine]
 -                        system = 'darwin'
 -                        cpu = {arch!r}
 -                        cpu_family = {family!r}
+-                        endian = 'little'
 +                        system = 'linux'
-+                        cpu = 'generic'
-+                        cpu_family = 'aarch64'
-                         endian = 'little'
++                        cpu = '$(MESON_CPU)'
++                        cpu_family = '$(MESON_ARCH)'
++                        endian = '$(if $(CONFIG_BIG_ENDIAN),big,little)'
 +                        [properties]
 +                        needs_exe_wrapper = true
                      ''')
                      self._meson_cross_file.write_text(cross_file_data)
                      self._meson_args['setup'].extend(('--cross-file', os.fspath(self._meson_cross_file)))
+@@ -708,7 +722,19 @@ def __init__(
+         # write the native file
+         native_file_data = textwrap.dedent(f'''
+             [binaries]
+-            python = '{sys.executable}'
++            c = [$(foreach BIN,$(HOSTCC),'$(BIN)',)]
++            cpp = [$(foreach BIN,$(HOSTCXX),'$(BIN)',)]
++            pkg-config = '$(PKG_CONFIG)'
++            cmake = '$(STAGING_DIR_HOST)/bin/cmake'
++            python = '$(STAGING_DIR_HOST)/bin/python3'
++            [built-in options]
++            c_args = [$(foreach FLAG,$(HOST_CFLAGS) $(HOST_CPPFLAGS),'$(FLAG)',)]
++            c_link_args = [$(foreach FLAG,$(HOST_LDFLAGS),'$(FLAG)',)]
++            cpp_args = [$(foreach FLAG,$(HOST_CXXFLAGS) $(HOST_CPPFLAGS),'$(FLAG)',)]
++            cpp_link_args = [$(foreach FLAG,$(HOST_LDFLAGS),'$(FLAG)',)]
++            prefix = '$(HOST_BUILD_PREFIX)'
++            sbindir = 'bin'
++            libdir = 'lib'
+         ''')
+         self._meson_native_file.write_text(native_file_data)
+ 
