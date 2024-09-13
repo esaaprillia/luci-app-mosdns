@@ -54,16 +54,16 @@ index 6db5b5b..ed42d52 100644
          native_file_data = textwrap.dedent(f'''
              [binaries]
 -            python = '{sys.executable}'
-+            c = [$(foreach BIN,$(HOSTCC),'$(BIN)',)]
-+            cpp = [$(foreach BIN,$(HOSTCXX),'$(BIN)',)]
++            c = '$(HOSTCC)'
++            cpp = '$(HOSTCXX)'
 +            pkg-config = '$(PKG_CONFIG)'
 +            cmake = '$(STAGING_DIR_HOST)/bin/cmake'
 +            python = '$(STAGING_DIR_HOST)/bin/python3'
 +            [built-in options]
-+            c_args = [$(foreach FLAG,$(HOST_CFLAGS) $(HOST_CPPFLAGS),'$(FLAG)',)]
-+            c_link_args = [$(foreach FLAG,$(HOST_LDFLAGS),'$(FLAG)',)]
-+            cpp_args = [$(foreach FLAG,$(HOST_CXXFLAGS) $(HOST_CPPFLAGS),'$(FLAG)',)]
-+            cpp_link_args = [$(foreach FLAG,$(HOST_LDFLAGS),'$(FLAG)',)]
++            c_args = '$(HOST_CFLAGS) $(HOST_CPPFLAGS)'
++            c_link_args = '$(HOST_LDFLAGS)'
++            cpp_args = '$(HOST_CXXFLAGS) $(HOST_CPPFLAGS)'
++            cpp_link_args = '$(HOST_LDFLAGS)'
 +            prefix = '$(HOST_BUILD_PREFIX)'
 +            sbindir = 'bin'
 +            libdir = 'lib'
