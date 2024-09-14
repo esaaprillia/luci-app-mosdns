@@ -77,7 +77,7 @@ index 6db5b5b..34882be 100644
      with contextlib.ExitStack() as ctx:
          if build_dir is None:
 -            build_dir = ctx.enter_context(tempfile.TemporaryDirectory(prefix='.mesonpy-', dir=source_dir))
-+            build_dir = (source_dir)
++            build_dir = ctx.enter_context(tempfile.TemporaryDirectory(prefix='openwrt-build', dir=source_dir))
          yield Project(source_dir, build_dir, meson_args, editable_verbose)
  
  
