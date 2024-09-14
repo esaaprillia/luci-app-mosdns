@@ -17,8 +17,8 @@ index 6db5b5b..34882be 100644
          self._editable_verbose = editable_verbose
 -        self._meson_native_file = self._build_dir / 'meson-python-native-file.ini'
 -        self._meson_cross_file = self._build_dir / 'meson-python-cross-file.ini'
-+        self._meson_native_file = self._build_dir / 'openwrt-native.txt'
-+        self._meson_cross_file = self._build_dir / 'openwrt-cross.txt'
++        self._meson_native_file = self._source_dir / 'openwrt-native.txt'
++        self._meson_cross_file = self._source_dir / 'openwrt-cross.txt'
          self._meson_args: MesonArgs = collections.defaultdict(list)
          self._limited_api = False
  
@@ -77,7 +77,7 @@ index 6db5b5b..34882be 100644
      with contextlib.ExitStack() as ctx:
          if build_dir is None:
 -            build_dir = ctx.enter_context(tempfile.TemporaryDirectory(prefix='.mesonpy-', dir=source_dir))
-+            build_dir = ctx.enter_context(tempfile.TemporaryDirectory(prefix='openwrt-build', dir=source_dir))
++            build_dir = (prefix='openwrt-build', dir=source_dir))
          yield Project(source_dir, build_dir, meson_args, editable_verbose)
  
  
