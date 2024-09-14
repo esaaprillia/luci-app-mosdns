@@ -1,14 +1,14 @@
-From 22d6e87d85319fb7b079b1a3a06b86e71bf2bb3c Mon Sep 17 00:00:00 2001
+From 048c7abdf5e39e36c55d4a952b87378f2b38a2b9 Mon Sep 17 00:00:00 2001
 From: esaaprillia <esaapriliasalsabila@gmail.com>
-Date: Sat, 14 Sep 2024 07:03:34 +0800
+Date: Sat, 14 Sep 2024 09:38:16 +0800
 Subject: [PATCH] Update __init__.py
 
 ---
- mesonpy/__init__.py | 90 ++++++++++++++++++++++-----------------------
- 1 file changed, 45 insertions(+), 45 deletions(-)
+ mesonpy/__init__.py | 48 ++-------------------------------------------
+ 1 file changed, 2 insertions(+), 46 deletions(-)
 
 diff --git a/mesonpy/__init__.py b/mesonpy/__init__.py
-index 6db5b5b..fd39109 100644
+index 6db5b5b..f843de3 100644
 --- a/mesonpy/__init__.py
 +++ b/mesonpy/__init__.py
 @@ -639,8 +639,8 @@ def __init__(
@@ -22,7 +22,7 @@ index 6db5b5b..fd39109 100644
          self._meson_args: MesonArgs = collections.defaultdict(list)
          self._limited_api = False
  
-@@ -669,48 +669,48 @@ def __init__(
+@@ -669,49 +669,6 @@ def __init__(
          # make sure the build dir exists
          self._build_dir.mkdir(exist_ok=True, parents=True)
  
@@ -68,57 +68,15 @@ index 6db5b5b..fd39109 100644
 -            python = '{sys.executable}'
 -        ''')
 -        self._meson_native_file.write_text(native_file_data)
-+#        # setuptools-like ARCHFLAGS environment variable support
-+#        if sysconfig.get_platform().startswith('macosx-'):
-+#            archflags = os.environ.get('ARCHFLAGS', '').strip()
-+#            if archflags:
-+#
-+#                # parse the ARCHFLAGS environment variable
-+#                parser = argparse.ArgumentParser(add_help=False, allow_abbrev=False)
-+#                parser.add_argument('-arch', action='append')
-+#                args, unknown = parser.parse_known_args(archflags.split())
-+#                if unknown:
-+#                    raise ConfigError(f'Unknown flag specified in $ARCHFLAGS={archflags!r}')
-+#                arch, *other = set(args.arch)
-+#                if other:
-+#                    raise ConfigError(f'Multi-architecture builds are not supported but $ARCHFLAGS={archflags!r}')
-+#
-+#                macver, _, nativearch = platform.mac_ver()
-+#                if arch != nativearch:
-+#                    x = os.environ.setdefault('_PYTHON_HOST_PLATFORM', f'macosx-{macver}-{arch}')
-+#                    if not x.endswith(arch):
-+#                        raise ConfigError(f'$ARCHFLAGS={archflags!r} and $_PYTHON_HOST_PLATFORM={x!r} do not agree')
-+#                    family = 'aarch64' if arch == 'arm64' else arch
-+#                    cross_file_data = textwrap.dedent(f'''
-+#                        [binaries]
-+#                        c = ['cc', '-arch', {arch!r}]
-+#                        cpp = ['c++', '-arch', {arch!r}]
-+#                        objc = ['cc', '-arch', {arch!r}]
-+#                        objcpp = ['c++', '-arch', {arch!r}]
-+#                        [host_machine]
-+#                        system = 'darwin'
-+#                        cpu = {arch!r}
-+#                        cpu_family = {family!r}
-+#                        endian = 'little'
-+#                    ''')
-+#                    self._meson_cross_file.write_text(cross_file_data)
-+#                    self._meson_args['setup'].extend(('--cross-file', os.fspath(self._meson_cross_file)))
-+#
-+#        # write the native file
-+#        native_file_data = textwrap.dedent(f'''
-+#            [binaries]
-+#            python = '{sys.executable}'
-+#        ''')
-+#        self._meson_native_file.write_text(native_file_data)
- 
+-
          # reconfigure if we have a valid Meson build directory. Meson
          # uses the presence of the 'meson-private/coredata.dat' file
-@@ -943,7 +943,7 @@ def _project(config_settings: Optional[Dict[Any, Any]] = None) -> Iterator[Proje
+         # in the build directory as indication that the build
+@@ -943,7 +900,6 @@ def _project(config_settings: Optional[Dict[Any, Any]] = None) -> Iterator[Proje
  
      with contextlib.ExitStack() as ctx:
          if build_dir is None:
 -            build_dir = ctx.enter_context(tempfile.TemporaryDirectory(prefix='.mesonpy-', dir=source_dir))
-+#            build_dir = ctx.enter_context(tempfile.TemporaryDirectory(prefix='.mesonpy-', dir=source_dir))
          yield Project(source_dir, build_dir, meson_args, editable_verbose)
  
  
