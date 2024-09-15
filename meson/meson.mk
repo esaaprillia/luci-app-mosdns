@@ -101,7 +101,6 @@ define Host/Configure/Meson
 	$(call Meson, \
 		setup \
 		--native-file $(HOST_BUILD_DIR)/openwrt-native.txt \
-		--cross-file $(HOST_BUILD_DIR)/openwrt-cross.txt \
 		$(MESON_HOST_ARGS) \
 		$(MESON_HOST_BUILD_DIR) \
 		$(MESON_HOST_BUILD_DIR)/.., \
