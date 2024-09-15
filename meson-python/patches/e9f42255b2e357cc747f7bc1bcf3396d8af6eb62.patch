@@ -1,17 +1,28 @@
-From e29d5df8c039f3d1399b74796e3c2178bf348597 Mon Sep 17 00:00:00 2001
+From 04fe13c5dedb542b34b379ab0f0139b1385b92ec Mon Sep 17 00:00:00 2001
 From: esaaprillia <esaapriliasalsabila@gmail.com>
-Date: Sun, 15 Sep 2024 10:14:27 +0800
+Date: Sun, 15 Sep 2024 14:13:04 +0800
 Subject: [PATCH] Update __init__.py
 
 ---
- mesonpy/__init__.py | 74 +++++++++++++++++++++++----------------------
- 1 file changed, 38 insertions(+), 36 deletions(-)
+ mesonpy/__init__.py | 47 ++-------------------------------------------
+ 1 file changed, 2 insertions(+), 45 deletions(-)
 
 diff --git a/mesonpy/__init__.py b/mesonpy/__init__.py
-index 6db5b5b..8aa71f0 100644
+index 6db5b5b..97f2d41 100644
 --- a/mesonpy/__init__.py
 +++ b/mesonpy/__init__.py
-@@ -669,46 +669,48 @@ def __init__(
+@@ -639,8 +639,8 @@ def __init__(
+         self._source_dir = pathlib.Path(source_dir).absolute()
+         self._build_dir = pathlib.Path(build_dir).absolute()
+         self._editable_verbose = editable_verbose
+-        self._meson_native_file = self._build_dir / 'meson-python-native-file.ini'
+-        self._meson_cross_file = self._build_dir / 'meson-python-cross-file.ini'
++        self._meson_native_file = self._source_dir / 'openwrt-native.txt'
++        self._meson_cross_file = self._source_dir / 'openwrt-cross.txt'
+         self._meson_args: MesonArgs = collections.defaultdict(list)
+         self._limited_api = False
+ 
+@@ -669,49 +669,6 @@ def __init__(
          # make sure the build dir exists
          self._build_dir.mkdir(exist_ok=True, parents=True)
  
@@ -50,49 +61,14 @@ index 6db5b5b..8aa71f0 100644
 -                    ''')
 -                    self._meson_cross_file.write_text(cross_file_data)
 -                    self._meson_args['setup'].extend(('--cross-file', os.fspath(self._meson_cross_file)))
-+        # write the cross file
-+        cross_file_data = textwrap.dedent(f'''
-+            [binaries]
-+            c = ['$(TARGET_CC)']
-+            c_ld = ['$(TARGET_LINKER)']
-+            cpp = ['$(TARGET_CXX)']
-+            cpp_ld = ['$(TARGET_LINKER)']
-+            ar = '$(TARGET_AR)'
-+            strip = '$(TARGET_CROSS)strip'
-+            nm = '$(TARGET_NM)'
-+            pkg-config = '$(PKG_CONFIG)'
-+            cmake = '$(STAGING_DIR_HOST)/bin/cmake'
-+            python = '{sys.executable}'
-+            [built-in options]
-+            c_args = ['$(TARGET_CFLAGS) $(EXTRA_CFLAGS) $(TARGET_CPPFLAGS) $(EXTRA_CPPFLAGS)']
-+            c_link_args = ['$(TARGET_LDFLAGS) $(EXTRA_LDFLAGS)']
-+            cpp_args = ['$(TARGET_CXXFLAGS) $(EXTRA_CXXFLAGS) $(TARGET_CPPFLAGS) $(EXTRA_CPPFLAGS)']
-+            cpp_link_args = ['$(TARGET_LDFLAGS) $(EXTRA_LDFLAGS)']
-+            [host_machine]
-+            system = 'linux'
-+            cpu = 'generic'
-+            cpu_family = 'aarch64'
-+            endian = 'little'
-+            [properties]
-+            needs_exe_wrapper = true
-+        ''')
-+        self._meson_cross_file.write_text(cross_file_data)
-+        self._meson_args['setup'].extend(('--cross-file', os.fspath(self._meson_cross_file)))
- 
-         # write the native file
-         native_file_data = textwrap.dedent(f'''
-             [binaries]
+-
+-        # write the native file
+-        native_file_data = textwrap.dedent(f'''
+-            [binaries]
 -            python = '{sys.executable}'
-+            c = ['$(HOSTCC)']
-+            cpp = ['$(HOSTCXX)']
-+            pkg-config = '$(PKG_CONFIG)'
-+            cmake = '$(STAGING_DIR_HOST)/bin/cmake'
-+            python = '{sys.executable}'
-+            [built-in options]
-+            c_args = ['$(HOST_CFLAGS) $(HOST_CPPFLAGS)']
-+            c_link_args = ['$(HOST_LDFLAGS)']
-+            cpp_args = ['$(HOST_CXXFLAGS) $(HOST_CPPFLAGS)']
-+            cpp_link_args = ['$(HOST_LDFLAGS)']
-         ''')
-         self._meson_native_file.write_text(native_file_data)
- 
+-        ''')
+-        self._meson_native_file.write_text(native_file_data)
+-
+         # reconfigure if we have a valid Meson build directory. Meson
+         # uses the presence of the 'meson-private/coredata.dat' file
+         # in the build directory as indication that the build
