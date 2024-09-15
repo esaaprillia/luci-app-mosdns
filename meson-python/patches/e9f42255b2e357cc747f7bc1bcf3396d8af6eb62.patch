@@ -1,14 +1,14 @@
-From f44a516ed0a3bfda165bd2dba59de35aa49a8497 Mon Sep 17 00:00:00 2001
+From 04fe13c5dedb542b34b379ab0f0139b1385b92ec Mon Sep 17 00:00:00 2001
 From: esaaprillia <esaapriliasalsabila@gmail.com>
-Date: Sun, 15 Sep 2024 18:09:43 +0800
+Date: Sun, 15 Sep 2024 14:13:04 +0800
 Subject: [PATCH] Update __init__.py
 
 ---
- mesonpy/__init__.py | 48 +++------------------------------------------
- 1 file changed, 3 insertions(+), 45 deletions(-)
+ mesonpy/__init__.py | 47 ++-------------------------------------------
+ 1 file changed, 2 insertions(+), 45 deletions(-)
 
 diff --git a/mesonpy/__init__.py b/mesonpy/__init__.py
-index 6db5b5b..06cf3e8 100644
+index 6db5b5b..97f2d41 100644
 --- a/mesonpy/__init__.py
 +++ b/mesonpy/__init__.py
 @@ -639,8 +639,8 @@ def __init__(
@@ -17,7 +17,7 @@ index 6db5b5b..06cf3e8 100644
          self._editable_verbose = editable_verbose
 -        self._meson_native_file = self._build_dir / 'meson-python-native-file.ini'
 -        self._meson_cross_file = self._build_dir / 'meson-python-cross-file.ini'
-+        self._meson_native_file = self._source_dir / 'openwrt-native.txt'
++        self._meson_native_file = self._source_dir / 'openwrt-cross.txt'
 +        self._meson_cross_file = self._source_dir / 'openwrt-cross.txt'
          self._meson_args: MesonArgs = collections.defaultdict(list)
          self._limited_api = False
@@ -72,11 +72,3 @@ index 6db5b5b..06cf3e8 100644
          # reconfigure if we have a valid Meson build directory. Meson
          # uses the presence of the 'meson-private/coredata.dat' file
          # in the build directory as indication that the build
-@@ -782,6 +739,7 @@ def _configure(self, reconfigure: bool = False) -> None:
-             # pass native file last to have it override the python
-             # interpreter path that may have been specified in user
-             # provided native files
-+            f'--cross-file={os.fspath(self._meson_cross_file)}',
-             f'--native-file={os.fspath(self._meson_native_file)}',
-         ]
-         if reconfigure:
