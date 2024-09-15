@@ -7,7 +7,7 @@ PKG_LICENSE:=GPL-2.0
 
 PKG_MAINTAINER:=
 
-#PKG_BUILD_DEPENDS:=meson/host
+PKG_BUILD_DEPENDS:=meson-python/host
 PKG_BUILD_DIR := $(BUILD_DIR)/$(PKG_NAME)
 PKG_BUILD_PARALLEL:=1
 
@@ -20,7 +20,7 @@ define Package/luci-app-mosdns
   #DEPENDS:=perl perl-html-tree perl-netaddr-ip perl-ack perl-http-cookies perl-parse-recdescent perl-authen-sasl perl-http-daemon perl-parse-yapp perl-authen-sasl-xs perl-http-date perl-sub-uplevel perl-cgi perl-http-message perl-test-harness perl-compress-bzip2 perl-http-negotiate perl-test-warn perl-dbi perl-http-server-simple perl-text-csv_xs perl-device-serialport perl-inline perl-time-moment perl-device-usb perl-inline-c perl-try-tiny perl-encode-locale perl-io-html perl-uri perl-file-listing perl-lockfile-simple perl-www perl-file-next perl-lwp-mediatypes perl-www-curl perl-file-rsyncp spamassassin spamc spamc-ssl perl-www-mechanize perl-file-sharedir-install perl-net-cidr-lite perl-www-robotrules perl-html-form perl-net-dns perl-xml-parser perl-html-parser perl-net-http perl-html-tagset perl-net-telnet
   #DEPENDS:=php7 php7-pecl-dio php7-pecl-http php7-pecl-imagick php7-pecl-krb5 php7-pecl-libevent php7-pecl-mcrypt php7-pecl-propro php7-pecl-raphf php7-pecl-redis freeradius3 mysql-server pear pear-db pear-archive-tar pear-structures-graph pear-console-getopt pear-xml-util pear-xmlrpc
   #DEPENDS:=freeradius3 mysql-server pear pear-db pear-archive-tar pear-structures-graph pear-console-getopt pear-xml-util pear-xmlrpc
-  DEPENDS:=meson-python
+  DEPENDS:=
   TITLE:=Tools Inject xderm-mini
 endef
 
