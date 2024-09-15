@@ -1,17 +1,17 @@
-From bfa8f3251d83f2d6cfc2d13016aa41c5d4effc4b Mon Sep 17 00:00:00 2001
+From e29d5df8c039f3d1399b74796e3c2178bf348597 Mon Sep 17 00:00:00 2001
 From: esaaprillia <esaapriliasalsabila@gmail.com>
-Date: Sun, 15 Sep 2024 08:58:28 +0800
+Date: Sun, 15 Sep 2024 10:14:27 +0800
 Subject: [PATCH] Update __init__.py
 
 ---
- mesonpy/__init__.py | 50 ++++++++++++++-------------------------------
- 1 file changed, 15 insertions(+), 35 deletions(-)
+ mesonpy/__init__.py | 74 +++++++++++++++++++++++----------------------
+ 1 file changed, 38 insertions(+), 36 deletions(-)
 
 diff --git a/mesonpy/__init__.py b/mesonpy/__init__.py
-index 6db5b5b..506320a 100644
+index 6db5b5b..8aa71f0 100644
 --- a/mesonpy/__init__.py
 +++ b/mesonpy/__init__.py
-@@ -669,41 +669,21 @@ def __init__(
+@@ -669,46 +669,48 @@ def __init__(
          # make sure the build dir exists
          self._build_dir.mkdir(exist_ok=True, parents=True)
  
@@ -53,18 +53,46 @@ index 6db5b5b..506320a 100644
 +        # write the cross file
 +        cross_file_data = textwrap.dedent(f'''
 +            [binaries]
-+            c = ['cc', '-arch', {arch!r}]
-+            cpp = ['c++', '-arch', {arch!r}]
-+            objc = ['cc', '-arch', {arch!r}]
-+            objcpp = ['c++', '-arch', {arch!r}]
++            c = ['$(TARGET_CC)']
++            c_ld = ['$(TARGET_LINKER)']
++            cpp = ['$(TARGET_CXX)']
++            cpp_ld = ['$(TARGET_LINKER)']
++            ar = '$(TARGET_AR)'
++            strip = '$(TARGET_CROSS)strip'
++            nm = '$(TARGET_NM)'
++            pkg-config = '$(PKG_CONFIG)'
++            cmake = '$(STAGING_DIR_HOST)/bin/cmake'
++            python = '$(STAGING_DIR_HOSTPKG)/bin/python3'
++            [built-in options]
++            c_args = ['$(TARGET_CFLAGS) $(EXTRA_CFLAGS) $(TARGET_CPPFLAGS) $(EXTRA_CPPFLAGS)']
++            c_link_args = ['$(TARGET_LDFLAGS) $(EXTRA_LDFLAGS)']
++            cpp_args = ['$(TARGET_CXXFLAGS) $(EXTRA_CXXFLAGS) $(TARGET_CPPFLAGS) $(EXTRA_CPPFLAGS)']
++            cpp_link_args = ['$(TARGET_LDFLAGS) $(EXTRA_LDFLAGS)']
 +            [host_machine]
 +            system = 'linux'
-+            cpu = {arch!r}
-+            cpu_family = {family!r}
++            cpu = '$(MESON_CPU)'
++            cpu_family = '$(MESON_ARCH)'
 +            endian = 'little'
++            [properties]
++            needs_exe_wrapper = true
 +        ''')
 +        self._meson_cross_file.write_text(cross_file_data)
 +        self._meson_args['setup'].extend(('--cross-file', os.fspath(self._meson_cross_file)))
  
          # write the native file
          native_file_data = textwrap.dedent(f'''
+             [binaries]
+-            python = '{sys.executable}'
++            c = ['$(HOSTCC)']
++            cpp = ['$(HOSTCXX)']
++            pkg-config = '$(PKG_CONFIG)'
++            cmake = '$(STAGING_DIR_HOST)/bin/cmake'
++            python = '$(STAGING_DIR_HOSTPKG)/bin/python3'
++            [built-in options]
++            c_args = ['$(HOST_CFLAGS) $(HOST_CPPFLAGS)']
++            c_link_args = ['$(HOST_LDFLAGS)']
++            cpp_args = ['$(HOST_CXXFLAGS) $(HOST_CPPFLAGS)']
++            cpp_link_args = ['$(HOST_LDFLAGS)']
+         ''')
+         self._meson_native_file.write_text(native_file_data)
+ 
