@@ -1,154 +1,62 @@
-# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2006-2013 OpenWrt.org
+# Copyright (C) 2023 Jeffery To
+#
+# This is free software, licensed under the GNU General Public License v2.
+# See /LICENSE for more information.
 #
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=libnl
-PKG_VERSION:=3.9.0
+PKG_NAME:=python-hatchling
+PKG_VERSION:=1.18.0
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://github.com/thom311/libnl/releases/download/libnl$(subst .,_,$(PKG_VERSION))
-PKG_HASH:=aed507004d728a5cf11eab48ca4bf9e6e1874444e33939b9d3dfed25018ee9bb
+PYPI_NAME:=hatchling
+PKG_HASH:=50e99c3110ce0afc3f7bdbadff1c71c17758e476731c27607940cfa6686489ca
 
-PKG_LICENSE:=LGPL-2.1
-PKG_LICENSE_FILES:=COPYING
-PKG_CPE_ID:=cpe:/a:libnl_project:libnl
+PKG_LICENSE:=MIT
+PKG_LICENSE_FILES:=LICENSE.txt
+PKG_MAINTAINER:=Jeffery To <jeffery.to@gmail.com>
 
-PKG_INSTALL:=1
-PKG_FIXUP:=autoreconf
+PKG_HOST_ONLY:=1
+HOST_BUILD_DEPENDS:= \
+	python3/host \
+	python-build/host \
+	python-installer/host \
+	python-editables/host \
+	python-packaging/host \
+	python-pathspec/host \
+	python-pluggy/host \
+	python-trove-classifiers/host
 
-PKG_BUILD_FLAGS:=gc-sections
-
+include ../pypi.mk
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/host-build.mk
+include ../python3-package.mk
+include ../python3-host-build.mk
 
-define Package/libnl/default
-  SECTION:=libs
-  CATEGORY:=Libraries
-  URL:=http://www.infradead.org/~tgr/libnl/
-  ABI_VERSION:=200
+define Package/python3-hatchling
+  SECTION:=lang
+  CATEGORY:=Languages
+  SUBMENU:=Python
+  TITLE:=Modern, extensible Python build backend
+  URL:=https://hatch.pypa.io/latest/
+  DEPENDS:= \
+      +python3-light \
+      +python3-email \
+      +python3-editables \
+      +python3-packaging \
+      +python3-pathspec \
+      +python3-pluggy \
+      +python3-trove-classifiers
+  BUILDONLY:=1
 endef
 
-define Package/libnl-core
-$(call Package/libnl/default)
-  TITLE:=Core Netlink Library
-  DEPENDS:=+libpthread
+define Package/python3-hatchling/description
+This is the extensible, standards compliant build backend used by Hatch.
 endef
 
-define Package/libnl-genl
-$(call Package/libnl/default)
-  TITLE:=Generic Netlink Library
-  DEPENDS:=+libnl-core
-endef
-
-define Package/libnl-route
-$(call Package/libnl/default)
-  TITLE:=Routing Netlink Library
-  DEPENDS:=+libnl-core
-endef
-
-define Package/libnl-nf
-$(call Package/libnl/default)
-  TITLE:=Netfilter Netlink Library
-  DEPENDS:=+libnl-route
-endef
-
-define Package/libnl-cli
-$(call Package/libnl/default)
-  TITLE:=CLI Netlink Library
-  DEPENDS:=+libnl-genl +libnl-nf
-endef
-
-define Package/libnl
-$(call Package/libnl/default)
-  TITLE:=Full Netlink Library
-  DEPENDS:=+libnl-genl +libnl-route +libnl-nf +libnl-cli
-endef
-
-define Package/libnl-core/description
- Common code for all netlink libraries
-endef
-
-define Package/libnl-genl/description
- Generic Netlink Library Functions
-endef
-
-define Package/libnl-route/description
- Routing Netlink Library Functions
-endef
-
-define Package/libnl-nf/description
- Netfilter Netlink Library Functions
-endef
-
-define Package/libnl-cli/description
- CLI Netlink Library Functions
-endef
-
-define Package/libnl/description
- Socket handling, connection management, sending and receiving of data,
- message construction and parsing, object caching system, etc.
-endef
-
-TARGET_CFLAGS += $(FPIC)
-
-CONFIGURE_ARGS += \
-	--disable-debug
-
-define Build/InstallDev
-	$(INSTALL_DIR) $(1)/usr/include/libnl3 $(1)/usr/lib/pkgconfig
-	$(CP) $(PKG_INSTALL_DIR)/usr/include/libnl3/* $(1)/usr/include/libnl3/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/* $(1)/usr/lib
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/pkgconfig/*.pc $(1)/usr/lib/pkgconfig
-
-	# Copy symlinks
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnl-3.so $(1)/usr/lib/libnl.so
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnl-genl-3.so $(1)/usr/lib/libnl-genl.so
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnl-nf-3.so $(1)/usr/lib/libnl-nf.so
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnl-route-3.so $(1)/usr/lib/libnl-route.so
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnl-cli-3.so $(1)/usr/lib/libnl-cli.so
-	
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnl-3.so $(1)/usr/lib/libnl-3.0.so
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnl-genl-3.so $(1)/usr/lib/libnl-genl-3.0.so
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnl-nf-3.so $(1)/usr/lib/libnl-nf-3.0.so
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnl-route-3.so $(1)/usr/lib/libnl-route-3.0.so
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnl-cli-3.so $(1)/usr/lib/libnl-cli-3.0.so
-endef
-
-define Package/libnl-core/install
-	$(INSTALL_DIR) $(1)/usr/lib
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnl-3.so.* $(1)/usr/lib/
-endef
-
-define Package/libnl-genl/install
-	$(INSTALL_DIR) $(1)/usr/lib
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnl-genl-3.so.* $(1)/usr/lib/
-endef
-
-define Package/libnl-route/install
-	$(INSTALL_DIR) $(1)/usr/lib
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnl-route-3.so.* $(1)/usr/lib/
-endef
-
-define Package/libnl-nf/install
-	$(INSTALL_DIR) $(1)/usr/lib
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnl-nf-3.so.* $(1)/usr/lib/
-endef
-
-define Package/libnl-cli/install
-	$(INSTALL_DIR) $(1)/usr/lib
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnl-cli-3.so.* $(1)/usr/lib/
-endef
-
-define Package/libnl/install
-	:
-endef
-
-$(eval $(call BuildPackage,libnl-core))
-$(eval $(call BuildPackage,libnl-genl))
-$(eval $(call BuildPackage,libnl-route))
-$(eval $(call BuildPackage,libnl-nf))
-$(eval $(call BuildPackage,libnl-cli))
-$(eval $(call BuildPackage,libnl))
+$(eval $(call Py3Package,python3-hatchling))
+$(eval $(call BuildPackage,python3-hatchling))
+$(eval $(call BuildPackage,python3-hatchling-src))
+$(eval $(call HostBuild))
