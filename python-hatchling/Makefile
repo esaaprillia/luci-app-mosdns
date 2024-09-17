@@ -29,11 +29,11 @@ HOST_BUILD_DEPENDS:= \
 	python-pluggy/host \
 	python-trove-classifiers/host
 
-include ../pypi.mk
+include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/host-build.mk
-include ../python3-package.mk
-include ../python3-host-build.mk
+include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
+include $(TOPDIR)/feeds/packages/lang/python/python3-host-build.mk
 
 define Package/python3-hatchling
   SECTION:=lang
