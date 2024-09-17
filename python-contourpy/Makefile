@@ -27,7 +27,7 @@ define Package/python3-contourpy
   CATEGORY:=Languages
   TITLE:=Python library for calculating contours of 2D quadrilateral grids
   URL:=https://github.com/contourpy/contourpy
-  DEPENDS:=+python3 +python3-numpy
+  DEPENDS:=+python3 +python3-numpy +libstdcpp
 endef
 
 define Package/python3-contourpy/description
