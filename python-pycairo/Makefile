@@ -15,6 +15,7 @@ PKG_BUILD_DEPENDS:=python-setuptools-scm/host meson-python/host
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
+include $(TOPDIR)/feeds/mosdns/meson/meson.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
 
 define Package/python3-pycairo
