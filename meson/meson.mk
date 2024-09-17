@@ -65,7 +65,7 @@ define Meson/CreateNativeFile
 		-e "s|@CXX@|$(foreach BIN,$(HOSTCXX),'$(BIN)',)|" \
 		-e "s|@PKGCONFIG@|$(PKG_CONFIG)|" \
 		-e "s|@CMAKE@|$(STAGING_DIR_HOST)/bin/cmake|" \
-		-e "s|@PYTHON@|$(STAGING_DIR_HOST)/bin/python3|" \
+		-e "s|@PYTHON@|$(STAGING_DIR_HOSTPKG)/bin/python3|" \
 		-e "s|@CFLAGS@|$(foreach FLAG,$(HOST_CFLAGS) $(HOST_CPPFLAGS),'$(FLAG)',)|" \
 		-e "s|@CXXFLAGS@|$(foreach FLAG,$(HOST_CXXFLAGS) $(HOST_CPPFLAGS),'$(FLAG)',)|" \
 		-e "s|@LDFLAGS@|$(foreach FLAG,$(HOST_LDFLAGS),'$(FLAG)',)|" \
