@@ -1,6 +1,6 @@
-From f44a516ed0a3bfda165bd2dba59de35aa49a8497 Mon Sep 17 00:00:00 2001
+From e79a5f88337261f86852dfd0af4c8bef30196585 Mon Sep 17 00:00:00 2001
 From: esaaprillia <esaapriliasalsabila@gmail.com>
-Date: Sun, 15 Sep 2024 18:09:43 +0800
+Date: Tue, 17 Sep 2024 15:44:07 +0800
 Subject: [PATCH] Update __init__.py
 
 ---
@@ -8,7 +8,7 @@ Subject: [PATCH] Update __init__.py
  1 file changed, 3 insertions(+), 45 deletions(-)
 
 diff --git a/mesonpy/__init__.py b/mesonpy/__init__.py
-index 6db5b5b..06cf3e8 100644
+index 6db5b5b..4f10d84 100644
 --- a/mesonpy/__init__.py
 +++ b/mesonpy/__init__.py
 @@ -639,8 +639,8 @@ def __init__(
@@ -72,4 +72,11 @@ index 6db5b5b..06cf3e8 100644
          # reconfigure if we have a valid Meson build directory. Meson
          # uses the presence of the 'meson-private/coredata.dat' file
          # in the build directory as indication that the build
-
+@@ -783,6 +740,7 @@ def _configure(self, reconfigure: bool = False) -> None:
+             # interpreter path that may have been specified in user
+             # provided native files
+             f'--native-file={os.fspath(self._meson_native_file)}',
++            f'--cross-file={os.fspath(self._meson_cross_file)}',
+         ]
+         if reconfigure:
+             setup_args.insert(0, '--reconfigure')
