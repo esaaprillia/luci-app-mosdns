@@ -17,6 +17,7 @@ PKG_BUILD_DEPENDS:=python-setuptools-scm/host python-pybind11/host meson/host me
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/host-build.mk
+include $(TOPDIR)/feeds/mosdns/meson/meson.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-host-build.mk
 
