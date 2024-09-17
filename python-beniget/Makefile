@@ -4,7 +4,7 @@ PKG_NAME:=python-beniget
 PKG_VERSION:=0.4.2
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE:=beniget-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/serge-sans-paille/beniget/archive/$(PKG_VERSION)
 PKG_HASH:=skip
 
