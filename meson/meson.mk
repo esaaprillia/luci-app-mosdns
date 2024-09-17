@@ -56,7 +56,7 @@ MESON_CPU:="$(CPU_TYPE)$(if $(CPU_SUBTYPE),+$(CPU_SUBTYPE))"
 endif
 
 define Meson
-	$(2) $(STAGING_DIR_HOST)/bin/$(PYTHON) $(STAGING_DIR_HOSTPKG)/bin/meson $(1)
+	$(2) $(STAGING_DIR_HOSTPKG)/bin/$(PYTHON3) $(STAGING_DIR_HOSTPKG)/bin/meson $(1)
 endef
 
 define Meson/CreateNativeFile
@@ -65,7 +65,7 @@ define Meson/CreateNativeFile
 		-e "s|@CXX@|$(foreach BIN,$(HOSTCXX),'$(BIN)',)|" \
 		-e "s|@PKGCONFIG@|$(PKG_CONFIG)|" \
 		-e "s|@CMAKE@|$(STAGING_DIR_HOST)/bin/cmake|" \
-		-e "s|@PYTHON@|$(STAGING_DIR_HOSTPKG)/bin/python3|" \
+		-e "s|@PYTHON@|$(STAGING_DIR_HOSTPKG)/bin/$(PYTHON3)|" \
 		-e "s|@CFLAGS@|$(foreach FLAG,$(HOST_CFLAGS) $(HOST_CPPFLAGS),'$(FLAG)',)|" \
 		-e "s|@CXXFLAGS@|$(foreach FLAG,$(HOST_CXXFLAGS) $(HOST_CPPFLAGS),'$(FLAG)',)|" \
 		-e "s|@LDFLAGS@|$(foreach FLAG,$(HOST_LDFLAGS),'$(FLAG)',)|" \
