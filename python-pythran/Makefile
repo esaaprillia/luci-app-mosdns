@@ -1,154 +1,40 @@
-# SPDX-License-Identifier: GPL-2.0-only
-#
-# Copyright (C) 2006-2013 OpenWrt.org
-#
-
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=libnl
-PKG_VERSION:=3.9.0
+PKG_NAME:=python-pythran
+PKG_VERSION:=0.16.1
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://github.com/thom311/libnl/releases/download/libnl$(subst .,_,$(PKG_VERSION))
-PKG_HASH:=aed507004d728a5cf11eab48ca4bf9e6e1874444e33939b9d3dfed25018ee9bb
+PYPI_NAME:=pythran
+PKG_HASH:=861748c0f9c7d422b32724b114b3817d818ed4eab86c09781aa0a3f7ceabb7f9
 
-PKG_LICENSE:=LGPL-2.1
-PKG_LICENSE_FILES:=COPYING
-PKG_CPE_ID:=cpe:/a:libnl_project:libnl
+PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
+PKG_LICENSE:=BSD-3-Clause
+PKG_LICENSE_FILES:=LICENSE
 
-PKG_INSTALL:=1
-PKG_FIXUP:=autoreconf
+HOST_BUILD_DEPENDS:=python-setuptools-scm/host
+PKG_BUILD_DEPENDS:=python-setuptools-scm/host
 
-PKG_BUILD_FLAGS:=gc-sections
-
+include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/host-build.mk
+include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
+include $(TOPDIR)/feeds/packages/lang/python/python3-host-build.mk
 
-define Package/libnl/default
-  SECTION:=libs
-  CATEGORY:=Libraries
-  URL:=http://www.infradead.org/~tgr/libnl/
-  ABI_VERSION:=200
+define Package/python3-pythran
+  SUBMENU:=Python
+  SECTION:=lang
+  CATEGORY:=Languages
+  TITLE:=Ahead of Time compiler for numeric kernels
+  URL:=pythran.readthedocs.io
+  DEPENDS:=+python3 +python3-beniget +python3-gast +python3-numpy +python3-ply
 endef
 
-define Package/libnl-core
-$(call Package/libnl/default)
-  TITLE:=Core Netlink Library
-  DEPENDS:=+libpthread
+define Package/python3-pythran/description
+  Pythran is an ahead of time compiler for a subset of the Python language, with a focus on scientific computing.
+  It takes a Python module annotated with a few interface descriptions and turns it into a native Python module with the same interface, but (hopefully) faster.
 endef
 
-define Package/libnl-genl
-$(call Package/libnl/default)
-  TITLE:=Generic Netlink Library
-  DEPENDS:=+libnl-core
-endef
-
-define Package/libnl-route
-$(call Package/libnl/default)
-  TITLE:=Routing Netlink Library
-  DEPENDS:=+libnl-core
-endef
-
-define Package/libnl-nf
-$(call Package/libnl/default)
-  TITLE:=Netfilter Netlink Library
-  DEPENDS:=+libnl-route
-endef
-
-define Package/libnl-cli
-$(call Package/libnl/default)
-  TITLE:=CLI Netlink Library
-  DEPENDS:=+libnl-genl +libnl-nf
-endef
-
-define Package/libnl
-$(call Package/libnl/default)
-  TITLE:=Full Netlink Library
-  DEPENDS:=+libnl-genl +libnl-route +libnl-nf +libnl-cli
-endef
-
-define Package/libnl-core/description
- Common code for all netlink libraries
-endef
-
-define Package/libnl-genl/description
- Generic Netlink Library Functions
-endef
-
-define Package/libnl-route/description
- Routing Netlink Library Functions
-endef
-
-define Package/libnl-nf/description
- Netfilter Netlink Library Functions
-endef
-
-define Package/libnl-cli/description
- CLI Netlink Library Functions
-endef
-
-define Package/libnl/description
- Socket handling, connection management, sending and receiving of data,
- message construction and parsing, object caching system, etc.
-endef
-
-TARGET_CFLAGS += $(FPIC)
-
-CONFIGURE_ARGS += \
-	--disable-debug
-
-define Build/InstallDev
-	$(INSTALL_DIR) $(1)/usr/include/libnl3 $(1)/usr/lib/pkgconfig
-	$(CP) $(PKG_INSTALL_DIR)/usr/include/libnl3/* $(1)/usr/include/libnl3/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/* $(1)/usr/lib
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/pkgconfig/*.pc $(1)/usr/lib/pkgconfig
-
-	# Copy symlinks
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnl-3.so $(1)/usr/lib/libnl.so
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnl-genl-3.so $(1)/usr/lib/libnl-genl.so
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnl-nf-3.so $(1)/usr/lib/libnl-nf.so
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnl-route-3.so $(1)/usr/lib/libnl-route.so
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnl-cli-3.so $(1)/usr/lib/libnl-cli.so
-	
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnl-3.so $(1)/usr/lib/libnl-3.0.so
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnl-genl-3.so $(1)/usr/lib/libnl-genl-3.0.so
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnl-nf-3.so $(1)/usr/lib/libnl-nf-3.0.so
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnl-route-3.so $(1)/usr/lib/libnl-route-3.0.so
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnl-cli-3.so $(1)/usr/lib/libnl-cli-3.0.so
-endef
-
-define Package/libnl-core/install
-	$(INSTALL_DIR) $(1)/usr/lib
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnl-3.so.* $(1)/usr/lib/
-endef
-
-define Package/libnl-genl/install
-	$(INSTALL_DIR) $(1)/usr/lib
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnl-genl-3.so.* $(1)/usr/lib/
-endef
-
-define Package/libnl-route/install
-	$(INSTALL_DIR) $(1)/usr/lib
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnl-route-3.so.* $(1)/usr/lib/
-endef
-
-define Package/libnl-nf/install
-	$(INSTALL_DIR) $(1)/usr/lib
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnl-nf-3.so.* $(1)/usr/lib/
-endef
-
-define Package/libnl-cli/install
-	$(INSTALL_DIR) $(1)/usr/lib
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnl-cli-3.so.* $(1)/usr/lib/
-endef
-
-define Package/libnl/install
-	:
-endef
-
-$(eval $(call BuildPackage,libnl-core))
-$(eval $(call BuildPackage,libnl-genl))
-$(eval $(call BuildPackage,libnl-route))
-$(eval $(call BuildPackage,libnl-nf))
-$(eval $(call BuildPackage,libnl-cli))
-$(eval $(call BuildPackage,libnl))
+$(eval $(call Py3Package,python3-pythran))
+$(eval $(call BuildPackage,python3-pythran))
+$(eval $(call BuildPackage,python3-pythran-src))
+$(eval $(call HostBuild))
