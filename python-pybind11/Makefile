@@ -1,11 +1,11 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-pybind11
-PKG_VERSION:=2.13.5
+PKG_VERSION:=2.13.6
 PKG_RELEASE:=1
 
 PYPI_NAME:=pybind11
-PKG_HASH:=ae33f635322f9d9741abde0c5f348bf9373f6c22298883395e586cb43c55574e
+PKG_HASH:=ba6af10348c12b24e92fa086b39cfba0eff619b61ac77c406167d813b096d39a
 
 PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
 PKG_LICENSE:=BSD-3-Clause
@@ -17,7 +17,6 @@ PKG_BUILD_DEPENDS:=python-setuptools-scm/host
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/host-build.mk
-include $(INCLUDE_DIR)/cmake.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-host-build.mk
 
