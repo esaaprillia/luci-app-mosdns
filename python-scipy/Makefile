@@ -11,8 +11,8 @@ PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
 PKG_LICENSE:=BSD-3-Clause
 PKG_LICENSE_FILES:=LICENSE.txt
 
-HOST_BUILD_DEPENDS:=python-setuptools-scm/host python-cython/host meson-python/host python-pybind11/host
-PKG_BUILD_DEPENDS:=python-setuptools-scm/host python-cython/host meson-python/host python-pybind11/host
+HOST_BUILD_DEPENDS:=python-setuptools-scm/host python-cython/host meson-python/host python-pybind11/host python-pythran
+PKG_BUILD_DEPENDS:=python-setuptools-scm/host python-cython/host meson-python/host python-pybind11/host python-pythran
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
@@ -27,7 +27,7 @@ define Package/python3-scipy
   CATEGORY:=Languages
   TITLE:=Fundamental algorithms for scientific computing in Python
   URL:=https://scipy.org
-  DEPENDS:=+python3 +python3-numpy +python3-setuptools +openblas +INSTALL_GFORTRAN:libgfortran +python3-pooch
+  DEPENDS:=+python3 +python3-numpy +openblas +INSTALL_GFORTRAN:libgfortran +python3-pooch
 endef
 
 define Package/python3-scipy/description
