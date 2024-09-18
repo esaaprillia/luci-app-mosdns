@@ -1,18 +1,15 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-beniget
-PKG_VERSION:=0.4.2
+PKG_VERSION:=0.4.2.post1
 PKG_RELEASE:=1
 
-PKG_SOURCE:=beniget-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://github.com/serge-sans-paille/beniget/archive/$(PKG_VERSION)
-PKG_HASH:=skip
+PYPI_NAME:=beniget
+PKG_HASH:=a0258537e65e7e14ec33a86802f865a667f949bb6c73646d55e42f7c45a052ae
 
 PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
 PKG_LICENSE:=BSD-3-Clause
 PKG_LICENSE_FILES:=LICENSE
-
-PKG_BUILD_DIR:=$(BUILD_DIR)/pypi/beniget-$(PKG_VERSION)
 
 HOST_BUILD_DEPENDS:=python-setuptools-scm/host
 PKG_BUILD_DEPENDS:=python-setuptools-scm/host
