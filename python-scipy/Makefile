@@ -35,6 +35,10 @@ define Package/python3-scipy/description
   It includes modules for statistics, optimization, integration, linear algebra, Fourier transforms, signal and image processing, ODE solvers
 endef
 
+ifneq ($(CONFIG_INSTALL_GFORTRAN),y)
+MAKE_FLAGS += NOFORTRAN=1
+endif
+
 $(eval $(call Py3Package,python3-scipy))
 $(eval $(call BuildPackage,python3-scipy))
 $(eval $(call BuildPackage,python3-scipy-src))
