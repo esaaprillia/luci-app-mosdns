@@ -27,7 +27,7 @@ define Package/python3-scipy
   CATEGORY:=Languages
   TITLE:=Fundamental algorithms for scientific computing in Python
   URL:=https://scipy.org
-  DEPENDS:=+python3 +python3-numpy +openblas +INSTALL_GFORTRAN:libgfortran +python3-pooch
+  DEPENDS:=+INSTALL_GFORTRAN:libgfortran +python3 +python3-numpy +openblas +python3-pooch
 endef
 
 define Package/python3-scipy/description
