@@ -270,8 +270,8 @@ jobs:
 
 
           ./scripts/feeds update -a
-          ./scripts/feeds install -a -f -p xorg
           ./scripts/feeds install -a -f -p mosdns
+          ./scripts/feeds install -a -f -p xorg
           ./scripts/feeds install -f -a -p juci
           ./scripts/feeds install luci-app-mosdns
 
