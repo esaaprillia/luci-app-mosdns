@@ -64,7 +64,6 @@ define Build/InstallDev
 	$(INSTALL_DIR) $(1)/usr/lib
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libtk*.{a,so*} $(1)/usr/lib/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/tkConfig.sh $(1)/usr/lib/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/tkooConfig.sh $(1)/usr/lib/
 
 	$(INSTALL_DIR) $(1)/usr/lib/pkgconfig
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/pkgconfig/tk.pc \
@@ -80,7 +79,6 @@ define Package/tk/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(CP) $(PKG_INSTALL_DIR)/usr/bin/* $(1)/usr/bin
 
-	$(CP) -a $(PKG_INSTALL_DIR)/usr/lib/tk8 $(1)/usr/lib/
 	$(CP) -a $(PKG_INSTALL_DIR)/usr/lib/tk$(TK_MAJOR_VERSION) $(1)/usr/lib/
 	$(LN) wish$(TK_MAJOR_VERSION) $(1)/usr/bin/wish
 endef
