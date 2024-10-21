@@ -35,7 +35,7 @@ define Package/tk
   SUBMENU:=Tcl
   SECTION:=lang
   CATEGORY:=Languages
-  DEPENDS:=+tcl
+  DEPENDS:=+tcl +libx11
   TITLE:=The Tcl language
   URL:=https://www.tcl.tk/
 endef
@@ -53,10 +53,7 @@ CONFIGURE_PATH := unix
 
 CONFIGURE_ARGS += \
 	--enable-threads \
-	--disable-xft \
-	--disable-xss \
-	--with-tcl="$(STAGING_DIR)/usr/lib" \
-	--without-x
+	--with-tcl="$(STAGING_DIR)/usr/lib"
 
 MAKE_PATH := unix
 
