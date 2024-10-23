@@ -1,62 +1,40 @@
-# Copyright (C) 2019 Lucian Cristian <lucian.cristian@gmail.com>
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=libxcomposite
-PKG_VERSION:=0.4.6
+PKG_NAME:=python-matplotlib
+PKG_VERSION:=3.9.2
 PKG_RELEASE:=1
 
-PKG_SOURCE:=libXcomposite-$(PKG_VERSION).tar.xz
-PKG_SOURCE_URL:=https://www.x.org/releases/individual/lib/
-PKG_HASH:=skip
+PYPI_NAME:=matplotlib
+PKG_HASH:=96ab43906269ca64a6366934106fa01534454a69e471b7bf3d79083981aaab92
 
-PKG_BUILD_DIR:=$(BUILD_DIR)/libXcomposite-$(PKG_VERSION)
+PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
+PKG_LICENSE:=LICENSE
+PKG_LICENSE_FILES:=LICENSE
 
-PKG_INSTALL:=1
+HOST_BUILD_DEPENDS:=python-setuptools-scm/host python-cython/host meson-python/host python-pybind11/host python-pythran
+PKG_BUILD_DEPENDS:=python-setuptools-scm/host python-cython/host meson-python/host python-pybind11/host python-pythran
 
-PKG_BUILD_PARALLEL:=1
-PKG_FIXUP:=autoreconf
-
+include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/host-build.mk
+include $(TOPDIR)/feeds/packages/meson/meson.mk
+include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
+include $(TOPDIR)/feeds/packages/lang/python/python3-host-build.mk
 
-define Package/libxcomposite
-  SECTION:=libs
-  CATEGORY:=Libraries
-  DEPENDS:=+libx11 +libxfixes +libxext
-  TITLE:=X Composite extension library
-  URL:=https://www.x.org
+define Package/python3-matplotlib
+  SUBMENU:=Python
+  SECTION:=lang
+  CATEGORY:=Languages
+  TITLE:=matplotlib plotting with Python
+  URL:=matplotlib.org/stable/
+  DEPENDS:=+python3 +python3-numpy +python3-cairo +python3-certifi +python3-contourpy +python3-cycler +python3-dateutil +python3-fonttools +python3-kiwisolver +python3-packaging +python3-parsing +python3-pytz +libfreetype +qhull
 endef
 
-TARGET_LDFLAGS += -Wl,--gc-sections,--as-needed
-
-CONFIGURE_ARGS += \
-  --prefix=/usr \
-  --without-xmlto
-
-define Build/InstallDev
-	$(INSTALL_DIR) \
-	  $(1)/usr/include \
-	  $(1)/usr/lib
-
-	$(CP) \
-	  $(PKG_INSTALL_DIR)/usr/include/* \
-	  $(1)/usr/include/
-
-	$(CP) \
-	  $(PKG_INSTALL_DIR)/usr/lib/{pkgconfig,*.so*} \
-	  $(1)/usr/lib/
+define Package/python3-matplotlib/description
+  Matplotlib is a comprehensive library for creating static, animated, and interactive visualizations in Python.
 endef
 
-define Package/libxcomposite/install
-	$(INSTALL_DIR) \
-	  $(1)/usr/lib
-
-	$(CP) \
-	  $(PKG_INSTALL_DIR)/usr/lib/*.so* \
-	  $(1)/usr/lib/
-endef
-
-$(eval $(call BuildPackage,libxcomposite))
+$(eval $(call Py3Package,python3-matplotlib))
+$(eval $(call BuildPackage,python3-matplotlib))
+$(eval $(call BuildPackage,python3-matplotlib-src))
+$(eval $(call HostBuild))
