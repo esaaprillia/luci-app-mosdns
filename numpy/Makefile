@@ -57,12 +57,6 @@ config NUMPY_OPENBLAS_SUPPORT
 endmenu
 endef
 
-ifeq ($(ARCH),x86_64)
-# FIXME: temporary fix for x86_64 with GCC 13 + musl;
-#        numpy does not detect this compiler extension, so we just enable it
-TARGET_CFLAGS += -mavx512f
-endif
-
 define Build/Prepare/numpy-sitecfg
 	echo "[DEFAULT]"                                 >  $(PKG_BUILD_DIR)/site.cfg
 	echo "library_dirs = $(STAGING_DIR)/usr/lib"     >> $(PKG_BUILD_DIR)/site.cfg
