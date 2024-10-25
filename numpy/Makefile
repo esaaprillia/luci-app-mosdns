@@ -52,7 +52,7 @@ depends on !arc
 
 config NUMPY_OPENBLAS_SUPPORT
         bool "Enable OpenBLAS support"
-        default n
+        default y
 
 endmenu
 endef
