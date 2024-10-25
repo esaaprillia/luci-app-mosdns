@@ -21,7 +21,7 @@ PKG_CPE_ID:=cpe:/a:numpy:numpy
 PKG_CONFIG_DEPENDS:= \
         CONFIG_NUMPY_OPENBLAS_SUPPORT
 
-PKG_BUILD_DEPENDS:=python-cython/host pyproject-metadata/host
+PKG_BUILD_DEPENDS:=python-cython/host pyproject-metadata/host meson-python/host
 
 # Ensure numpy does not find openblas if openblas support is not enabled
 PYTHON3_PKG_BUILD_VARS:= \
@@ -30,6 +30,7 @@ PYTHON3_PKG_BUILD_VARS:= \
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/host-build.mk
+include $(TOPDIR)/feeds/mosdns/meson/meson.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-host-build.mk
 
