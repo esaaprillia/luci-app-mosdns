@@ -41,7 +41,7 @@ define Package/python3-numpy
   TITLE:=The fundamental package for scientific computing with Python
   URL:=https://www.numpy.org/
   DEPENDS:=@!SOFT_FLOAT +INSTALL_GFORTRAN:libgfortran +python3 +libstdcpp \
-	   +NUMPY_OPENBLAS_SUPPORT:openblas
+	   +NUMPY_OPENBLAS_SUPPORT:openblas +openblas
 endef
 
 # We need to duplicate the omitted arhitectures same as openblas
