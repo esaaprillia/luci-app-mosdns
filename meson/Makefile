@@ -1,11 +1,16 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=meson
-PKG_VERSION:=1.5.1
+PKG_VERSION:=1.5.2
 PKG_RELEASE:=1
 
-PYPI_NAME:=meson
-PKG_HASH:=567e533adf255de73a2de35049b99923caf872a455af9ce03e01077e0d384bed
+#PYPI_NAME:=meson
+#PKG_HASH:=567e533adf255de73a2de35049b99923caf872a455af9ce03e01077e0d384bed
+
+PKG_SOURCE_URL:=https://github.com/numpy/meson.git
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_VERSION:=0d93515fb826440d19707eee47fd92655fe2f166
+PKG_MIRROR_HASH:=skip
 
 PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
 PKG_LICENSE:=Apache-2.0
