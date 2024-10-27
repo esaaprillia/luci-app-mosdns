@@ -23,9 +23,11 @@ PKG_CONFIG_DEPENDS:= \
 
 PKG_BUILD_DEPENDS:=python-cython/host pyproject-metadata/host
 
-include ../pypi.mk
+include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
-include ../python3-package.mk
+include $(INCLUDE_DIR)/host-build.mk
+include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
+include $(TOPDIR)/feeds/packages/lang/python/python3-host-build.mk
 
 define Package/python3-numpy
   SUBMENU:=Python
