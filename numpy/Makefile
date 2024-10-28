@@ -59,16 +59,10 @@ TARGET_CFLAGS += -mavx512f
 endif
 
 define Build/Prepare/numpy-sitecfg
-	echo "[DEFAULT]"                                 >  $(PKG_BUILD_DIR)/site.cfg
-	echo "library_dirs = $(STAGING_DIR)/usr/lib"     >> $(PKG_BUILD_DIR)/site.cfg
-	echo "include_dirs = $(STAGING_DIR)/usr/include" >> $(PKG_BUILD_DIR)/site.cfg
-
-  ifdef CONFIG_NUMPY_OPENBLAS_SUPPORT
 	echo                                             >> $(PKG_BUILD_DIR)/site.cfg
 	echo "[openblas]"                                >> $(PKG_BUILD_DIR)/site.cfg
 	echo "libraries = openblas"                      >> $(PKG_BUILD_DIR)/site.cfg
 	echo "runtime_library_dirs = /usr/lib"           >> $(PKG_BUILD_DIR)/site.cfg
-  endif
 endef
 
 define Build/Prepare
