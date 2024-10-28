@@ -18,14 +18,12 @@ PKG_LICENSE:=BSD-3-Clause
 PKG_LICENSE_FILES:=LICENSE.txt
 PKG_CPE_ID:=cpe:/a:numpy:numpy
 
-PKG_CONFIG_DEPENDS:= \
-        CONFIG_NUMPY_OPENBLAS_SUPPORT
-
-PKG_BUILD_DEPENDS:=python-cython/host pyproject-metadata/host
+PKG_BUILD_DEPENDS:=python-cython/host pyproject-metadata/host meson-python/host
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/host-build.mk
+include $(TOPDIR)/feeds/mosdns/meson/meson.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-host-build.mk
 
@@ -35,21 +33,7 @@ define Package/python3-numpy
   CATEGORY:=Languages
   TITLE:=The fundamental package for scientific computing with Python
   URL:=https://www.numpy.org/
-  DEPENDS:=@!SOFT_FLOAT +INSTALL_GFORTRAN:libgfortran +python3 +libstdcpp \
-	   +NUMPY_OPENBLAS_SUPPORT:openblas
-endef
-
-# We need to duplicate the omitted arhitectures same as openblas
-define Package/python3-numpy/config
-menu "Configuration"
-depends on !powerpc
-depends on !arc
-
-config NUMPY_OPENBLAS_SUPPORT
-        bool "Enable OpenBLAS support"
-        default y
-
-endmenu
+  DEPENDS:=@!SOFT_FLOAT +INSTALL_GFORTRAN:libgfortran +python3 +libstdcpp +openblas
 endef
 
 ifeq ($(ARCH),x86_64)
@@ -59,10 +43,10 @@ TARGET_CFLAGS += -mavx512f
 endif
 
 define Build/Prepare/numpy-sitecfg
-	echo                                             >> $(PKG_BUILD_DIR)/site.cfg
 	echo "[openblas]"                                >> $(PKG_BUILD_DIR)/site.cfg
 	echo "libraries = openblas"                      >> $(PKG_BUILD_DIR)/site.cfg
-	echo "runtime_library_dirs = /usr/lib"           >> $(PKG_BUILD_DIR)/site.cfg
+	echo "library_dirs = $(STAGING_DIR)/usr/lib"     >> $(PKG_BUILD_DIR)/site.cfg
+	echo "include_dirs = $(STAGING_DIR)/usr/include" >> $(PKG_BUILD_DIR)/site.cfg
 endef
 
 define Build/Prepare
