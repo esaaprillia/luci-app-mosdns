@@ -26,7 +26,7 @@ define Package/python3-bluepy
   CATEGORY:=Languages
   TITLE:=Python module for interfacing with BLE devices through Bluez
   URL:=https://github.com/IanHarvey/bluepy
-  DEPENDS:=+python3 +glib2
+  DEPENDS:=+python3 +glib2 +bluez-libs
 endef
 
 define Package/python3-bluepy/description
