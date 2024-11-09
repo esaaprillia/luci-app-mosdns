@@ -47,4 +47,3 @@ endef
 $(eval $(call Py3Package,python3-bluepy))
 $(eval $(call BuildPackage,python3-bluepy))
 $(eval $(call BuildPackage,python3-bluepy-src))
-$(eval $(call HostBuild))
