@@ -14,7 +14,7 @@ PKG_LICENSE_FILES:=COPYING
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/bluez-$(PKG_VERSION)
 
-PKG_BUILD_DEPENDS:=python-setuptools-scm/host 2to3/host
+PKG_BUILD_DEPENDS:=python-setuptools-scm/host
 
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
