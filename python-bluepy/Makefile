@@ -11,14 +11,11 @@ PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
 PKG_LICENSE:=License
 PKG_LICENSE_FILES:=LICENSE.txt
 
-HOST_BUILD_DEPENDS:=python-setuptools-scm/host
 PKG_BUILD_DEPENDS:=python-setuptools-scm/host
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
-include $(INCLUDE_DIR)/host-build.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
-include $(TOPDIR)/feeds/packages/lang/python/python3-host-build.mk
 
 define Package/python3-bluepy
   SUBMENU:=Python
@@ -31,6 +28,20 @@ endef
 
 define Package/python3-bluepy/description
   This is a project to provide an API to allow access to Bluetooth Low Energy devices from Python. At present it runs on Linux only; I've mostly developed it using a Raspberry Pi, but it will also run on x86 Debian Linux.
+endef
+
+define Build/Compile
+	$(MAKE) -C $(PKG_BUILD_DIR)/bluepy \
+		LINUX="$(LINUX_DIR)" \
+		CC="$(TARGET_CC)" \
+		STAGING_DIR="$(STAGING_DIR)" \
+		LDFLAGS="$(TARGET_LDFLAGS)" \
+		CFLAGS="$(TARGET_CFLAGS)"
+	$(call Py3Build/Compile)
+endef
+
+define Build/Install
+	$(call Py3Build/Install)
 endef
 
 $(eval $(call Py3Package,python3-bluepy))
