@@ -5,7 +5,7 @@ PKG_VERSION:=0.23
 PKG_RELEASE:=1
 
 PKG_SOURCE:=bluez-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://github.com/pybluez/pybluez/archive/v$(PKG_VERSION)
+PKG_SOURCE_URL:=https://github.com/pybluez/pybluez/archive/$(PKG_VERSION)
 PKG_HASH:=skip
 
 PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
