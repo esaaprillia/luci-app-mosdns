@@ -13,7 +13,6 @@ PKG_MAINTAINER:=Gerald Kerma <gandalf@gk2.net>,Jeffery To <jeffery.to@gmail.com>
 PKG_LICENSE:=PSF-2.0
 PKG_LICENSE_FILES:=copyright
 
-PKG_HOST_ONLY:=1
 HOST_BUILD_DEPENDS:=python3/host
 
 include $(INCLUDE_DIR)/host-build.mk
@@ -25,7 +24,6 @@ define Package/2to3
   CATEGORY:=Languages
   TITLE:=2to3 binary using python3
   URL:=https://salsa.debian.org/cpython-team/python3-defaults
-  BUILDONLY:=1
 endef
 
 define Package/2to3/description
