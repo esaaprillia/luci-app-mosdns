@@ -31,13 +31,13 @@ define Package/python3-bluepy/description
 endef
 
 define Build/Compile
+	$(call Py3Build/Compile)
 	$(MAKE) -C $(PKG_BUILD_DIR)/bluepy \
 		LINUX="$(LINUX_DIR)" \
 		CC="$(TARGET_CC)" \
 		STAGING_DIR="$(STAGING_DIR)" \
 		LDFLAGS="$(TARGET_LDFLAGS)" \
 		CFLAGS="$(TARGET_CFLAGS)"
-	$(call Py3Build/Compile)
 endef
 
 define Build/Install
