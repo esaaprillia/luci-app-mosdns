@@ -8,8 +8,8 @@ PYPI_NAME:=PyBluez
 PKG_HASH:=c8f04d2e78951eaa9de486b4d49381704e8943d0a6e6e58f55fcd7b8582e90de
 
 PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
-PKG_LICENSE:=BSD-3-Clause
-PKG_LICENSE_FILES:=LICENSE
+PKG_LICENSE:=GPL-2.0
+PKG_LICENSE_FILES:=COPYING
 
 HOST_BUILD_DEPENDS:=python-setuptools-scm/host
 PKG_BUILD_DEPENDS:=python-setuptools-scm/host
