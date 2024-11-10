@@ -5,7 +5,7 @@ PKG_VERSION:=1.1.12
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://github.com/rustdesk/rustdesk-server/archive/$(PKG_VERSION)?
+PKG_SOURCE_URL:=https://github.com/rustdesk/rustdesk-server/archive/$(PKG_VERSION)
 PKG_HASH:=skip
 
 PKG_MAINTAINER:=Andy Syam <privasisource@gmail.com>
