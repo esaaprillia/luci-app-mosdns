@@ -15,16 +15,18 @@ PKG_LICENSE_FILES:=LICENSE
 CMAKE_BINARY_SUBDIR := build
 
 PKG_BUILD_PARALLEL:=1
-PKG_BUILD_DEPENDS:=protobuf/host googletest
+PKG_BUILD_DEPENDS:=protobuf/host golang/host googletest perl
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
+include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk
+include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
 
 define Package/android-tools
 	SECTION:=libs
 	CATEGORY:=Libraries
 	TITLE:=Unoffical CMake-based build system for android command line utilities
-	DEPENDS:=+protobuf +brotli +libpcre2 +libzstd +liblz4 +libfmt
+	DEPENDS:=+protobuf +brotli +libpcre2 +libzstd +liblz4 +libfmt +python3
 	URL:=https://github.com/nmeum/android-tools
 endef
 
