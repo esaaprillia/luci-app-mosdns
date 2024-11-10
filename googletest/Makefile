@@ -24,7 +24,7 @@ define Package/googletest
 	SECTION:=libs
 	CATEGORY:=Libraries
 	TITLE:=GoogleTest - Google Testing and Mocking Framework
-	DEPENDS:=
+	DEPENDS:=+libstdcpp
 	URL:=https://github.com/google/googletest
 endef
 
