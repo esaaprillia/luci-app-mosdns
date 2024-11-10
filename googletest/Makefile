@@ -33,6 +33,7 @@ define Package/googletest/description
 endef
 
 CMAKE_OPTIONS += \
+	-DBUILD_SHARED_LIBS=ON \
 	-Dgtest_build_tests=ON \
 	-DBUILD_GMOCK=ON
 
