@@ -53,16 +53,11 @@ endef
 
 define Package/googletest/install
 	$(INSTALL_DIR) \
-	  $(1)/usr/lib \
-	  $(1)/usr/src
+	  $(1)/usr/lib
 	
 	$(CP) \
 	  $(PKG_INSTALL_DIR)/usr/lib/*.so* \
 	  $(1)/usr/lib/
-
-	$(CP) \
-	  $(PKG_INSTALL_DIR)/usr/src/{gmock,googletest} \
-	  $(1)/usr/src/
 endef
 
 $(eval $(call BuildPackage,googletest))
