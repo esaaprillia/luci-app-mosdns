@@ -32,6 +32,12 @@ define Package/android-tools/description
 	Git repository to make it easier to package certain command line utilities provided by android-tools.
 endef
 
+define Build/Prepare
+	$(call Build/Prepare/Default)
+	$(RM) $(STAGING_DIR)/usr/bin/protoc*
+	$(CP) $(STAGING_DIR_HOSTPKG)/bin/protoc* $(STAGING_DIR)/usr/bin/
+endef
+
 CMAKE_OPTIONS += \
 	-DANDROID_TOOLS_USE_BUNDLED_LIBUSB=ON
 
