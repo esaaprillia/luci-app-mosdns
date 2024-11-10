@@ -1,51 +1,67 @@
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
-
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=2to3
-PKG_VERSION:=1.0
+PKG_NAME:=googletest
+PKG_VERSION:=1.15.2
 PKG_RELEASE:=1
 
-PKG_MAINTAINER:=Gerald Kerma <gandalf@gk2.net>,Jeffery To <jeffery.to@gmail.com>
-PKG_LICENSE:=PSF-2.0
-PKG_LICENSE_FILES:=copyright
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://github.com/google/googletest/releases/download/v$(PKG_VERSION)
+PKG_HASH:=skip
 
-PKG_HOST_ONLY:=1
-HOST_BUILD_DEPENDS:=python3/host
+PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
+PKG_LICENSE:=BSD-3-Clause
+PKG_LICENSE_FILES:=LICENSE
 
-include $(INCLUDE_DIR)/host-build.mk
+CMAKE_BINARY_SUBDIR := build
+
+PKG_BUILD_PARALLEL:=1
+PKG_INSTALL:=1
+
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/cmake.mk
 
-define Package/2to3
-  SUBMENU:=Python
-  SECTION:=lang
-  CATEGORY:=Languages
-  TITLE:=2to3 binary using python3
-  URL:=https://salsa.debian.org/cpython-team/python3-defaults
-  BUILDONLY:=1
+define Package/googletest
+	SECTION:=libs
+	CATEGORY:=Libraries
+	TITLE:=GoogleTest - Google Testing and Mocking Framework
+	DEPENDS:=
+	URL:=https://github.com/google/googletest
 endef
 
-define Package/2to3/description
-  2to3 is a Python program that reads Python 2.x source code and applies a
-  series of fixers to transform it into valid Python 3.x code. The standard
-  library contains a rich set of fixers that will handle almost all code. 2to3
-  supporting library lib2to3 is, however, a flexible and generic library, so it
-  is possible to write your own fixers for 2to3. lib2to3 could also be adapted
-  to custom applications in which Python code needs to be edited automatically.
+define Package/googletest/description
+	Google Test - C++ testing utility
 endef
 
-define Host/Install
-	$(INSTALL_DIR) $(1)/bin
-	$(INSTALL_BIN) ./files/2to3.py $(1)/bin/2to3
-	$(SED) '1c#!$(STAGING_DIR_HOSTPKG)/bin/python3' $(1)/bin/2to3
+CMAKE_OPTIONS += \
+	-Dgtest_build_tests=ON \
+	-DBUILD_GMOCK=ON
+
+define Build/InstallDev
+	$(INSTALL_DIR) \
+	  $(1)/usr/include \
+	  $(1)/usr/lib
+
+	$(CP) \
+	  $(PKG_INSTALL_DIR)/usr/include/{gmock,gtest} \
+	  $(1)/usr/include/
+
+	$(CP) \
+	  $(PKG_INSTALL_DIR)/usr/lib/{pkgconfig,*.so*,cmake} \
+	  $(1)/usr/lib/
 endef
 
-define Host/Clean
-	rm -f $(STAGING_DIR_HOSTPKG)/bin/2to3
+define Package/googletest/install
+	$(INSTALL_DIR) \
+	  $(1)/usr/lib \
+	  $(1)/usr/src
+	
+	$(CP) \
+	  $(PKG_INSTALL_DIR)/usr/lib/*.so* \
+	  $(1)/usr/lib/
+
+	$(CP) \
+	  $(PKG_INSTALL_DIR)/usr/src/{gmock,googletest} \
+	  $(1)/usr/src/
 endef
 
-$(eval $(call HostBuild))
-$(eval $(call BuildPackage,2to3))
+$(eval $(call BuildPackage,googletest))
