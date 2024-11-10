@@ -24,7 +24,7 @@ define Package/android-tools
 	SECTION:=libs
 	CATEGORY:=Libraries
 	TITLE:=Unoffical CMake-based build system for android command line utilities
-	DEPENDS:=+protobuf +brotli +libpcre2 +libzstd +liblz4
+	DEPENDS:=+protobuf +brotli +libpcre2 +libzstd +liblz4 +libfmt
 	URL:=https://github.com/nmeum/android-tools
 endef
 
