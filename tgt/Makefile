@@ -15,8 +15,6 @@ PKG_LICENSE_FILES:=LICENSE-APACHE LICENSE-MIT
 PKG_BUILD_DEPENDS:=rust/host
 PKG_BUILD_PARALLEL:=1
 
-RUST_PKG_FEATURES:=download-tdlib
-
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/rust/rust-package.mk
 
