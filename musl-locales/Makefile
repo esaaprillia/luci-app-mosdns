@@ -1,51 +1,56 @@
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
-
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=2to3
-PKG_VERSION:=1.0
+PKG_NAME:=musl-locales
+PKG_VERSION:=0.1.0
 PKG_RELEASE:=1
 
-PKG_MAINTAINER:=Gerald Kerma <gandalf@gk2.net>,Jeffery To <jeffery.to@gmail.com>
-PKG_LICENSE:=PSF-2.0
-PKG_LICENSE_FILES:=copyright
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://git.adelielinux.org/adelie/musl-locales/-/archive/$(PKG_VERSION)
+PKG_HASH:=skip
 
-PKG_HOST_ONLY:=1
-HOST_BUILD_DEPENDS:=python3/host
+PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
+PKG_LICENSE:=LGPL-3.0-only
+PKG_LICENSE_FILES:=LICENSE.MIT
 
-include $(INCLUDE_DIR)/host-build.mk
+CMAKE_BINARY_SUBDIR := build
+
+PKG_BUILD_PARALLEL:=1
+PKG_INSTALL:=1
+
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/cmake.mk
 
-define Package/2to3
-  SUBMENU:=Python
-  SECTION:=lang
-  CATEGORY:=Languages
-  TITLE:=2to3 binary using python3
-  URL:=https://salsa.debian.org/cpython-team/python3-defaults
-  BUILDONLY:=1
+define Package/musl-locales
+	SECTION:=libs
+	CATEGORY:=Libraries
+	TITLE:=Locales support for musl
+	DEPENDS:=+libintl-full
+	URL:=https://git.adelielinux.org/adelie/musl-locales/-/wikis/home
 endef
 
-define Package/2to3/description
-  2to3 is a Python program that reads Python 2.x source code and applies a
-  series of fixers to transform it into valid Python 3.x code. The standard
-  library contains a rich set of fixers that will handle almost all code. 2to3
-  supporting library lib2to3 is, however, a flexible and generic library, so it
-  is possible to write your own fixers for 2to3. lib2to3 could also be adapted
-  to custom applications in which Python code needs to be edited automatically.
+define Package/musl-locales/description
+	This repository contains code and translation files for better locale support for the musl libc.
+	The locale(1) command displays information about the currently set locale, or displays a list of locales available on the system.
+	The translation files provide localisation to musl, including libc-provided error messages, date and time strings, and so forth.
 endef
 
-define Host/Install
-	$(INSTALL_DIR) $(1)/bin
-	$(INSTALL_BIN) ./files/2to3.py $(1)/bin/2to3
-	$(SED) '1c#!$(STAGING_DIR_HOSTPKG)/bin/python3' $(1)/bin/2to3
+define Package/musl-locales/install
+	$(INSTALL_DIR) \
+	  $(1)/etc \
+	  $(1)/usr/bin \
+	  $(1)/usr/share
+	
+	$(CP) \
+	  $(PKG_INSTALL_DIR)/etc/profile.d \
+	  $(1)/etc/
+
+	$(CP) \
+	  $(PKG_INSTALL_DIR)/usr/bin/locale \
+	  $(1)/usr/bin/
+
+	$(CP) \
+	  $(PKG_INSTALL_DIR)/usr/share/{i18n,locale} \
+	  $(1)/usr/share/
 endef
 
-define Host/Clean
-	rm -f $(STAGING_DIR_HOSTPKG)/bin/2to3
-endef
-
-$(eval $(call HostBuild))
-$(eval $(call BuildPackage,2to3))
+$(eval $(call BuildPackage,musl-locales))
