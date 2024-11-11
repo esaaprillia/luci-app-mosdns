@@ -24,7 +24,7 @@ define Package/tgt
   SECTION:=net
   CATEGORY:=Network
   TITLE:=TUI for Telegram written in Rust
-  DEPENDS:=$(RUST_ARCH_DEPENDS)
+  DEPENDS:=$(RUST_ARCH_DEPENDS) +libopenssl
   URL:=https://github.com/FedericoBruzzone/tgt
 endef
 
