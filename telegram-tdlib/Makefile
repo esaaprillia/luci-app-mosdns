@@ -1,51 +1,74 @@
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
-
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=2to3
-PKG_VERSION:=1.0
+PKG_NAME:=telegram-tdlib
+PKG_VERSION:=1.8.39
 PKG_RELEASE:=1
 
-PKG_MAINTAINER:=Gerald Kerma <gandalf@gk2.net>,Jeffery To <jeffery.to@gmail.com>
-PKG_LICENSE:=PSF-2.0
-PKG_LICENSE_FILES:=copyright
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_URL:=https://github.com/tdlib/td.git
+PKG_SOURCE_VERSION:=056963e48fa8d3f89556239c22d6ac843d3c8a5b
+PKG_MIRROR_HASH:=skip
 
-PKG_HOST_ONLY:=1
-HOST_BUILD_DEPENDS:=python3/host
+PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
+PKG_LICENSE:=BSL-1.0 license
+PKG_LICENSE_FILES:=LICENSE_1_0.txt
+
+CMAKE_BINARY_SUBDIR := build
+
+HOST_BUILD_DEPENDS:=gperf/host
+PKG_BUILD_DEPENDS:=gperf/host telegram-tdlib/host
 
 include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/cmake.mk
 
-define Package/2to3
-  SUBMENU:=Python
-  SECTION:=lang
-  CATEGORY:=Languages
-  TITLE:=2to3 binary using python3
-  URL:=https://salsa.debian.org/cpython-team/python3-defaults
-  BUILDONLY:=1
+define Package/telegram-tdlib
+	SECTION:=libs
+	CATEGORY:=Libraries
+	TITLE:=Cross-platform library for building Telegram clients
+	DEPENDS:=+libstdcpp +zlib +libopenssl
+	URL:=https://github.com/tdlib/td
 endef
 
-define Package/2to3/description
-  2to3 is a Python program that reads Python 2.x source code and applies a
-  series of fixers to transform it into valid Python 3.x code. The standard
-  library contains a rich set of fixers that will handle almost all code. 2to3
-  supporting library lib2to3 is, however, a flexible and generic library, so it
-  is possible to write your own fixers for 2to3. lib2to3 could also be adapted
-  to custom applications in which Python code needs to be edited automatically.
+define Package/telegram-tdlib/description
+	TDLib (Telegram Database library) is a cross-platform library for building Telegram clients.
+	It can be easily used from almost any programming language.
 endef
 
-define Host/Install
-	$(INSTALL_DIR) $(1)/bin
-	$(INSTALL_BIN) ./files/2to3.py $(1)/bin/2to3
-	$(SED) '1c#!$(STAGING_DIR_HOSTPKG)/bin/python3' $(1)/bin/2to3
+define Build/Prepare
+	$(call Build/Prepare/Default)
+	$(CP) $(HOST_BUILD_DIR)/td/generate/auto/td $(PKG_BUILD_DIR)/
+	$(CP) $(HOST_BUILD_DIR)/td/generate/auto $(PKG_BUILD_DIR)/td/generate/
+	$(CP) $(HOST_BUILD_DIR)/tdutils/generate/auto $(PKG_BUILD_DIR)/tdutils/generate/
 endef
 
-define Host/Clean
-	rm -f $(STAGING_DIR_HOSTPKG)/bin/2to3
+CMAKE_OPTIONS += \
+	-DCMAKE_BUILD_TYPE=Release \
+	-DCMAKE_CROSSCOMPILING=ON \
+	-DBUILD_SHARED_LIBS=ON
+
+define Build/InstallDev
+	$(INSTALL_DIR) \
+	  $(1)/usr/include \
+	  $(1)/usr/lib
+
+	$(CP) \
+	  $(PKG_INSTALL_DIR)/usr/include/td \
+	  $(1)/usr/include/
+
+	$(CP) \
+	  $(PKG_INSTALL_DIR)/usr/lib/{pkgconfig,cmake,*.so*,*.a} \
+	  $(1)/usr/lib/
+endef
+
+define Package/telegram-tdlib/install
+	$(INSTALL_DIR) \
+	  $(1)/usr/lib
+
+	$(CP) \
+	  $(PKG_INSTALL_DIR)/usr/lib/*.so* \
+	  $(1)/usr/lib/
 endef
 
 $(eval $(call HostBuild))
-$(eval $(call BuildPackage,2to3))
+$(eval $(call BuildPackage,telegram-tdlib))
