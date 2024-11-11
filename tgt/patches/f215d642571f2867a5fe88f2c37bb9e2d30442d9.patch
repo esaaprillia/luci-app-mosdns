@@ -1,0 +1,47 @@
+From f215d642571f2867a5fe88f2c37bb9e2d30442d9 Mon Sep 17 00:00:00 2001
+From: esaaprillia <esaapriliasalsabila@gmail.com>
+Date: Tue, 12 Nov 2024 01:24:11 +0800
+Subject: [PATCH] Add files via upload
+
+---
+ Cargo.toml | 12 +++++-------
+ 1 file changed, 5 insertions(+), 7 deletions(-)
+
+diff --git a/Cargo.toml b/Cargo.toml
+index d41fbd6..fb260c8 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -30,12 +30,12 @@ categories = []
+ # targets = [ "wasm32-unknown-unknown", "thumbv2-none-eabi" ]
+ # profile = "minimal"
+ 
+-[features]
++# [features]
+ # By deafult you need to set the `LOCAL_TDLIB_PATH` environment variable to the path of the TDLib library. See CONTRIBUTING.md for more information.
+-default = ["download-tdlib"]
+-local-tdlib = ["tdlib-rs/local-tdlib"]
+-download-tdlib = ["tdlib-rs/download-tdlib"]
+-pkg-config = ["tdlib-rs/pkg-config"]
++# default = ["download-tdlib"]
++# local-tdlib = ["tdlib-rs/local-tdlib"]
++# download-tdlib = ["tdlib-rs/download-tdlib"]
++# pkg-config = ["tdlib-rs/pkg-config"]
+ 
+ [package.metadata.system-deps]
+ tdjson = "1.8.29"
+@@ -48,7 +48,6 @@ futures = "0.3.30"
+ lazy_static = "1.5.0"
+ ratatui = "0.27.0"
+ serde = "1.0.204"
+-tdlib-rs = "1.0.5"
+ tokio = { version = "1.39.2", features = ["full"] }
+ tracing = "0.1.40"
+ tracing-error = "0.2.0"
+@@ -65,7 +64,6 @@ clap = { version = "4.5.13", features = ["derive"] }
+ dirs = "5.0.1"
+ reqwest = { version = "0.12.4", features = ["blocking"] }
+ zip = { version = "2.1.6" }
+-tdlib-rs = "1.0.5"
+ 
+ [profile.dev]
+ 
