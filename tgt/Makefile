@@ -15,10 +15,10 @@ PKG_LICENSE_FILES:=LICENSE-APACHE LICENSE-MIT
 PKG_BUILD_DEPENDS:=rust/host
 PKG_BUILD_PARALLEL:=1
 
-RUST_PKG_FEATURES:=pkg-config
-
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/rust/rust-package.mk
+
+export LOCAL_TDLIB_PATH="$(STAGING_DIR)/usr/lib"
 
 define Package/tgt
   SECTION:=net
@@ -31,6 +31,9 @@ endef
 define Package/tgt/description
   tgt is a terminal user interface for Telegram, written in Rust.
 endef
+
+CARGO_PKG_VARS += \
+	LOCAL_TDLIB_PATH="$(STAGING_DIR)/usr/lib"
 
 $(eval $(call RustBinPackage,tgt))
 $(eval $(call BuildPackage,tgt))
