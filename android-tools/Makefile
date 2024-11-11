@@ -14,6 +14,7 @@ PKG_LICENSE_FILES:=LICENSE
 
 CMAKE_BINARY_SUBDIR := build
 
+PYTHON3_PKG_BUILD:=0
 PKG_BUILD_PARALLEL:=1
 PKG_BUILD_DEPENDS:=protobuf/host golang/host googletest perl
 
