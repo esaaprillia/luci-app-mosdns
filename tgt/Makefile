@@ -17,14 +17,8 @@ PKG_BUILD_PARALLEL:=1
 
 RUST_PKG_FEATURES:=pkg-config
 
-export PKG_CONFIG_PATH="$(STAGING_DIR)/usr/lib/pkgconfig"
-export LD_LIBRARY_PATH="$(STAGING_DIR)/usr/lib"
-
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/rust/rust-package.mk
-
-export PKG_CONFIG_PATH="$(STAGING_DIR)/usr/lib/pkgconfig"
-export LD_LIBRARY_PATH="$(STAGING_DIR)/usr/lib"
 
 define Package/tgt
   SECTION:=net
@@ -38,11 +32,7 @@ define Package/tgt/description
   tgt is a terminal user interface for Telegram, written in Rust.
 endef
 
-RUSTC_LDFLAGS+="-L$(STAGING_DIR)/usr/lib -ltdjson"
-
-CARGO_PKG_VARS += \
-	PKG_CONFIG_PATH="$(STAGING_DIR)/usr/lib/pkgconfig" \
-	LD_LIBRARY_PATH="$(STAGING_DIR)/usr/lib"
+RUSTC_LDFLAGS+= -C link-arg=-L$(STAGING_DIR)/usr/lib -C link-arg=-Wl,-rpath-link=$(STAGING_DIR)/usr/lib
 
 $(eval $(call RustBinPackage,tgt))
 $(eval $(call BuildPackage,tgt))
