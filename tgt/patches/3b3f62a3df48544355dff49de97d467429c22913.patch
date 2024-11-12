@@ -1,0 +1,26 @@
+From 3b3f62a3df48544355dff49de97d467429c22913 Mon Sep 17 00:00:00 2001
+From: esaaprillia <esaapriliasalsabila@gmail.com>
+Date: Tue, 12 Nov 2024 16:11:19 +0800
+Subject: [PATCH] Update Cargo.toml
+
+---
+ Cargo.toml | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/Cargo.toml b/Cargo.toml
+index d41fbd6..03a5922 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -32,9 +32,9 @@ categories = []
+ 
+ [features]
+ # By deafult you need to set the `LOCAL_TDLIB_PATH` environment variable to the path of the TDLib library. See CONTRIBUTING.md for more information.
+-default = ["download-tdlib"]
+-local-tdlib = ["tdlib-rs/local-tdlib"]
+-download-tdlib = ["tdlib-rs/download-tdlib"]
++# default = ["download-tdlib"]
++# local-tdlib = ["tdlib-rs/local-tdlib"]
++# download-tdlib = ["tdlib-rs/download-tdlib"]
+ pkg-config = ["tdlib-rs/pkg-config"]
+ 
+ [package.metadata.system-deps]
