@@ -17,6 +17,10 @@ PKG_BUILD_PARALLEL:=1
 
 RUST_PKG_FEATURES:=local-tdlib
 
+export PKG_CONFIG_PATH="$(STAGING_DIR)/usr/lib/pkgconfig"
+export LOCAL_TDLIB_PATH="$(STAGING_DIR)/usr"
+export LD_LIBRARY_PATH="$(STAGING_DIR)/usr/lib"
+
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/rust/rust-package.mk
 
