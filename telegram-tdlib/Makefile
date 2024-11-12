@@ -1,12 +1,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=telegram-tdlib
-PKG_VERSION:=1.8.39
+PKG_VERSION:=1.8.29
 PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/tdlib/td.git
-PKG_SOURCE_VERSION:=056963e48fa8d3f89556239c22d6ac843d3c8a5b
+PKG_SOURCE_VERSION:=af69dd4397b6dc1bf23ba0fd0bf429fcba6454f6
 PKG_MIRROR_HASH:=skip
 
 PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
