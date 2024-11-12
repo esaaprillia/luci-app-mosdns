@@ -17,14 +17,14 @@ PKG_BUILD_PARALLEL:=1
 
 RUST_PKG_FEATURES:=pkg-config
 
-export PKG_CONFIG_PATH="$(STAGING_DIR)/usr/lib/pkgconfig:$PKG_CONFIG_PATH"
-export LD_LIBRARY_PATH="$(STAGING_DIR)/usr/lib:$LD_LIBRARY_PATH"
+export PKG_CONFIG_PATH="$(STAGING_DIR)/usr/lib/pkgconfig"
+export LD_LIBRARY_PATH="$(STAGING_DIR)/usr/lib"
 
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/rust/rust-package.mk
 
-export PKG_CONFIG_PATH="$(STAGING_DIR)/usr/lib/pkgconfig:$PKG_CONFIG_PATH"
-export LD_LIBRARY_PATH="$(STAGING_DIR)/usr/lib:$LD_LIBRARY_PATH"
+export PKG_CONFIG_PATH="$(STAGING_DIR)/usr/lib/pkgconfig"
+export LD_LIBRARY_PATH="$(STAGING_DIR)/usr/lib"
 
 define Package/tgt
   SECTION:=net
@@ -41,8 +41,8 @@ endef
 RUSTC_LDFLAGS+="-L$(STAGING_DIR)/usr/lib -ltdjson"
 
 CARGO_PKG_VARS += \
-	PKG_CONFIG_PATH="$(STAGING_DIR)/usr/lib/pkgconfig:$PKG_CONFIG_PATH" \
-	LD_LIBRARY_PATH="$(STAGING_DIR)/usr/lib:$LD_LIBRARY_PATH" \
+	PKG_CONFIG_PATH="$(STAGING_DIR)/usr/lib/pkgconfig" \
+	LD_LIBRARY_PATH="$(STAGING_DIR)/usr/lib" \
 	RUSTC_LDFLAGS="-L$(STAGING_DIR)/usr/lib -ltdjson"
 
 $(eval $(call RustBinPackage,tgt))
