@@ -17,12 +17,14 @@ PKG_BUILD_PARALLEL:=1
 
 RUST_PKG_FEATURES:=pkg-config
 
-export PKG_CONFIG_PATH="$(STAGING_DIR)/usr/lib/pkgconfig"
+export PKG_CONFIG_PATH="$(STAGING_DIR)/usr/lib/pkgconfig:$PKG_CONFIG_PATH"
+export LD_LIBRARY_PATH="$(STAGING_DIR)/usr/lib:$LD_LIBRARY_PATH"
 
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/rust/rust-package.mk
 
-export PKG_CONFIG_PATH="$(STAGING_DIR)/usr/lib/pkgconfig"
+export PKG_CONFIG_PATH="$(STAGING_DIR)/usr/lib/pkgconfig:$PKG_CONFIG_PATH"
+export LD_LIBRARY_PATH="$(STAGING_DIR)/usr/lib:$LD_LIBRARY_PATH"
 
 define Package/tgt
   SECTION:=net
@@ -37,7 +39,8 @@ define Package/tgt/description
 endef
 
 CARGO_PKG_VARS += \
-	PKG_CONFIG_PATH="$(STAGING_DIR)/usr/lib/pkgconfig"
+	PKG_CONFIG_PATH="$(STAGING_DIR)/usr/lib/pkgconfig:$PKG_CONFIG_PATH" \
+	LD_LIBRARY_PATH="$(STAGING_DIR)/usr/lib:$LD_LIBRARY_PATH"
 
 $(eval $(call RustBinPackage,tgt))
 $(eval $(call BuildPackage,tgt))
