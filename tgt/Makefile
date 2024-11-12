@@ -42,8 +42,7 @@ RUSTC_LDFLAGS+="-L$(STAGING_DIR)/usr/lib -ltdjson"
 
 CARGO_PKG_VARS += \
 	PKG_CONFIG_PATH="$(STAGING_DIR)/usr/lib/pkgconfig" \
-	LD_LIBRARY_PATH="$(STAGING_DIR)/usr/lib" \
-	RUSTC_LDFLAGS="-L$(STAGING_DIR)/usr/lib -ltdjson"
+	LD_LIBRARY_PATH="$(STAGING_DIR)/usr/lib"
 
 $(eval $(call RustBinPackage,tgt))
 $(eval $(call BuildPackage,tgt))
