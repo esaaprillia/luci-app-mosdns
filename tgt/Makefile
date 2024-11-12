@@ -15,14 +15,14 @@ PKG_LICENSE_FILES:=LICENSE-APACHE LICENSE-MIT
 PKG_BUILD_DEPENDS:=rust/host
 PKG_BUILD_PARALLEL:=1
 
-RUST_PKG_FEATURES:=local-tdlib
+RUST_PKG_FEATURES:=pkg-config
 
-export LOCAL_TDLIB_PATH="$(STAGING_DIR)/usr"
+export PKG_CONFIG_PATH="$(STAGING_DIR)/usr/lib/pkgconfig"
 
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/rust/rust-package.mk
 
-export LOCAL_TDLIB_PATH="$(STAGING_DIR)/usr"
+export PKG_CONFIG_PATH="$(STAGING_DIR)/usr/lib/pkgconfig"
 
 define Package/tgt
   SECTION:=net
@@ -37,7 +37,7 @@ define Package/tgt/description
 endef
 
 CARGO_PKG_VARS += \
-	LOCAL_TDLIB_PATH="$(STAGING_DIR)/usr"
+	PKG_CONFIG_PATH="$(STAGING_DIR)/usr/lib/pkgconfig"
 
 $(eval $(call RustBinPackage,tgt))
 $(eval $(call BuildPackage,tgt))
