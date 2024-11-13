@@ -39,7 +39,8 @@ endef
 #RUSTFLAGS +="-C link-args=-Wl,-rpath=$(STAGING_DIR)/usr"
 #RUSTFLAGS += -C link-arg=-L$(STAGING_DIR)/usr/lib -C link-arg=-Wl,-rpath-link=$(STAGING_DIR)/usr/lib
 #RUSTUP_LDFLAGS += -C link-arg=-L$(STAGING_DIR)/usr/lib -C link-arg=-Wl,-rpath-link=$(STAGING_DIR)/usr/lib
-RUSTUP_LDFLAGS += -C link-args=-Wl,--unresolved-symbols=ignore-in-shared-libs
+#RUSTUP_LDFLAGS += -C link-args=-Wl,--unresolved-symbols=ignore-in-shared-libs
+RUSTFLAGS+= -L$(STAGING_DIR)/usr/lib -Wl,-rpath-link=$(STAGING_DIR)/usr/lib
 
 define Build/Compile
   cd $(PKG_BUILD_DIR) && \
