@@ -14,14 +14,11 @@ PKG_LICENSE_FILES:=LICENSE
 
 CMAKE_BINARY_SUBDIR := build
 
-PYTHON3_PKG_BUILD:=0
 PKG_BUILD_PARALLEL:=1
-PKG_BUILD_DEPENDS:=protobuf/host golang/host googletest perl
+PKG_BUILD_DEPENDS:=protobuf/host googletest
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
-include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk
-include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
 
 define Package/android-tools
 	SECTION:=libs
