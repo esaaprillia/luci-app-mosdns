@@ -50,7 +50,9 @@ CMAKE_OPTIONS += \
 define Build/InstallDev
 	$(INSTALL_DIR) \
 	  $(1)/usr/include \
-	  $(1)/usr/lib
+	  $(1)/usr/lib \
+	  $(1)/usr/tdlib/include \
+	  $(1)/usr/tdlib/lib
 
 	$(CP) \
 	  $(PKG_INSTALL_DIR)/usr/include/td \
@@ -59,6 +61,14 @@ define Build/InstallDev
 	$(CP) \
 	  $(PKG_INSTALL_DIR)/usr/lib/{pkgconfig,cmake,*.so*,*.a} \
 	  $(1)/usr/lib/
+
+	$(CP) \
+	  $(PKG_INSTALL_DIR)/usr/include/td \
+	  $(1)/usr/tdlib/include/
+
+	$(CP) \
+	  $(PKG_INSTALL_DIR)/usr/lib/{pkgconfig,cmake,*.so*,*.a} \
+	  $(1)/usr/tdlib/lib/
 endef
 
 define Package/telegram-tdlib/install
