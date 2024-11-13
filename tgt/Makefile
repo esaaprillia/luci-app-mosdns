@@ -17,8 +17,12 @@ PKG_BUILD_PARALLEL:=1
 
 RUST_PKG_FEATURES:=pkg-config
 
+export LOCAL_TDLIB_PATH="$(STAGING_DIR)/usr/tdlib"
+
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/mosdns/rustup/rust-values.mk
+
+export LOCAL_TDLIB_PATH="$(STAGING_DIR)/usr/tdlib"
 
 define Package/tgt
   SECTION:=net
@@ -32,10 +36,13 @@ define Package/tgt/description
   tgt is a terminal user interface for Telegram, written in Rust.
 endef
 
+CARGO_PKG_CONFIG_VARS += \
+	LOCAL_TDLIB_PATH="$(STAGING_DIR)/usr/tdlib"
+
 define Build/Compile
   cd $(PKG_BUILD_DIR) && \
   $(CARGO_PKG_CONFIG_VARS) \
-  $(CARGO) $(CARGO_PKG_CONFIG_ARGS) --no-default-features --features pkg-config
+  $(CARGO) $(CARGO_PKG_CONFIG_ARGS) --no-default-features --features local-tdlib
 endef
 
 define Package/tgt/install
