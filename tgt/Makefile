@@ -35,7 +35,7 @@ endef
 define Build/Compile
   cd $(PKG_BUILD_DIR) && \
   $(CARGO_PKG_CONFIG_VARS) \
-  $(CARGO) $(CARGO_PKG_CONFIG_ARGS) --no-default-features --features local-tdlib
+  $(CARGO) $(CARGO_PKG_CONFIG_ARGS) --no-default-features --features pkg-config
 endef
 
 define Package/tgt/install
