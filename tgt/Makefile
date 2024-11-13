@@ -36,13 +36,13 @@ define Package/tgt/description
   tgt is a terminal user interface for Telegram, written in Rust.
 endef
 
-CARGO_PKG_CONFIG_VARS += \
-	LOCAL_TDLIB_PATH="$(STAGING_DIR)/usr/tdlib"
+RUSTFLAGS += -C link-arg=-L$(STAGING_DIR)/usr/lib -C link-arg=-Wl,-rpath-link=$(STAGING_DIR)/usr/lib
+RUSTUP_LDFLAGS += -C link-arg=-L$(STAGING_DIR)/usr/lib -C link-arg=-Wl,-rpath-link=$(STAGING_DIR)/usr/lib
 
 define Build/Compile
   cd $(PKG_BUILD_DIR) && \
   $(CARGO_PKG_CONFIG_VARS) \
-  $(CARGO) $(CARGO_PKG_CONFIG_ARGS) --no-default-features --features local-tdlib
+  $(CARGO) $(CARGO_PKG_CONFIG_ARGS) --no-default-features
 endef
 
 define Package/tgt/install
