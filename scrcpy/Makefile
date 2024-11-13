@@ -21,7 +21,7 @@ define Package/scrcpy
 	SECTION:=libs
 	CATEGORY:=Libraries
 	TITLE:=Display and control your Android device
-	DEPENDS:=+android-tools +ffmpeg +libusb-compat
+	DEPENDS:=+android-tools +ffmpeg +libusb-compat +sdl2
 	URL:=https://github.com/Genymobile/scrcpy
 endef
 
