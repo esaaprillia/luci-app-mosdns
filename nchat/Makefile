@@ -33,19 +33,6 @@ define Package/nchat/description
 	nchat is a terminal-based chat client for Linux and macOS with support for Telegram and WhatsApp.
 endef
 
-define Build/Prepare
-	$(call Build/Prepare/Default)
-	$(CP) \
-	  ./files/lib/tgchat/ext/td/td/generate/auto/td \
-	  $(PKG_BUILD_DIR)/lib/tgchat/ext/td/
-	$(CP) \
-	  ./files/lib/tgchat/ext/td/td/generate/auto \
-	  $(PKG_BUILD_DIR)/lib/tgchat/ext/td/td/generate/
-	$(CP) \
-	  ./files/lib/tgchat/ext/td/tdutils/generate/auto \
-	  $(PKG_BUILD_DIR)/lib/tgchat/ext/td/tdutils/generate/
-endef
-
 CMAKE_OPTIONS += \
 	-DHAS_DUMMY=ON \
 	-DHAS_TELEGRAM=OFF \
