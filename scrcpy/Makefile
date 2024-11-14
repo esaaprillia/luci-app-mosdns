@@ -31,6 +31,10 @@ define Package/scrcpy/description
 	It does not require any root access. It works on Linux, Windows and macOS.
 endef
 
+MESON_ARGS += \
+	-Dcompile_server=false \
+	-Dprebuilt_server=/usr/share/scrcpy/scrcpy-server-v$(PKG_VERSION)
+
 define Package/scrcpy/install
 	$(INSTALL_DIR) \
 	  $(1)/usr/bin \
