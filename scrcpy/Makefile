@@ -45,7 +45,7 @@ define Package/scrcpy/install
 	  $(1)/usr/bin/
 	
 	$(CP) \
-	  $(PKG_INSTALL_DIR)/usr/share/{applications,bash-completion,icons,scrcpy,zsh} \
+	  $(PKG_INSTALL_DIR)/usr/share/{applications,bash-completion,icons,zsh} \
 	  $(1)/usr/share/
 endef
 
