@@ -22,7 +22,7 @@ PKG_LICENSE_FILES:=LICENSE
 HOST_BUILD_DIR:=$(BUILD_DIR_HOST)/perl/Crypt-SSLeay-$(PKG_VERSION)
 HOST_BUILD_DEPENDS:=perl/host
 PKG_BUILD_DIR:=$(BUILD_DIR)/perl/Crypt-SSLeay-$(PKG_VERSION)
-PKG_BUILD_DEPENDS:=perl/host
+PKG_BUILD_DEPENDS:=perl/host perl-path-class/host
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/host-build.mk
@@ -34,7 +34,7 @@ define Package/perl-crypt-ssleay
   CATEGORY:=Languages
   TITLE:=Perl Crypt-SSLeay
   URL:=https://metacpan.org/dist/Crypt-SSLeay
-  DEPENDS:=perl +perl-lwp-protocol-https +libopenssl
+  DEPENDS:=perl +perl-lwp-protocol-https +perl-path-class +libopenssl
 endef
 
 define Host/Configure
