@@ -8,7 +8,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=perl-package-stash
-PKG_VERSION:=0.11
+PKG_VERSION:=0.40
 PKG_RELEASE:=1
 
 PKG_SOURCE:=Package-Stash-$(PKG_VERSION).tar.gz
