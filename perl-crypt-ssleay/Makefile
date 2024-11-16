@@ -34,7 +34,7 @@ define Package/perl-crypt-ssleay
   CATEGORY:=Languages
   TITLE:=Perl Crypt-SSLeay
   URL:=https://metacpan.org/dist/Crypt-SSLeay
-  DEPENDS:=perl +perl-lwp-protocol-https +perl-path-class +libopenssl
+  DEPENDS:=perl +perl-lwp-protocol-https +perl-path-class +perl-try-tiny +libopenssl
 endef
 
 define Host/Configure
