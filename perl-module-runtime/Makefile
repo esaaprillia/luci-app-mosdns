@@ -33,7 +33,7 @@ define Package/perl-module-runtime
   CATEGORY:=Languages
   TITLE:=Perl Module Runtime
   URL:=https://metacpan.org/dist/Module-Runtime
-  DEPENDS:=perl +perl-module-build
+  DEPENDS:=perl +perlbase-base
 endef
 
 define Host/Configure
