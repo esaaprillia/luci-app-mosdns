@@ -7,34 +7,34 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=perl-lwp-mediatypes
-PKG_VERSION:=6.04
+PKG_NAME:=perl-http-negotiate
+PKG_VERSION:=6.01
 PKG_RELEASE:=1
 
-PKG_SOURCE:=LWP-MediaTypes-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://cpan.metacpan.org/authors/id/O/OA/OALDERS/
+PKG_SOURCE:=HTTP-Negotiate-$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://cpan.metacpan.org/authors/id/G/GA/GAAS/
 PKG_HASH:=skip
 
 PKG_MAINTAINER:=Marcel Denia <naoir@gmx.net>
 PKG_LICENSE:=GPL-1.0-or-later Artistic-1.0-Perl
-PKG_LICENSE_FILES:=LICENSE
+PKG_LICENSE_FILES:=
 
-HOST_BUILD_DIR:=$(BUILD_DIR_HOST)/perl/LWP-MediaTypes-$(PKG_VERSION)
+HOST_BUILD_DIR:=$(BUILD_DIR_HOST)/perl/HTTP-Negotiate-$(PKG_VERSION)
 HOST_BUILD_DEPENDS:=perl/host
-PKG_BUILD_DIR:=$(BUILD_DIR)/perl/LWP-MediaTypes-$(PKG_VERSION)
+PKG_BUILD_DIR:=$(BUILD_DIR)/perl/HTTP-Negotiate-$(PKG_VERSION)
 PKG_BUILD_DEPENDS:=perl/host
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/host-build.mk
 include $(TOPDIR)/feeds/packages/lang/perl/perlmod.mk
 
-define Package/perl-lwp-mediatypes
+define Package/perl-http-negotiate
   SUBMENU:=Perl
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Perl LWP-MediaTypes
-  URL:=https://metacpan.org/dist/LWP-MediaTypes
-  DEPENDS:=perl +perlbase-base
+  TITLE:=Perl HTTP-Negotiate
+  URL:=https://metacpan.org/dist/HTTP-Negotiate
+  DEPENDS:=perl +perlbase-base +perl-http-message
 endef
 
 define Host/Configure
@@ -57,9 +57,9 @@ define Build/Compile
 	$(call perlmod/Compile,,)
 endef
 
-define Package/perl-lwp-mediatypes/install
-	$(call perlmod/Install,$(1),LWP)
+define Package/perl-http-negotiate/install
+	$(call perlmod/Install,$(1),HTTP)
 endef
 
-$(eval $(call BuildPackage,perl-lwp-mediatypes))
+$(eval $(call BuildPackage,perl-http-negotiate))
 $(eval $(call HostBuild))
