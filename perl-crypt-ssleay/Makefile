@@ -22,7 +22,7 @@ PKG_LICENSE_FILES:=LICENSE
 HOST_BUILD_DIR:=$(BUILD_DIR_HOST)/perl/Crypt-SSLeay-$(PKG_VERSION)
 HOST_BUILD_DEPENDS:=perl/host
 PKG_BUILD_DIR:=$(BUILD_DIR)/perl/Crypt-SSLeay-$(PKG_VERSION)
-PKG_BUILD_DEPENDS:=perl/host perl-path-class/host
+PKG_BUILD_DEPENDS:=perl/host perl-path-class/host perl-try-tiny/host
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/host-build.mk
