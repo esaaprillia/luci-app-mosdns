@@ -12,7 +12,7 @@ PKG_VERSION:=0.11
 PKG_RELEASE:=1
 
 PKG_SOURCE:=Package-Stash-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://cpan.metacpan.org/authors/id/D/DO/DOY/
+PKG_SOURCE_URL:=https://cpan.metacpan.org/authors/id/E/ET/ETHER/
 PKG_HASH:=skip
 
 PKG_MAINTAINER:=Marcel Denia <naoir@gmx.net>
