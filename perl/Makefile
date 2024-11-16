@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 include perlver.mk
 
 PKG_NAME:=perl
-PKG_VERSION:=5.40.0
+PKG_VERSION:=$(PERL_VERSION)
 PKG_RELEASE:=3
 
 PKG_SOURCE_URL:=https://www.cpan.org/src/5.0
