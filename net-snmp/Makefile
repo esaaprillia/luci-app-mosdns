@@ -243,7 +243,6 @@ define Build/Compile
 		PERL5LIB=$(PERL_LIB) $(MAKE) -C $(PKG_BUILD_DIR)/perl/SNMP
 		PERL5LIB=$(PERL_LIB) $(MAKE) -C $(PKG_BUILD_DIR)/perl/TrapReceiver
 		PERL5LIB=$(PERL_LIB) $(MAKE) -C $(PKG_BUILD_DIR)/perl
-		all install
 endef
 
 define Build/InstallDev
