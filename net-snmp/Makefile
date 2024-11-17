@@ -235,7 +235,8 @@ endif
 define Build/Compile
 	$(MAKE) -C $(PKG_BUILD_DIR) \
 		INSTALL_PREFIX="$(PKG_INSTALL_DIR)" \
-		LDFLAGS="$(TARGET_LDFLAGS) -lm -lc"
+		LDFLAGS="$(TARGET_LDFLAGS) -lm -lc" \
+		all install
 	$(call perlmod/Configure,,,$(PKG_BUILD_DIR)/perl/default_store)
 	$(call perlmod/Configure,,,$(PKG_BUILD_DIR)/perl/ASN)
 	$(call perlmod/Configure,,,$(PKG_BUILD_DIR)/perl/OID)
@@ -249,7 +250,6 @@ define Build/Compile
 		PERL5LIB=$(PERL_LIB) $(MAKE) -C $(PKG_BUILD_DIR)/perl/SNMP
 		PERL5LIB=$(PERL_LIB) $(MAKE) -C $(PKG_BUILD_DIR)/perl/TrapReceiver
 		PERL5LIB=$(PERL_LIB) $(MAKE) -C $(PKG_BUILD_DIR)/perl
-		all install
 endef
 
 define Build/InstallDev
