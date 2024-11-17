@@ -235,7 +235,20 @@ endif
 define Build/Compile
 	$(MAKE) -C $(PKG_BUILD_DIR) \
 		INSTALL_PREFIX="$(PKG_INSTALL_DIR)" \
-		LDFLAGS="$(TARGET_LDFLAGS) -lm -lc" \
+		LDFLAGS="$(TARGET_LDFLAGS) -lm -lc"
+	$(call perlmod/Configure,,,$(PKG_BUILD_DIR)/perl/default_store)
+	$(call perlmod/Configure,,,$(PKG_BUILD_DIR)/perl/ASN)
+	$(call perlmod/Configure,,,$(PKG_BUILD_DIR)/perl/OID)
+	$(call perlmod/Configure,,,$(PKG_BUILD_DIR)/perl/agent)
+	$(call perlmod/Configure,,,$(PKG_BUILD_DIR)/perl/SNMP)
+	$(call perlmod/Configure,,,$(PKG_BUILD_DIR)/perl/TrapReceiver)
+		PERL5LIB=$(PERL_LIB) $(MAKE) -C $(PKG_BUILD_DIR)/perl/default_store
+		PERL5LIB=$(PERL_LIB) $(MAKE) -C $(PKG_BUILD_DIR)/perl/ASN
+		PERL5LIB=$(PERL_LIB) $(MAKE) -C $(PKG_BUILD_DIR)/perl/OID
+		PERL5LIB=$(PERL_LIB) $(MAKE) -C $(PKG_BUILD_DIR)/perl/agent
+		PERL5LIB=$(PERL_LIB) $(MAKE) -C $(PKG_BUILD_DIR)/perl/SNMP
+		PERL5LIB=$(PERL_LIB) $(MAKE) -C $(PKG_BUILD_DIR)/perl/TrapReceiver
+		PERL5LIB=$(PERL_LIB) $(MAKE) -C $(PKG_BUILD_DIR)/perl
 		all install
 endef
 
