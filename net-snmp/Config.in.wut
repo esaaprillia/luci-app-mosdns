@@ -8,7 +8,7 @@ config SNMP_WITH_PERL_EMBEDDED
 
 config SNMP_WITH_PERL_MODULES
 	bool
-	default n
+	default y
 	prompt "Install perl modules"
 
 endmenu
