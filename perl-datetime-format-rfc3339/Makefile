@@ -11,7 +11,7 @@ PKG_NAME:=perl-datetime-format-rfc3339
 PKG_VERSION:=1.8.0
 PKG_RELEASE:=1
 
-PKG_SOURCE:=DateTime-Format-RFC3339-$(PKG_VERSION).tar.gz
+PKG_SOURCE:=DateTime-Format-RFC3339-v$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://cpan.metacpan.org/authors/id/I/IK/IKEGAMI/
 PKG_HASH:=skip
 
@@ -19,9 +19,9 @@ PKG_MAINTAINER:=Marcel Denia <naoir@gmx.net>
 PKG_LICENSE:=GPL-1.0-or-later Artistic-1.0-Perl
 PKG_LICENSE_FILES:=LICENCE
 
-HOST_BUILD_DIR:=$(BUILD_DIR_HOST)/perl/DateTime-Format-RFC3339-$(PKG_VERSION)
+HOST_BUILD_DIR:=$(BUILD_DIR_HOST)/perl/DateTime-Format-RFC3339-v$(PKG_VERSION)
 HOST_BUILD_DEPENDS:=perl/host
-PKG_BUILD_DIR:=$(BUILD_DIR)/perl/DateTime-Format-RFC3339-$(PKG_VERSION)
+PKG_BUILD_DIR:=$(BUILD_DIR)/perl/DateTime-Format-RFC3339-v$(PKG_VERSION)
 PKG_BUILD_DEPENDS:=perl/host
 
 include $(INCLUDE_DIR)/package.mk
