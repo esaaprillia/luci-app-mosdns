@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2014 - 2016 OpenWrt.org
+# Copyright (C) 2006-2017 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -7,59 +7,287 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=perl-digest-sha1
-PKG_VERSION:=2.13
-PKG_RELEASE:=1
+PKG_NAME:=net-snmp
+PKG_VERSION:=5.9.4
+PKG_RELEASE:=3
 
-PKG_SOURCE:=Digest-SHA1-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://cpan.metacpan.org/authors/id/G/GA/GAAS/
-PKG_HASH:=skip
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=@SF/net-snmp
+PKG_HASH:=8b4de01391e74e3c7014beb43961a2d6d6fa03acc34280b9585f4930745b0544
+PKG_MAINTAINER:=Stijn Tintel <stijn@linux-ipv6.be>
+PKG_LICENSE:=MIT BSD-3-Clause-Clear
+PKG_CPE_ID:=cpe:/a:net-snmp:net-snmp
 
-PKG_MAINTAINER:=Marcel Denia <naoir@gmx.net>
-PKG_LICENSE:=GPL-1.0-or-later Artistic-1.0-Perl
-
-HOST_BUILD_DIR:=$(BUILD_DIR_HOST)/perl/Digest-SHA1-$(PKG_VERSION)
-HOST_BUILD_DEPENDS:=perl/host
-PKG_BUILD_DIR:=$(BUILD_DIR)/perl/Digest-SHA1-$(PKG_VERSION)
-PKG_BUILD_DEPENDS:=perl/host
+PKG_FIXUP:=autoreconf
 
 include $(INCLUDE_DIR)/package.mk
-include $(INCLUDE_DIR)/host-build.mk
-include ../perl/perlmod.mk
 
-define Package/perl-digest-sha1
-  SUBMENU:=Perl
-  SECTION:=lang
-  CATEGORY:=Languages
-  TITLE:=Perl Digest SHA1
-  URL:=https://metacpan.org/dist/Digest-SHA1
-  DEPENDS:=perl +perlbase-essential
+define Package/net-snmp/Default
+  SECTION:=net
+  CATEGORY:=Network
+  URL:=http://www.net-snmp.org/
 endef
 
-define Host/Configure
-        $(call perlmod/host/Configure,,,)
+define Package/net-snmp/Default/description
+ Simple Network Management Protocol (SNMP) is a widely used protocol for
+ monitoring the health and welfare of network equipment (eg. routers),
+ computer equipment and even devices like UPSs. Net-SNMP is a suite of
+ applications used to implement SNMP v1, SNMP v2c and SNMP v3 using both
+ IPv4 and IPv6.
 endef
 
-define Host/Compile
-        $(call perlmod/host/Compile,,)
+
+define Package/libnetsnmp
+$(call Package/net-snmp/Default)
+  SECTION:=libs
+  CATEGORY:=Libraries
+  DEPENDS:=+libnl-tiny +libpci +libpcre2
+  TITLE:=Open source SNMP implementation (libraries)
 endef
 
-define Host/Install
-        $(call perlmod/host/Install,$(1),)
+define Package/libnetsnmp/description
+$(call Package/net-snmp/Default/description)
+ .
+ This package contains shared libraries, needed by other programs.
 endef
 
-define Build/Configure
-	$(call perlmod/Configure,,)
+
+define Package/snmp-mibs
+$(call Package/net-snmp/Default)
+  TITLE:=Open source SNMP implementation (MIB-files)
 endef
+
+define Package/snmp-mibs/description
+$(call Package/net-snmp/Default/description)
+ .
+ This package contains SNMP MIB-Files.
+endef
+
+
+define Package/snmp-utils
+$(call Package/net-snmp/Default)
+  DEPENDS:=+libnetsnmp
+  TITLE:=Open source SNMP implementation (utilities)
+endef
+
+define Package/snmp-utils/description
+$(call Package/net-snmp/Default/description)
+ .
+ This package contains SNMP client utilities:
+   - snmpget
+   - snmpset
+   - snmpstatus
+   - snmptest
+   - snmptrap
+   - snmpwalk
+endef
+
+
+define Package/snmpd
+$(call Package/net-snmp/Default)
+  DEPENDS:=+libnetsnmp
+  TITLE:=Open source SNMP implementation (daemon)
+endef
+
+define Package/snmpd/description
+$(call Package/net-snmp/Default/description)
+ .
+ This package contains the SNMP agent, dynamically linked.
+endef
+
+
+define Package/snmpd-static
+$(call Package/net-snmp/Default)
+  DEPENDS:=+snmpd
+  TITLE:=Open source SNMP implementation (daemon)
+  BUILDONLY:=1
+endef
+
+
+define Package/snmptrapd
+$(call Package/net-snmp/Default)
+  DEPENDS:=+libnetsnmp
+  TITLE:=Open source SNMP implementation (notification receiver)
+endef
+
+define Package/snmptrapd/description
+$(call Package/net-snmp/Default/description)
+ .
+ This package contains the SNMP notification receiver.
+endef
+
+
+SNMP_MIB_MODULES_INCLUDED = \
+	agent/extend \
+	agentx \
+	host/hr_device \
+	host/hr_disk \
+	host/hr_filesys \
+	host/hr_network \
+	host/hr_partition \
+	host/hr_proc \
+	host/hr_storage \
+	host/hr_system \
+	ieee802dot11 \
+	if-mib/ifXTable \
+	ip-mib/ipAddressTable \
+	ip-mib/inetNetToMediaTable \
+	ip-forward-mib/inetCidrRouteTable \
+	ip-forward-mib/ipCidrRouteTable \
+	mibII/at \
+	mibII/icmp \
+	mibII/ifTable \
+	mibII/ip \
+	mibII/snmp_mib \
+	mibII/sysORTable \
+	mibII/system_mib \
+	mibII/tcp \
+	mibII/udp \
+	mibII/vacm_context \
+	mibII/vacm_vars \
+	snmpv3/snmpEngine \
+	snmpv3/snmpMPDStats \
+	snmpv3/usmConf \
+	snmpv3/usmStats \
+	snmpv3/usmUser \
+	tunnel \
+	ucd-snmp/disk_hw \
+	ucd-snmp/dlmod \
+	ucd-snmp/extensible \
+	ucd-snmp/loadave \
+	ucd-snmp/memory \
+	ucd-snmp/pass \
+	ucd-snmp/pass_persist \
+	ucd-snmp/proc \
+	ucd-snmp/vmstat \
+	util_funcs \
+	utilities/execute \
+
+SNMP_MIB_MODULES_EXCLUDED = \
+	agent_mibs \
+	disman/event \
+	disman/schedule \
+	hardware \
+	host \
+	if-mib \
+	ip-mib \
+	mibII \
+	notification \
+	notification-log-mib \
+	snmpv3mibs \
+	target \
+	tcp-mib \
+	ucd_snmp \
+	udp-mib \
+	utilities \
+
+SNMP_TRANSPORTS_INCLUDED = Callback UDP Unix
+
+SNMP_TRANSPORTS_EXCLUDED = TCP TCPIPv6
+
+TARGET_CFLAGS += $(FPIC)
+TARGET_CPPFLAGS += -I$(STAGING_DIR)/usr/include/libnl-tiny
+
+CONFIGURE_ARGS += \
+	--enable-mfd-rewrites \
+	--enable-shared \
+	--enable-static \
+	--with-endianness=$(if $(CONFIG_BIG_ENDIAN),big,little) \
+	--with-logfile=/var/log/snmpd.log \
+	--with-persistent-directory=/usr/lib/snmp/ \
+	--with-default-snmp-version=1 \
+	--with-sys-contact=root@localhost \
+	--with-sys-location=Unknown \
+	--enable-applications \
+	--disable-debugging \
+	--disable-manuals \
+	--disable-scripts \
+	--with-out-mib-modules="$(SNMP_MIB_MODULES_EXCLUDED)" \
+	--with-mib-modules="$(SNMP_MIB_MODULES_INCLUDED)" \
+	--with-out-transports="$(SNMP_TRANSPORTS_EXCLUDED)" \
+	--with-transports="$(SNMP_TRANSPORTS_INCLUDED)" \
+	--without-openssl \
+	--without-libwrap \
+	--without-mysql \
+	--without-rpm \
+	--without-zlib \
+	--with-pcre2-8 \
+	--with-nl \
+	 $(call autoconf_bool,CONFIG_IPV6,ipv6) \
+	--disable-perl-cc-checks \
+	--disable-embedded-perl \
+	--without-perl-modules
+
+CONFIGURE_VARS += \
+	ac_cv_header_netlink_netlink_h=yes \
+	netsnmp_cv_func_nl_connect_LIBS=-lnl-tiny \
+
+ifeq ($(CONFIG_IPV6),y)
+SNMP_TRANSPORTS_INCLUDED+= UDPIPv6
+endif
 
 define Build/Compile
-	$(call perlmod/Compile,,)
+	$(MAKE) -C $(PKG_BUILD_DIR) \
+		INSTALL_PREFIX="$(PKG_INSTALL_DIR)" \
+		LDFLAGS="$(TARGET_LDFLAGS) -lm -lc" \
+		all install
 endef
 
-define Package/perl-digest-sha1/install
-	$(call perlmod/Install,$(1),Digest auto/Digest)
+define Build/InstallDev
+	$(INSTALL_DIR) $(2)/bin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/net-snmp-config $(2)/bin/
+	$(SED) 's,=/usr,=$(STAGING_DIR)/usr,g' $(2)/bin/net-snmp-config
+	$(INSTALL_DIR) $(STAGING_DIR)/usr/bin
+	$(LN) $(STAGING_DIR)/host/bin/net-snmp-config $(STAGING_DIR)/usr/bin/
+
+	$(INSTALL_DIR) $(1)/usr/include
+	$(CP) $(PKG_INSTALL_DIR)/usr/include/net-snmp $(1)/usr/include/
+	$(INSTALL_DIR) $(1)/usr/lib
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnetsnmp{,agent,helpers,mibs}.{a,so*} $(1)/usr/lib/
 endef
 
+define Package/libnetsnmp/install
+	$(INSTALL_DIR) $(1)/usr/lib
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnetsnmp{,agent,helpers,mibs}.so.* $(1)/usr/lib/
+endef
 
-$(eval $(call BuildPackage,perl-digest-sha1))
-$(eval $(call HostBuild))
+define Package/snmp-mibs/install
+	$(INSTALL_DIR) $(1)/usr/share/snmp/mibs
+	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/usr/share/snmp/mibs/* $(1)/usr/share/snmp/mibs/
+endef
+
+define Package/snmp-utils/install
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/snmp{get,set,status,test,trap,walk} $(1)/usr/bin/
+endef
+
+define Package/snmpd/conffiles
+/etc/config/snmpd
+endef
+
+define Package/snmpd/install
+	$(INSTALL_DIR) $(1)/etc/config
+	$(INSTALL_DATA) ./files/snmpd.conf $(1)/etc/config/snmpd
+	$(INSTALL_DIR) $(1)/etc/snmp
+	$(LN) /var/run/snmpd.conf $(1)/etc/snmp/
+	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_BIN) ./files/snmpd.init $(1)/etc/init.d/snmpd
+	$(INSTALL_DIR) $(1)/usr/sbin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/snmpd $(1)/usr/sbin/snmpd
+endef
+
+define Package/snmptrapd/install
+	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_BIN) ./files/snmptrapd.init $(1)/etc/init.d/snmptrapd
+	$(INSTALL_DIR) $(1)/usr/lib
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libnetsnmptrapd.so.* $(1)/usr/lib/
+	$(INSTALL_DIR) $(1)/usr/sbin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/snmptrapd $(1)/usr/sbin/
+endef
+
+$(eval $(call BuildPackage,libnetsnmp))
+$(eval $(call BuildPackage,snmp-mibs))
+$(eval $(call BuildPackage,snmp-utils))
+$(eval $(call BuildPackage,snmpd))
+$(eval $(call BuildPackage,snmpd-static))
+$(eval $(call BuildPackage,snmptrapd))
