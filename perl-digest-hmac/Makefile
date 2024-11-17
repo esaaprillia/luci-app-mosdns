@@ -8,7 +8,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=perl-digest-hmac
-PKG_VERSION:=1.04
+PKG_VERSION:=1.05
 PKG_RELEASE:=1
 
 PKG_SOURCE:=Digest-HMAC-$(PKG_VERSION).tar.gz
@@ -25,7 +25,7 @@ PKG_BUILD_DEPENDS:=perl/host
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/host-build.mk
-include ../perl/perlmod.mk
+include $(TOPDIR)/feeds/mosdns/perl/perlmod.mk
 
 define Package/perl-digest-hmac
   SUBMENU:=Perl
@@ -59,7 +59,6 @@ endef
 define Package/perl-digest-hmac/install
 	$(call perlmod/Install,$(1),Digest auto/Digest)
 endef
-
 
 $(eval $(call BuildPackage,perl-digest-hmac))
 $(eval $(call HostBuild))
