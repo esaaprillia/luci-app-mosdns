@@ -21,6 +21,7 @@ PKG_CPE_ID:=cpe:/a:net-snmp:net-snmp
 PKG_FIXUP:=autoreconf
 
 include $(INCLUDE_DIR)/package.mk
+include $(TOPDIR)/feeds/mosdns/perl/perlmod.mk
 include $(TOPDIR)/feeds/mosdns/perl/perlver.mk
 
 define Package/net-snmp/Default
@@ -226,17 +227,29 @@ CONFIGURE_VARS += \
 	PERLPROG="$(STAGING_DIR_HOSTPKG)/usr/bin/perl$(PERL_VERSION)" \
 	CFLAGS="-D_LARGEFILE_SOURCE $(if $(CONFIG_USE_MUSL),-D_LARGEFILE64_SOURCE) -D_FILE_OFFSET_BITS=64 -D_REENTRANT -D_GNU_SOURCE -I$(STAGING_DIR)$(PERL_SITELIB)/CORE" \
 	LDFLAGS="-Wl,-rpath,$(PERL_SITELIB)/CORE -L$(STAGING_DIR)$(PERL_SITELIB)/CORE" \
-	PERL5LIB=$(PERL_LIB) \
 
 ifeq ($(CONFIG_IPV6),y)
 SNMP_TRANSPORTS_INCLUDED+= UDPIPv6
 endif
 
+define Build/Configure
+	$(call perlmod/Configure,,)
+	$(call perlmod/Configure,,,$(PKG_BUILD_DIR)/perl/default_store)
+	$(call perlmod/Configure,,,$(PKG_BUILD_DIR)/perl/ASN)
+	$(call perlmod/Configure,,,$(PKG_BUILD_DIR)/perl/OID)
+	$(call perlmod/Configure,,,$(PKG_BUILD_DIR)/perl/agent)
+	$(call perlmod/Configure,,,$(PKG_BUILD_DIR)/perl/SNMP)
+	$(call perlmod/Configure,,,$(PKG_BUILD_DIR)/perl/TrapReceiver)
+endef
+
 define Build/Compile
-	$(MAKE) -C $(PKG_BUILD_DIR) \
-		INSTALL_PREFIX="$(PKG_INSTALL_DIR)" \
-		LDFLAGS="$(TARGET_LDFLAGS) -lm -lc" \
-		all install
+	PERL5LIB=$(PERL_LIB) $(MAKE) -C $(PKG_BUILD_DIR)/perl/default_store
+	PERL5LIB=$(PERL_LIB) $(MAKE) -C $(PKG_BUILD_DIR)/perl/ASN
+	PERL5LIB=$(PERL_LIB) $(MAKE) -C $(PKG_BUILD_DIR)/perl/OID
+	PERL5LIB=$(PERL_LIB) $(MAKE) -C $(PKG_BUILD_DIR)/perl/agent
+	PERL5LIB=$(PERL_LIB) $(MAKE) -C $(PKG_BUILD_DIR)/perl/SNMP
+	PERL5LIB=$(PERL_LIB) $(MAKE) -C $(PKG_BUILD_DIR)/perl/TrapReceiver
+	PERL5LIB=$(PERL_LIB) $(MAKE) -C $(PKG_BUILD_DIR)/perl
 endef
 
 define Build/InstallDev
