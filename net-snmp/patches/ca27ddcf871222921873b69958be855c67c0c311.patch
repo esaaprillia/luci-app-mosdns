@@ -1,0 +1,20 @@
+From ca27ddcf871222921873b69958be855c67c0c311 Mon Sep 17 00:00:00 2001
+From: esaaprillia <esaapriliasalsabila@gmail.com>
+Date: Sun, 17 Nov 2024 19:14:54 +0800
+Subject: [PATCH] Update Makefile.PL
+
+---
+ perl/Makefile.PL | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/perl/Makefile.PL b/perl/Makefile.PL
+index 63e633389f..36e9f549b6 100644
+--- a/perl/Makefile.PL
++++ b/perl/Makefile.PL
+@@ -10,5 +10,5 @@ NetSNMPGetOpts();
+ 
+ WriteMakefile(
+     'NAME' => 'Bundle::NetSNMP',
+-    'DIR' => [qw(default_store ASN OID agent SNMP TrapReceiver)],
++    'DIR' => [],
+     );
