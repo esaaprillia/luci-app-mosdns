@@ -217,7 +217,7 @@ CONFIGURE_ARGS += \
 	--with-pcre2-8 \
 	--with-nl \
 	 $(call autoconf_bool,CONFIG_IPV6,ipv6) \
-	--with-perl-modules="INSTALLDIRS=$(PERL_SITELIB)" \
+	--with-perl-modules="INSTALLDIRS=$(PKG_INSTALL_DIR)" \
 	--disable-embedded-perl
 
 CONFIGURE_VARS += \
