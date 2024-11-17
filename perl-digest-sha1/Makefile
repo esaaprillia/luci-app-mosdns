@@ -25,7 +25,7 @@ PKG_BUILD_DEPENDS:=perl/host
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/host-build.mk
-include ../perl/perlmod.mk
+include $(TOPDIR)/feeds/mosdns/perl/perlmod.mk
 
 define Package/perl-digest-sha1
   SUBMENU:=Perl
@@ -59,7 +59,6 @@ endef
 define Package/perl-digest-sha1/install
 	$(call perlmod/Install,$(1),Digest auto/Digest)
 endef
-
 
 $(eval $(call BuildPackage,perl-digest-sha1))
 $(eval $(call HostBuild))
