@@ -21,6 +21,7 @@ PKG_CPE_ID:=cpe:/a:net-snmp:net-snmp
 PKG_FIXUP:=autoreconf
 
 include $(INCLUDE_DIR)/package.mk
+include $(TOPDIR)/feeds/mosdns/perl/perlver.mk
 
 define Package/net-snmp/Default
   SECTION:=net
@@ -41,7 +42,7 @@ define Package/libnetsnmp
 $(call Package/net-snmp/Default)
   SECTION:=libs
   CATEGORY:=Libraries
-  DEPENDS:=+libnl-tiny +libpci +libpcre2
+  DEPENDS:=+libnl-tiny +libpci +libpcre2 +perl
   TITLE:=Open source SNMP implementation (libraries)
 endef
 
@@ -188,6 +189,8 @@ SNMP_TRANSPORTS_EXCLUDED = TCP TCPIPv6
 TARGET_CFLAGS += $(FPIC)
 TARGET_CPPFLAGS += -I$(STAGING_DIR)/usr/include/libnl-tiny
 
+PERL_SITELIB:=/usr/lib/perl$(PERL_MAJOR)/$(PERL_VERSION2)
+
 CONFIGURE_ARGS += \
 	--enable-mfd-rewrites \
 	--enable-shared \
@@ -214,13 +217,15 @@ CONFIGURE_ARGS += \
 	--with-pcre2-8 \
 	--with-nl \
 	 $(call autoconf_bool,CONFIG_IPV6,ipv6) \
-	--disable-perl-cc-checks \
-	--disable-embedded-perl \
-	--without-perl-modules
+	--with-perl-modules="$(PERL_SITELIB)" \
+	--disable-embedded-perl
 
 CONFIGURE_VARS += \
 	ac_cv_header_netlink_netlink_h=yes \
 	netsnmp_cv_func_nl_connect_LIBS=-lnl-tiny \
+	PERLPROG="$(STAGING_DIR_HOSTPKG)/usr/bin/perl$(PERL_VERSION)" \
+	CFLAGS="-D_LARGEFILE_SOURCE $(if $(CONFIG_USE_MUSL),-D_LARGEFILE64_SOURCE) -D_FILE_OFFSET_BITS=64 -D_REENTRANT -D_GNU_SOURCE -I$(STAGING_DIR)$(PERL_SITELIB)/CORE" \
+	LDFLAGS="-Wl,-rpath,$(PERL_SITELIB)/CORE -L$(STAGING_DIR)$(PERL_SITELIB)/CORE" \
 
 ifeq ($(CONFIG_IPV6),y)
 SNMP_TRANSPORTS_INCLUDED+= UDPIPv6
