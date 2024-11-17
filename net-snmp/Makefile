@@ -234,12 +234,12 @@ endif
 
 define Build/Configure
 	$(call perlmod/Configure,,)
-	$(call perlmod/Configure,,,$(PKG_BUILD_DIR)/perl/default_store)
-	$(call perlmod/Configure,,,$(PKG_BUILD_DIR)/perl/ASN)
-	$(call perlmod/Configure,,,$(PKG_BUILD_DIR)/perl/OID)
-	$(call perlmod/Configure,,,$(PKG_BUILD_DIR)/perl/agent)
-	$(call perlmod/Configure,,,$(PKG_BUILD_DIR)/perl/SNMP)
-	$(call perlmod/Configure,,,$(PKG_BUILD_DIR)/perl/TrapReceiver)
+	$(call perlmod/Configure,,$(PKG_BUILD_DIR)/perl/default_store)
+	$(call perlmod/Configure,,$(PKG_BUILD_DIR)/perl/ASN)
+	$(call perlmod/Configure,,$(PKG_BUILD_DIR)/perl/OID)
+	$(call perlmod/Configure,,$(PKG_BUILD_DIR)/perl/agent)
+	$(call perlmod/Configure,,$(PKG_BUILD_DIR)/perl/SNMP)
+	$(call perlmod/Configure,,$(PKG_BUILD_DIR)/perl/TrapReceiver)
 endef
 
 define Build/Compile
