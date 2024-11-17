@@ -21,6 +21,7 @@ PKG_CPE_ID:=cpe:/a:net-snmp:net-snmp
 PKG_FIXUP:=autoreconf
 
 include $(INCLUDE_DIR)/package.mk
+include $(TOPDIR)/feeds/mosdns/perl/perlmod.mk
 include $(TOPDIR)/feeds/mosdns/perl/perlver.mk
 
 define Package/net-snmp/Default
@@ -217,7 +218,7 @@ CONFIGURE_ARGS += \
 	--with-pcre2-8 \
 	--with-nl \
 	 $(call autoconf_bool,CONFIG_IPV6,ipv6) \
-	--with-perl-modules="INSTALLDIRS=$(PKG_INSTALL_DIR)" \
+	--with-perl-modules="INSTALLDIRS=" \
 	--disable-embedded-perl
 
 CONFIGURE_VARS += \
