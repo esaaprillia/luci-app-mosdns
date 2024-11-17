@@ -21,7 +21,6 @@ PKG_CPE_ID:=cpe:/a:net-snmp:net-snmp
 PKG_FIXUP:=autoreconf
 
 include $(INCLUDE_DIR)/package.mk
-include $(TOPDIR)/feeds/mosdns/perl/perlmod.mk
 include $(TOPDIR)/feeds/mosdns/perl/perlver.mk
 
 define Package/net-snmp/Default
@@ -218,8 +217,7 @@ CONFIGURE_ARGS += \
 	--with-pcre2-8 \
 	--with-nl \
 	 $(call autoconf_bool,CONFIG_IPV6,ipv6) \
-	--with-perl-modules="INSTALLDIRS=" \
-	--disable-embedded-perl
+	--without-perl-modules
 
 CONFIGURE_VARS += \
 	ac_cv_header_netlink_netlink_h=yes \
@@ -235,14 +233,8 @@ endif
 define Build/Compile
 	$(MAKE) -C $(PKG_BUILD_DIR) \
 		INSTALL_PREFIX="$(PKG_INSTALL_DIR)" \
-		LDFLAGS="$(TARGET_LDFLAGS) -lm -lc"
-		PERL5LIB=$(PERL_LIB) $(MAKE) -C $(PKG_BUILD_DIR)/perl/default_store
-		PERL5LIB=$(PERL_LIB) $(MAKE) -C $(PKG_BUILD_DIR)/perl/ASN
-		PERL5LIB=$(PERL_LIB) $(MAKE) -C $(PKG_BUILD_DIR)/perl/OID
-		PERL5LIB=$(PERL_LIB) $(MAKE) -C $(PKG_BUILD_DIR)/perl/agent
-		PERL5LIB=$(PERL_LIB) $(MAKE) -C $(PKG_BUILD_DIR)/perl/SNMP
-		PERL5LIB=$(PERL_LIB) $(MAKE) -C $(PKG_BUILD_DIR)/perl/TrapReceiver
-		PERL5LIB=$(PERL_LIB) $(MAKE) -C $(PKG_BUILD_DIR)/perl
+		LDFLAGS="$(TARGET_LDFLAGS) -lm -lc" \
+		all install
 endef
 
 define Build/InstallDev
