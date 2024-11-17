@@ -233,7 +233,6 @@ SNMP_TRANSPORTS_INCLUDED+= UDPIPv6
 endif
 
 define Build/Configure
-	$(call perlmod/Configure,,)
 	$(call perlmod/Configure,,$(PKG_BUILD_DIR)/perl/default_store)
 	$(call perlmod/Configure,,$(PKG_BUILD_DIR)/perl/ASN)
 	$(call perlmod/Configure,,$(PKG_BUILD_DIR)/perl/OID)
