@@ -20,9 +20,9 @@ PKG_LICENSE:=GPL-1.0-or-later Artistic-1.0-Perl
 PKG_LICENSE_FILES:=LICENCE
 
 HOST_BUILD_DIR:=$(BUILD_DIR_HOST)/perl/DateTime-Locale-$(PKG_VERSION)
-HOST_BUILD_DEPENDS:=perl/host
+HOST_BUILD_DEPENDS:=perl/host perl-file-sharedir-install/host
 PKG_BUILD_DIR:=$(BUILD_DIR)/perl/DateTime-Locale-$(PKG_VERSION)
-PKG_BUILD_DEPENDS:=perl/host
+PKG_BUILD_DEPENDS:=perl/host perl-file-sharedir-install/host
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/host-build.mk
@@ -34,7 +34,7 @@ define Package/perl-datetime-locale
   CATEGORY:=Languages
   TITLE:=Perl DateTime-Locale
   URL:=https://metacpan.org/dist/DateTime-Locale
-  DEPENDS:=perl +perlbase-base +perl-specio +perl-params-validationcompiler +perl-namespace-autoclean +perl-file-sharedir +perl-dist-checkconflicts
+  DEPENDS:=perl +perlbase-base +perl-file-sharedir-install +perl-specio +perl-params-validationcompiler +perl-namespace-autoclean +perl-file-sharedir +perl-dist-checkconflicts
 endef
 
 define Host/Configure
