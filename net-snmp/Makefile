@@ -216,6 +216,7 @@ CONFIGURE_ARGS += \
 	--without-zlib \
 	--with-pcre2-8 \
 	--with-nl \
+	--with-cc="$(TARGET_CC)" \
 	 $(call autoconf_bool,CONFIG_IPV6,ipv6) \
 	--disable-perl-cc-checks \
 	--disable-embedded-perl \
