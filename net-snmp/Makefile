@@ -218,7 +218,6 @@ CONFIGURE_ARGS += \
 	--with-nl \
 	--with-cc="$(TARGET_CC)" \
 	 $(call autoconf_bool,CONFIG_IPV6,ipv6) \
-	--disable-perl-cc-checks \
 	--disable-embedded-perl \
 	--with-perl-modules="$(PERL_SITELIB)"
 
