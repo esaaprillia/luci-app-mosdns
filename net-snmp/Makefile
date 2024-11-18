@@ -217,8 +217,7 @@ CONFIGURE_ARGS += \
 	--with-pcre2-8 \
 	--with-nl \
 	 $(call autoconf_bool,CONFIG_IPV6,ipv6) \
-	--with-perl-modules="$(PERL_SITELIB)" \
-	--disable-embedded-perl
+	--without-perl-modules
 
 CONFIGURE_VARS += \
 	ac_cv_header_netlink_netlink_h=yes \
