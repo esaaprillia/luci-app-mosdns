@@ -11,8 +11,8 @@ PKG_MAINTAINER:=Andy Syam <privasisource@gmail.com>
 PKG_LICENSE:=BSD-3-Clause
 PKG_LICENSE_FILES:=LICENSE.md
 
-HOST_BUILD_DEPENDS:=python-setuptools-scm/host
-PKG_BUILD_DEPENDS:=python-setuptools-scm/host
+HOST_BUILD_DEPENDS:=python-setuptools-scm/host scikit-build-core/host
+PKG_BUILD_DEPENDS:=python-setuptools-scm/host scikit-build-core/host
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
