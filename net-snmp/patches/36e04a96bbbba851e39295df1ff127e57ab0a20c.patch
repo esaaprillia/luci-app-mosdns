@@ -1,0 +1,22 @@
+From 36e04a96bbbba851e39295df1ff127e57ab0a20c Mon Sep 17 00:00:00 2001
+From: esaaprillia <esaapriliasalsabila@gmail.com>
+Date: Tue, 19 Nov 2024 11:51:43 +0800
+Subject: [PATCH] Add files via upload
+
+---
+ Makefile.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile.in b/Makefile.in
+index 1c1182e..cd8d9eb 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -186,7 +186,7 @@ perl/Makefile: perl/Makefile.PL subdirs
+ 	if false; then							\
+ 	    carp=-MCarp::Always;					\
+ 	fi &&								\
+-	export PERL5LIB="$$dir/perl" &&					\
++	export PERL5LIB="$(STAGING_DIR)/usr/lib/perl$(PERL_MAJOR)/$(PERL_VERSION2)" &&					\
+ 	$(PERL) $$carp Makefile.PL -NET-SNMP-IN-SOURCE=true		\
+ 	    -NET-SNMP-CONFIG="sh $$dir/net-snmp-config" $(PERLARGS)
+ 
