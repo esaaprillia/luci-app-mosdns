@@ -1,47 +1,40 @@
-# SPDX-License-Identifier: GPL-2.0-only
-#
-# Copyright (C) 2023 Luca Barbato and Donald Hoskins
-
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=deno
-PKG_VERSION:=1.39.1
+PKG_NAME:=python-protobuf
+PKG_VERSION:=5.28.3
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://codeload.github.com/denoland/deno/tar.gz/v$(PKG_VERSION)?
-PKG_HASH:=skip
+PYPI_NAME:=protobuf
+PKG_HASH:=64badbc49180a5e401f373f9ce7ab1d18b63f7dd4a9cdc43c92b9f0b481cef7b
 
-PKG_MAINTAINER:=Luca Barbato <lu_zero@luminem.org>
-PKG_LICENSE:=MIT Unlicense
-PKG_LICENSE_FILES:=LICENSE-MIT UNLICENSE
+PKG_MAINTAINER:=Andy Syam <privasisource@gmail.com>
+PKG_LICENSE:=BSD-3-Clause
+PKG_LICENSE_FILES:=LICENSE.txt
 
-PKG_USE_NINJA:=1
-#PKG_BUILD_DIR:=$(BUILD_DIR)/boringtun-$(PKG_NAME)-$(PKG_VERSION)
-PKG_BUILD_DEPENDS:=rust/host
+HOST_BUILD_DEPENDS:=python-setuptools-scm/host
+PKG_BUILD_DEPENDS:=python-setuptools-scm/host protobuf
 
-#RUST_PKG_FEATURES:=boringtun-cli
-
+include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
-#include $(INCLUDE_DIR)/cmake.mk
-include ../../lang/rust/rust-package.mk
+include $(INCLUDE_DIR)/host-build.mk
+include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
+include $(TOPDIR)/feeds/packages/lang/python/python3-host-build.mk
 
-define Build/Compile
-	$(call Build/Compile/Cargo,cli)
-	$(call Build/Compile/Cargo)
+define Package/python3-protobuf
+  SUBMENU:=Python
+  SECTION:=lang
+  CATEGORY:=Languages
+  TITLE:=Protocol Buffers are language-neutral, platform-neutral extensible mechanisms for serializing structured data.
+  URL:=https://protobuf.dev/
+  DEPENDS:=+python3
 endef
 
-define Package/deno
-  SECTION:=utils
-  CATEGORY:=Utilities
-  TITLE:=Userspace WireGuard® Implementation in Rust
-  DEPENDS:=$(RUST_ARCH_DEPENDS)
-  URL:=https://github.com/cloudflare/boringtun
+define Package/python3-protobuf/description
+Protocol buffers are Google’s language-neutral, platform-neutral, extensible mechanism for serializing structured data – think XML, but smaller, faster, and simpler.
+You define how you want your data to be structured once, then you can use special generated source code to easily write and read your structured data to and from a variety of data streams and using a variety of languages.
 endef
 
-define Package/deno/description
-  BoringTun is an implementation of the WireGuard® protocol designed for portability and speed.
-endef
-
-$(eval $(call RustBinPackage,deno))
-$(eval $(call BuildPackage,deno))
+$(eval $(call Py3Package,python3-protobuf))
+$(eval $(call BuildPackage,python3-protobuf))
+$(eval $(call BuildPackage,python3-protobuf-src))
+$(eval $(call HostBuild))
