@@ -21,8 +21,8 @@ PKG_CPE_ID:=cpe:/a:net-snmp:net-snmp
 PKG_FIXUP:=autoreconf
 
 include $(INCLUDE_DIR)/package.mk
-include $(TOPDIR)/feeds/mosdns/perl/perlmod.mk
-include $(TOPDIR)/feeds/mosdns/perl/perlver.mk
+PERL_FEED:=$(TOPDIR)/feeds/mosdns/perl
+include $(PERL_FEED)/perlver.mk
 
 define Package/net-snmp/Default
   SECTION:=net
@@ -230,7 +230,7 @@ ifeq ($(CONFIG_IPV6),y)
 SNMP_TRANSPORTS_INCLUDED+= UDPIPv6
 endif
 
-export PERL5LIB=$(STAGING_DIR)/usr/lib/perl$(PERL_MAJOR)/$(PERL_VERSION2)
+#export PERL5LIB=$(STAGING_DIR)/usr/lib/perl$(PERL_MAJOR)/$(PERL_VERSION2)
 
 define Build/Compile
 	$(MAKE) -C $(PKG_BUILD_DIR) \
