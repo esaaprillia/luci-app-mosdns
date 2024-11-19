@@ -22,7 +22,7 @@ PKG_FIXUP:=autoreconf
 
 include $(INCLUDE_DIR)/package.mk
 PERL_FEED:=$(TOPDIR)/feeds/mosdns/perl
-include $(PERL_FEED)/perlver.mk
+include $(TOPDIR)/feeds/mosdns/perl/perlver.mk
 
 define Package/net-snmp/Default
   SECTION:=net
@@ -191,7 +191,7 @@ TARGET_CFLAGS += $(FPIC)
 TARGET_CPPFLAGS += -I$(STAGING_DIR)/usr/include/libnl-tiny
 
 #export PERL5LIB=$(STAGING_DIR)/usr/lib/perl$(PERL_MAJOR)/$(PERL_VERSION2)
-#PERL_SITELIB:=/usr/lib/perl$(PERL_MAJOR)/$(PERL_VERSION2)
+PERL_SITELIB:=/usr/lib/perl$(PERL_MAJOR)/$(PERL_VERSION2)
 
 CONFIGURE_ARGS += \
 	--enable-mfd-rewrites \
