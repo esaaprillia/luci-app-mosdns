@@ -21,8 +21,8 @@ PKG_CPE_ID:=cpe:/a:net-snmp:net-snmp
 PKG_FIXUP:=autoreconf
 
 include $(INCLUDE_DIR)/package.mk
-SNMP_PERL_FEED:=$(TOPDIR)/feeds/mosdns/perl
-include $(SNMP_PERL_FEED)/perlver.mk
+include $(TOPDIR)/feeds/mosdns/perl/perlmod.mk
+include $(TOPDIR)/feeds/mosdns/perl/perlver.mk
 
 define Package/net-snmp/Default
   SECTION:=net
