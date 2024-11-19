@@ -1,47 +1,39 @@
-# SPDX-License-Identifier: GPL-2.0-only
-#
-# Copyright (C) 2023 Luca Barbato and Donald Hoskins
-
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=deno
-PKG_VERSION:=1.39.1
+PKG_NAME:=python-publicsuffix2
+PKG_VERSION:=2.20191221
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://codeload.github.com/denoland/deno/tar.gz/v$(PKG_VERSION)?
-PKG_HASH:=skip
+PYPI_NAME:=publicsuffix2
+PKG_HASH:=00f8cc31aa8d0d5592a5ced19cccba7de428ebca985db26ac852d920ddd6fe7b
 
-PKG_MAINTAINER:=Luca Barbato <lu_zero@luminem.org>
-PKG_LICENSE:=MIT Unlicense
-PKG_LICENSE_FILES:=LICENSE-MIT UNLICENSE
+PKG_MAINTAINER:=Andy Syam <privasisource@gmail.com>
+PKG_LICENSE:=MIT MPL-2.0
+PKG_LICENSE_FILES:= publicsuffix2.LICENSE
 
-PKG_USE_NINJA:=1
-#PKG_BUILD_DIR:=$(BUILD_DIR)/boringtun-$(PKG_NAME)-$(PKG_VERSION)
-PKG_BUILD_DEPENDS:=rust/host
+HOST_BUILD_DEPENDS:=python-setuptools-scm/host
+PKG_BUILD_DEPENDS:=python-setuptools-scm/host
 
-#RUST_PKG_FEATURES:=boringtun-cli
-
+include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
-#include $(INCLUDE_DIR)/cmake.mk
-include ../../lang/rust/rust-package.mk
+include $(INCLUDE_DIR)/host-build.mk
+include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
+include $(TOPDIR)/feeds/packages/lang/python/python3-host-build.mk
 
-define Build/Compile
-	$(call Build/Compile/Cargo,cli)
-	$(call Build/Compile/Cargo)
+define Package/python3-publicsuffix2
+  SUBMENU:=Python
+  SECTION:=lang
+  CATEGORY:=Languages
+  TITLE:=HTTP request library for Python3
+  URL:=https://github.com/aboutcode-org/python-publicsuffix2
+  DEPENDS:=+python3 +python3-requests
 endef
 
-define Package/deno
-  SECTION:=utils
-  CATEGORY:=Utilities
-  TITLE:=Userspace WireGuard® Implementation in Rust
-  DEPENDS:=$(RUST_ARCH_DEPENDS)
-  URL:=https://github.com/cloudflare/boringtun
+define Package/python3-publicsuffix2/description
+This module allows you to get the public suffix, as well as the registrable domain, of a domain name using the Public Suffix List from http://publicsuffix.org
 endef
 
-define Package/deno/description
-  BoringTun is an implementation of the WireGuard® protocol designed for portability and speed.
-endef
-
-$(eval $(call RustBinPackage,deno))
-$(eval $(call BuildPackage,deno))
+$(eval $(call Py3Package,python3-publicsuffix2))
+$(eval $(call BuildPackage,python3-publicsuffix2))
+$(eval $(call BuildPackage,python3-publicsuffix2-src))
+$(eval $(call HostBuild))
