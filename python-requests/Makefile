@@ -19,8 +19,8 @@ PKG_CPE_ID:=cpe:/a:python:requests
 PYPI_NAME:=requests
 PKG_HASH:=55365417734eb18255590a9ff9eb97e9e1da868d4ccd6402399eaf68af20a760
 
-HOST_BUILD_DEPENDS:=python-setuptools-scm/host
-PKG_BUILD_DEPENDS:=python-setuptools-scm/host
+HOST_BUILD_DEPENDS:=python-setuptools-scm/host python-idna/host python-urllib3/host python-certifi/host python-charset-normalizer/host
+PKG_BUILD_DEPENDS:=python-setuptools-scm/host python-idna/host python-urllib3/host python-certifi/host python-charset-normalizer/host
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
