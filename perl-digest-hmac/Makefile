@@ -33,7 +33,7 @@ define Package/perl-digest-hmac
   CATEGORY:=Languages
   TITLE:=Perl Digest HMAC
   URL:=https://metacpan.org/dist/Digest-HMAC
-  DEPENDS:=perl ++perlbase-essential +perl-digest-md5 +perl-digest-sha1
+  DEPENDS:=perl +perlbase-essential +perl-digest-md5 +perl-digest-sha1
 endef
 
 define Host/Configure
