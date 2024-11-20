@@ -9,7 +9,7 @@ PKG_HASH:=00f8cc31aa8d0d5592a5ced19cccba7de428ebca985db26ac852d920ddd6fe7b
 
 PKG_MAINTAINER:=Andy Syam <privasisource@gmail.com>
 PKG_LICENSE:=MIT MPL-2.0
-PKG_LICENSE_FILES:= publicsuffix2.LICENSE
+PKG_LICENSE_FILES:=publicsuffix2.LICENSE
 
 HOST_BUILD_DEPENDS:=python-setuptools-scm/host python-requests/host
 PKG_BUILD_DEPENDS:=python-setuptools-scm/host python-requests/host
