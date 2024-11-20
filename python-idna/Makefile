@@ -1,47 +1,49 @@
-# SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2023 Luca Barbato and Donald Hoskins
+# Copyright (C) 2015-2016, 2018-2020, 2023 Jeffery To
+#
+# This is free software, licensed under the GNU General Public License v2.
+# See /LICENSE for more information.
+#
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=deno
-PKG_VERSION:=1.39.1
+PKG_NAME:=python-idna
+PKG_VERSION:=3.6
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://codeload.github.com/denoland/deno/tar.gz/v$(PKG_VERSION)?
-PKG_HASH:=skip
+PYPI_NAME:=idna
+PKG_HASH:=9ecdbbd083b06798ae1e86adcbfe8ab1479cf864e4ee30fe4e46a003d12491ca
 
-PKG_MAINTAINER:=Luca Barbato <lu_zero@luminem.org>
-PKG_LICENSE:=MIT Unlicense
-PKG_LICENSE_FILES:=LICENSE-MIT UNLICENSE
+PKG_LICENSE:=BSD-3-Clause
+PKG_LICENSE_FILES:=LICENSE.md
+PKG_MAINTAINER:=Jeffery To <jeffery.to@gmail.com>
 
-PKG_USE_NINJA:=1
-#PKG_BUILD_DIR:=$(BUILD_DIR)/boringtun-$(PKG_NAME)-$(PKG_VERSION)
-PKG_BUILD_DEPENDS:=rust/host
+HOST_BUILD_DEPENDS:=python-setuptools-scm/host python-flit-core/host
+PKG_BUILD_DEPENDS:=python-setuptools-scm/host python-flit-core/host
 
-#RUST_PKG_FEATURES:=boringtun-cli
-
+include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
-#include $(INCLUDE_DIR)/cmake.mk
-include ../../lang/rust/rust-package.mk
+include $(INCLUDE_DIR)/host-build.mk
+include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
+include $(TOPDIR)/feeds/packages/lang/python/python3-host-build.mk
 
-define Build/Compile
-	$(call Build/Compile/Cargo,cli)
-	$(call Build/Compile/Cargo)
+define Package/python3-idna
+  SECTION:=lang
+  CATEGORY:=Languages
+  SUBMENU:=Python
+  TITLE:=IDNA library
+  URL:=https://github.com/kjd/idna
+  DEPENDS:=+python3-light +python3-codecs
 endef
 
-define Package/deno
-  SECTION:=utils
-  CATEGORY:=Utilities
-  TITLE:=Userspace WireGuard® Implementation in Rust
-  DEPENDS:=$(RUST_ARCH_DEPENDS)
-  URL:=https://github.com/cloudflare/boringtun
+define Package/python3-idna/description
+A library to support the Internationalised Domain Names in Applications
+(IDNA) protocol as specified in RFC 5891. This version of the protocol
+is often referred to as "IDNA2008" and can produce different results
+from the earlier standard from 2003.
 endef
 
-define Package/deno/description
-  BoringTun is an implementation of the WireGuard® protocol designed for portability and speed.
-endef
-
-$(eval $(call RustBinPackage,deno))
-$(eval $(call BuildPackage,deno))
+$(eval $(call Py3Package,python3-idna))
+$(eval $(call BuildPackage,python3-idna))
+$(eval $(call BuildPackage,python3-idna-src))
+$(eval $(call HostBuild))
