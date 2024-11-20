@@ -1,10 +1,3 @@
-#
-# Copyright (C) 2015-2016, 2018-2020, 2023 Jeffery To
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
-
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-ldap3
