@@ -39,7 +39,8 @@ define Package/python3-requests
 	  +python3-chardet  \
 	  +python3-idna  \
 	  +python3-urllib3  \
-	  +python3-certifi
+	  +python3-certifi  \
+	  +python3-python3-charset-normalizer
 endef
 
 define Package/python3-requests/description
