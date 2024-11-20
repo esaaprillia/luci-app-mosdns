@@ -1,47 +1,40 @@
-# SPDX-License-Identifier: GPL-2.0-only
-#
-# Copyright (C) 2023 Luca Barbato and Donald Hoskins
-
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=deno
-PKG_VERSION:=1.39.1
+PKG_NAME:=python-h2
+PKG_VERSION:=4.1.0
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://codeload.github.com/denoland/deno/tar.gz/v$(PKG_VERSION)?
-PKG_HASH:=skip
+PYPI_NAME:=h2
+PKG_HASH:=a83aca08fbe7aacb79fec788c9c0bac936343560ed9ec18b82a13a12c28d2abb
 
-PKG_MAINTAINER:=Luca Barbato <lu_zero@luminem.org>
-PKG_LICENSE:=MIT Unlicense
-PKG_LICENSE_FILES:=LICENSE-MIT UNLICENSE
+PKG_MAINTAINER:=Andy Syam <privasisource@gmail.com>
+PKG_LICENSE:=MIT
+PKG_LICENSE_FILES:=LICENSE
 
-PKG_USE_NINJA:=1
-#PKG_BUILD_DIR:=$(BUILD_DIR)/boringtun-$(PKG_NAME)-$(PKG_VERSION)
-PKG_BUILD_DEPENDS:=rust/host
+HOST_BUILD_DEPENDS:=python-setuptools-scm/host
+PKG_BUILD_DEPENDS:=python-setuptools-scm/host
 
-#RUST_PKG_FEATURES:=boringtun-cli
-
+include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
-#include $(INCLUDE_DIR)/cmake.mk
-include ../../lang/rust/rust-package.mk
+include $(INCLUDE_DIR)/host-build.mk
+include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
+include $(TOPDIR)/feeds/packages/lang/python/python3-host-build.mk
 
-define Build/Compile
-	$(call Build/Compile/Cargo,cli)
-	$(call Build/Compile/Cargo)
+define Package/python3-h2
+  SECTION:=lang
+  CATEGORY:=Languages
+  SUBMENU:=Python
+  TITLE:=HTTP/2 State-Machine based protocol implementation
+  URL:=https://github.com/python-hyper/h2
+  DEPENDS:=+python3 +python3-hyperframe +python3-hpack
 endef
 
-define Package/deno
-  SECTION:=utils
-  CATEGORY:=Utilities
-  TITLE:=Userspace WireGuard® Implementation in Rust
-  DEPENDS:=$(RUST_ARCH_DEPENDS)
-  URL:=https://github.com/cloudflare/boringtun
+define Package/python3-h2/description
+This repository contains a pure-Python implementation of a HTTP/2 protocol stack.
+It’s written from the ground up to be embeddable in whatever program you choose to use, ensuring that you can speak HTTP/2 regardless of your programming paradigm.
 endef
 
-define Package/deno/description
-  BoringTun is an implementation of the WireGuard® protocol designed for portability and speed.
-endef
-
-$(eval $(call RustBinPackage,deno))
-$(eval $(call BuildPackage,deno))
+$(eval $(call Py3Package,python3-h2))
+$(eval $(call BuildPackage,python3-h2))
+$(eval $(call BuildPackage,python3-h2-src))
+$(eval $(call HostBuild))
