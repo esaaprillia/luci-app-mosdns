@@ -11,8 +11,8 @@ PKG_MAINTAINER:=Andy Syam <privasisource@gmail.com>
 PKG_LICENSE:=MIT MPL-2.0
 PKG_LICENSE_FILES:= publicsuffix2.LICENSE
 
-HOST_BUILD_DEPENDS:=python-setuptools-scm/host
-PKG_BUILD_DEPENDS:=python-setuptools-scm/host
+HOST_BUILD_DEPENDS:=python-setuptools-scm/host python-requests/host
+PKG_BUILD_DEPENDS:=python-setuptools-scm/host python-requests/host
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
