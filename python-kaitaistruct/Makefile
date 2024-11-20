@@ -26,7 +26,7 @@ define Package/python3-kaitaistruct
   SUBMENU:=Python
   TITLE:=Kaitai Struct declarative parser generator for binary data: runtime library for Python
   URL:=https://kaitai.io/
-  DEPENDS:=+python3 +python3-pyasn1
+  DEPENDS:=+python3
 endef
 
 define Package/python3-kaitaistruct/description
