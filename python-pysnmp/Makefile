@@ -26,7 +26,7 @@ define Package/python3-pysnmp
   CATEGORY:=Languages
   TITLE:=A Python library for SNMP
   URL:=https://github.com/lextudio/pysnmp
-  DEPENDS:=+python3 +python3-pyasn1 +python3-pycryptodome
+  DEPENDS:=+python3 +python3-pyasn1 +python3-cryptodome
 endef
 
 define Package/python3-pysnmp/description
