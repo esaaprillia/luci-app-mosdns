@@ -1,18 +1,3 @@
---- a/NEWS
-+++ b/NEWS
-@@ -1,3 +1,12 @@
-+Version 2.9.0.post0 (2024-03-01)
-+================================
-+
-+Bugfixes
-+--------
-+
-+- Pinned ``setuptools_scm`` to ``<8``, which should make the generated ``_version.py`` file compatible with all supported versions of Python.
-+
-+
- Version 2.9.0 (2024-02-29)
- ==========================
- 
 --- a/pyproject.toml
 +++ b/pyproject.toml
 @@ -3,7 +3,7 @@ requires = [
