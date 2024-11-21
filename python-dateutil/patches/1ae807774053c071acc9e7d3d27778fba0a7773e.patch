@@ -1,54 +1,3 @@
-From 9780d32aea9ab681769671c4e3540b449d62cdd0 Mon Sep 17 00:00:00 2001
-From: Paul Ganssle <git@m.ganssle.io>
-Date: Fri, 1 Mar 2024 09:14:11 -0500
-Subject: [PATCH 1/2] Pin `setuptools_scm` to <8
-
-There are some breaking changes, and this is making it so that the
-`_version.py` file generated is not compatible with Python 2 anymore.
-I don't see an obvious or easy way to figure out what version of
-`setuptools_scm` is in use, so we'll just pin the version for now.
-
-I recommend removing `setuptools_scm` entirely in the future.
----
- changelog.d/1346.bugfix.rst | 1 +
- pyproject.toml              | 2 +-
- 2 files changed, 2 insertions(+), 1 deletion(-)
- create mode 100644 changelog.d/1346.bugfix.rst
-
-diff --git a/changelog.d/1346.bugfix.rst b/changelog.d/1346.bugfix.rst
-new file mode 100644
-index 000000000..96f0917e2
---- /dev/null
-+++ b/changelog.d/1346.bugfix.rst
-@@ -0,0 +1 @@
-+Pinned ``setuptools_scm`` to ``<8``, which should make the generated ``_version.py`` file compatible with all supported versions of Python.
-diff --git a/pyproject.toml b/pyproject.toml
-index 67ad619fc..b60971760 100644
---- a/pyproject.toml
-+++ b/pyproject.toml
-@@ -3,7 +3,7 @@ requires = [
-     "setuptools; python_version != '3.3'",
-     "setuptools<40.0; python_version == '3.3'",
-     "wheel",
--    "setuptools_scm"
-+    "setuptools_scm<8.0"
- ]
- build-backend = "setuptools.build_meta"
- 
-
-From ee6de9deab99e1697837f9b78f145a91c57d600d Mon Sep 17 00:00:00 2001
-From: Paul Ganssle <git@m.ganssle.io>
-Date: Fri, 1 Mar 2024 13:21:32 -0500
-Subject: [PATCH 2/2] Update news to prepare for release
-
----
- NEWS                        | 9 +++++++++
- changelog.d/1346.bugfix.rst | 1 -
- 2 files changed, 9 insertions(+), 1 deletion(-)
- delete mode 100644 changelog.d/1346.bugfix.rst
-
-diff --git a/NEWS b/NEWS
-index a135f40cb..e771e16b5 100644
 --- a/NEWS
 +++ b/NEWS
 @@ -1,3 +1,12 @@
@@ -64,10 +13,15 @@ index a135f40cb..e771e16b5 100644
  Version 2.9.0 (2024-02-29)
  ==========================
  
-diff --git a/changelog.d/1346.bugfix.rst b/changelog.d/1346.bugfix.rst
-deleted file mode 100644
-index 96f0917e2..000000000
---- a/changelog.d/1346.bugfix.rst
-+++ /dev/null
-@@ -1 +0,0 @@
--Pinned ``setuptools_scm`` to ``<8``, which should make the generated ``_version.py`` file compatible with all supported versions of Python.
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -3,7 +3,7 @@ requires = [
+     "setuptools; python_version != '3.3'",
+     "setuptools<40.0; python_version == '3.3'",
+     "wheel",
+-    "setuptools_scm"
++    "setuptools_scm<8.0"
+ ]
+ build-backend = "setuptools.build_meta"
+ 
+
