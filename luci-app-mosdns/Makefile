@@ -1,7 +1,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-app-mosdns
-PKG_VERSION:=1032
+PKG_VERSION:=1033
 PKG_RELEASE:=1
 PKG_LICENSE:=GPL-2.0
 
