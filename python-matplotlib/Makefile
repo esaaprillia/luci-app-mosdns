@@ -34,6 +34,10 @@ define Package/python3-matplotlib/description
   Matplotlib is a comprehensive library for creating static, animated, and interactive visualizations in Python.
 endef
 
+MESON_ARGS += \
+	-Dsystem-freetype=true \
+	-Dsystem-qhull=true
+
 $(eval $(call Py3Package,python3-matplotlib))
 $(eval $(call BuildPackage,python3-matplotlib))
 $(eval $(call BuildPackage,python3-matplotlib-src))
