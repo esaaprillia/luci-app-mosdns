@@ -26,7 +26,7 @@ define Package/python3-fonttools
   CATEGORY:=Languages
   TITLE:=Tools to manipulate font files
   URL:=https://github.com/fonttools/fonttools
-  DEPENDS:=+python3 +python3-brotli
+  DEPENDS:=+python3
 endef
 
 define Package/python3-fonttools/description
