@@ -1,11 +1,11 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-fonttools
-PKG_VERSION:=4.53.1
+PKG_VERSION:=4.55.0
 PKG_RELEASE:=1
 
 PYPI_NAME:=fonttools
-PKG_HASH:=e128778a8e9bc11159ce5447f76766cefbd876f44bd79aff030287254e4752c4
+PKG_HASH:=7636acc6ab733572d5e7eec922b254ead611f1cdad17be3f0be7418e8bfaca71
 
 PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
 PKG_LICENSE:=MIT
