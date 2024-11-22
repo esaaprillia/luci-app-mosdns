@@ -34,7 +34,7 @@ define Package/python3-pygame/description
   It uses the Simple DirectMedia Layer library and several other popular libraries to abstract the most common functions, making writing these programs a more intuitive task.
 endef
 
-TARGET_CFLAGS += -D_GNU_SOURCE=1
+TARGET_CFLAGS += -D_GNU_SOURCE
 
 $(eval $(call Py3Package,python3-pygame))
 $(eval $(call BuildPackage,python3-pygame))
