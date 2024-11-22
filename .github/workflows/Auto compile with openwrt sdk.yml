@@ -264,7 +264,7 @@ jobs:
         run: |
           cd sdk
           echo "src-git mosdns https://github.com/${{ env.mosdns }}.git;v5" >> feeds.conf.default
-          #echo "src-git xorg https://github.com/predators46/xorg2 feeds/packages/xorg.git" >> feeds.conf.default
+          echo "src-git xorg https://github.com/predators46/xorg2 feeds/packages/xorg.git" >> feeds.conf.default
           #echo "src-git xorg https://github.com/predators46/xorg feeds/packages/xorg.git" >> feeds.conf.default
           #echo "src-git-full juci https://github.com/esaaprillia/juci-openwrt-feed.git" >> feeds.conf.default
 
@@ -272,7 +272,6 @@ jobs:
           ./scripts/feeds update -a
           ./scripts/feeds install -a -f -p mosdns
           ./scripts/feeds install -a -f -p xorg
-          ./scripts/feeds install -f -a -p juci
           ./scripts/feeds install luci-app-mosdns
 
           #echo "CONFIG_ALL_NONSHARED=n" > .config
@@ -294,8 +293,8 @@ jobs:
         id: compile
         run: |
           cd sdk
-          #make -j$(nproc) package/luci-app-mosdns/compile V=99
-          make package/luci-app-mosdns/compile V=99
+          make -j$(nproc) package/luci-app-mosdns/compile V=99
+          #make package/luci-app-mosdns/compile V=99
           #make package/freeradius3/download
           #make package/freeradius3/check
           #make package/freeradius3/refresh
@@ -313,10 +312,10 @@ jobs:
           #zip -jr upload/mosdns_ipk_${{ matrix.platform }}.zip bin/packages/*/xorg/
           #zip -r upload/mosdns_ipk_${{ matrix.platform }}.zip bin/packages/*/mosdns/
           #zip -r upload/mosdns_ipk_${{ matrix.platform }}.zip bin/packages/*/packages/
-          #zip -r upload/mosdns_ipk_${{ matrix.platform }}.zip bin/
+          zip -r upload/mosdns_ipk_${{ matrix.platform }}.zip bin/
           #zip -r upload/mosdns_ipk_${{ matrix.platform }}.zip /home/runner/work/mosdns/mosdns/sdk/build_dir/hostpkg/telegram-tdlib-1.8.30
           #zip -r upload/mosdns_ipk_${{ matrix.platform }}.zip /home/runner/work/mosdns/mosdns/sdk/build_dir/target-aarch64_generic_musl/pypi/numpy-2.1.0/
-          zip -r upload/mosdns_ipk_${{ matrix.platform }}.zip /home/runner/work/mosdns/mosdns/sdk/build_dir/target-aarch64_generic_musl/libjpeg-turbo-3.0.3/
+          #zip -r upload/mosdns_ipk_${{ matrix.platform }}.zip /home/runner/work/mosdns/mosdns/sdk/build_dir/target-aarch64_generic_musl/libjpeg-turbo-3.0.3/
           #zip -r upload/mosdns_ipk_${{ matrix.platform }}.zip /home/runner/work/mosdns/mosdns/sdk/feeds/mosdns/
           #zip -r upload/mosdns_ipk_${{ matrix.platform }}.zip /home/runner/work/mosdns/mosdns/sdk/feeds/juci/
 
