@@ -51,6 +51,9 @@ endef
 
 CONFIGURE_PATH := unix
 
+CONFIGURE_VARS += \
+	tk_cv_strtod_unbroken=ok
+
 CONFIGURE_ARGS += \
 	--enable-threads \
 	--with-tcl="$(STAGING_DIR)/usr/lib"
