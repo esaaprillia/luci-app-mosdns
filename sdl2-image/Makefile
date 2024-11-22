@@ -26,7 +26,7 @@ define Package/sdl2-image
 	SECTION:=libs
 	CATEGORY:=Libraries
 	TITLE:=A simple library to load images of various formats as SDL surfaces
-	DEPENDS:=+sdl2
+	DEPENDS:=+sdl2 +libjpeg-turbo +libpng +libwebp +libtiff +zlib
 	URL:=https://github.com/libsdl-org/SDL_image
 endef
 
