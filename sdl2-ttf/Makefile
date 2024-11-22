@@ -1,47 +1,63 @@
-# SPDX-License-Identifier: GPL-2.0-only
-#
-# Copyright (C) 2023 Luca Barbato and Donald Hoskins
-
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=deno
-PKG_VERSION:=1.39.1
+PKG_NAME:=sdl2-ttf
+PKG_VERSION:=2.22.0
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://codeload.github.com/denoland/deno/tar.gz/v$(PKG_VERSION)?
+PKG_SOURCE:=SDL2_ttf-$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://github.com/libsdl-org/SDL_ttf/releases/download/release-$(PKG_VERSION)/
 PKG_HASH:=skip
 
-PKG_MAINTAINER:=Luca Barbato <lu_zero@luminem.org>
-PKG_LICENSE:=MIT Unlicense
-PKG_LICENSE_FILES:=LICENSE-MIT UNLICENSE
+PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
+PKG_LICENSE:=Zlib
+PKG_LICENSE_FILES:=LICENSE.txt
 
-PKG_USE_NINJA:=1
-#PKG_BUILD_DIR:=$(BUILD_DIR)/boringtun-$(PKG_NAME)-$(PKG_VERSION)
-PKG_BUILD_DEPENDS:=rust/host
+PKG_BUILD_DIR:=$(BUILD_DIR)/SDL2_ttf-$(PKG_VERSION)
 
-#RUST_PKG_FEATURES:=boringtun-cli
+CMAKE_BINARY_SUBDIR := build
+
+PKG_BUILD_PARALLEL:=1
+PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
-#include $(INCLUDE_DIR)/cmake.mk
-include ../../lang/rust/rust-package.mk
+include $(INCLUDE_DIR)/cmake.mk
 
-define Build/Compile
-	$(call Build/Compile/Cargo,cli)
-	$(call Build/Compile/Cargo)
+define Package/sdl2-ttf
+	SECTION:=libs
+	CATEGORY:=Libraries
+	TITLE:=Support for TrueType (.ttf) font files with Simple Directmedia Layer.
+	DEPENDS:=+sdl2 +libfreetype
+	URL:=https://github.com/libsdl-org/SDL_ttf
 endef
 
-define Package/deno
-  SECTION:=utils
-  CATEGORY:=Utilities
-  TITLE:=Userspace WireGuard® Implementation in Rust
-  DEPENDS:=$(RUST_ARCH_DEPENDS)
-  URL:=https://github.com/cloudflare/boringtun
+define Package/sdl2-ttf/description
+	This library is a wrapper around the FreeType and Harfbuzz libraries, allowing you to use TrueType fonts to render text in SDL applications.
 endef
 
-define Package/deno/description
-  BoringTun is an implementation of the WireGuard® protocol designed for portability and speed.
+CMAKE_OPTIONS += \
+	-DSDL2TTF_HARFBUZZ=OFF
+
+define Build/InstallDev
+	$(INSTALL_DIR) \
+	  $(1)/usr/include \
+	  $(1)/usr/lib
+	
+	$(CP) \
+	  $(PKG_INSTALL_DIR)/usr/include/SDL2 \
+	  $(1)/usr/include/
+
+	$(CP) \
+	  $(PKG_INSTALL_DIR)/usr/lib/{pkgconfig,*.so*,cmake} \
+	  $(1)/usr/lib/
 endef
 
-$(eval $(call RustBinPackage,deno))
-$(eval $(call BuildPackage,deno))
+define Package/sdl2-ttf/install
+	$(INSTALL_DIR) \
+	  $(1)/usr/lib
+
+	$(CP) \
+	  $(PKG_INSTALL_DIR)/usr/lib/*.so* \
+	  $(1)/usr/lib/
+endef
+
+$(eval $(call BuildPackage,sdl2-ttf))
