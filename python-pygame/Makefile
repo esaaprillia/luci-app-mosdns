@@ -38,6 +38,9 @@ PYTHON3_PKG_SETUP_VARS += \
 	LOCALBASE="$(STAGING_DIR)/usr" \
 	PORTMIDI_INC_PORTTIME=1
 
+PYTHON3_PKG_SETUP_GLOBAL_ARGS:=cython build
+PYTHON3_PKG_SETUP_ARGS:=
+
 $(eval $(call Py3Package,python3-pygame))
 $(eval $(call BuildPackage,python3-pygame))
 $(eval $(call BuildPackage,python3-pygame-src))
