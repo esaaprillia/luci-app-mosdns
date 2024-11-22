@@ -53,19 +53,9 @@ CMAKE_OPTIONS += \
 
 define Build/InstallDev
 	$(INSTALL_DIR) \
-	  $(1)/usr/bin \
-	  $(2)/bin \
 	  $(1)/usr/include \
 	  $(1)/usr/lib \
 	  $(1)/usr/share
-
-	$(CP) \
-	  $(PKG_INSTALL_DIR)/usr/bin/sdl2-config \
-	  $(1)/usr/bin/
-	
-	$(SED) \
-	  's,^\(prefix\|exec_prefix\)=.*,\1=$(STAGING_DIR)/usr,g' $(1)/usr/bin/sdl2-config
-	$(LN) ../../usr/bin/sdl2-config $(2)/bin/
 	
 	$(CP) \
 	  $(PKG_INSTALL_DIR)/usr/include/SDL2 \
