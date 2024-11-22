@@ -1,0 +1,20 @@
+From a67c4ee55c81f2702e72423245dee3dda4628a76 Mon Sep 17 00:00:00 2001
+From: esaaprillia <esaapriliasalsabila@gmail.com>
+Date: Fri, 22 Nov 2024 20:15:15 +0800
+Subject: [PATCH] Update portmidi.pc.in
+
+---
+ packaging/portmidi.pc.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/packaging/portmidi.pc.in b/packaging/portmidi.pc.in
+index bc60828..dbc9a5a 100644
+--- a/packaging/portmidi.pc.in
++++ b/packaging/portmidi.pc.in
+@@ -1,5 +1,5 @@
+ prefix="@CMAKE_INSTALL_PREFIX@"
+-exec_prefix="${prefix}"
++exec_prefix="@CMAKE_INSTALL_PREFIX@"
+ libdir=@CMAKE_INSTALL_FULL_LIBDIR@
+ includedir=@CMAKE_INSTALL_FULL_INCLUDEDIR@
+ 
