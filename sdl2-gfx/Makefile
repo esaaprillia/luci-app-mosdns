@@ -24,7 +24,7 @@ define Package/sdl2-gfx
 	CATEGORY:=Libraries
 	TITLE:=SDL2 graphics drawing primitives and other support functions
 	DEPENDS:=+sdl2
-	URL:=https://github.com/libsdl-org/SDL_image
+	URL:=http://www.ferzkopp.net/wordpress/2016/01/02/sdl_gfx-sdl2_gfx/
 endef
 
 define Package/sdl2-gfx/description
