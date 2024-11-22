@@ -1,47 +1,59 @@
-# SPDX-License-Identifier: GPL-2.0-only
-#
-# Copyright (C) 2023 Luca Barbato and Donald Hoskins
-
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=deno
-PKG_VERSION:=1.39.1
+PKG_NAME:=wavpack
+PKG_VERSION:=5.7.0
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://codeload.github.com/denoland/deno/tar.gz/v$(PKG_VERSION)?
-PKG_HASH:=skip
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
+PKG_SOURCE_URL:=https://www.wavpack.com/
+PKG_HASH:=e81510fd9ec5f309f58d5de83e9af6c95e267a13753d7e0bbfe7b91273a88bee
 
-PKG_MAINTAINER:=Luca Barbato <lu_zero@luminem.org>
-PKG_LICENSE:=MIT Unlicense
-PKG_LICENSE_FILES:=LICENSE-MIT UNLICENSE
+PKG_MAINTAINER:=Daniel Golle <daniel@makrotopia.org>
+PKG_LICENSE:=BSD-3c
+PKG_LICENSE_FILES:=COPYING LICENSE
 
-PKG_USE_NINJA:=1
-#PKG_BUILD_DIR:=$(BUILD_DIR)/boringtun-$(PKG_NAME)-$(PKG_VERSION)
-PKG_BUILD_DEPENDS:=rust/host
-
-#RUST_PKG_FEATURES:=boringtun-cli
+CMAKE_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
-#include $(INCLUDE_DIR)/cmake.mk
-include ../../lang/rust/rust-package.mk
+include $(INCLUDE_DIR)/cmake.mk
 
-define Build/Compile
-	$(call Build/Compile/Cargo,cli)
-	$(call Build/Compile/Cargo)
+CMAKE_OPTIONS += -DBUILD_SHARED_LIBS=ON
+
+CMAKE_BINARY_SUBDIR:=openwrt-build
+
+define Package/libwavpack
+  SECTION:=sound
+  CATEGORY:=Sound
+  TITLE:=Hybrid Lossless Audio Compression
+  URL:=https://www.wavpack.com/
 endef
 
-define Package/deno
-  SECTION:=utils
-  CATEGORY:=Utilities
-  TITLE:=Userspace WireGuard® Implementation in Rust
-  DEPENDS:=$(RUST_ARCH_DEPENDS)
-  URL:=https://github.com/cloudflare/boringtun
+define Package/libwavpack/description
+  WavPack is a completely open audio compression format providing lossless,
+  high-quality lossy, and a unique hybrid compression mode.
 endef
 
-define Package/deno/description
-  BoringTun is an implementation of the WireGuard® protocol designed for portability and speed.
+define Build/InstallDev
+	$(INSTALL_DIR) \
+	  $(1)/usr/include \
+	  $(1)/usr/lib
+	
+	$(CP) \
+	  $(PKG_INSTALL_DIR)/usr/include/wavpack \
+	  $(1)/usr/include/
+
+	$(CP) \
+	  $(PKG_INSTALL_DIR)/usr/lib/{pkgconfig,*.so*,cmake} \
+	  $(1)/usr/lib/
 endef
 
-$(eval $(call RustBinPackage,deno))
-$(eval $(call BuildPackage,deno))
+define Package/libwavpack/install
+	$(INSTALL_DIR) \
+	  $(1)/usr/lib
+
+	$(CP) \
+	  $(PKG_INSTALL_DIR)/usr/lib/*.so* \
+	  $(1)/usr/lib/
+endef
+
+$(eval $(call BuildPackage,libwavpack))
