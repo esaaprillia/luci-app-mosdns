@@ -62,11 +62,11 @@ define Build/InstallDev
 	$(CP) \
 	  $(PKG_INSTALL_DIR)/usr/bin/sdl2-config \
 	  $(1)/usr/bin/
-	
-	$(SED) \
-	  's,^\(prefix\|exec_prefix\)=.*,\1=$(STAGING_DIR)/usr,g' $(1)/usr/bin/sdl2-config
+
+	$(SED) 's,^\(bindir\)=.*,\1=$$$${prefix}/bin,g' $(1)/usr/bin/sdl2-config
+	$(SED) 's,^\(prefix\|exec_prefix\)=.*,\1=$(STAGING_DIR)/usr,g' $(1)/usr/bin/sdl2-config
 	$(LN) ../../usr/bin/sdl2-config $(2)/bin/
-	
+
 	$(CP) \
 	  $(PKG_INSTALL_DIR)/usr/include/SDL2 \
 	  $(1)/usr/include/
