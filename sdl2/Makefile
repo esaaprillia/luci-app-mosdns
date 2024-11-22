@@ -72,7 +72,7 @@ define Build/InstallDev
 	  $(1)/usr/include/
 
 	$(CP) \
-	  $(PKG_INSTALL_DIR)/usr/lib/{pkgconfig,*.so*,cmake} \
+	  $(PKG_INSTALL_DIR)/usr/lib/{pkgconfig,*.so*,cmake,*.a} \
 	  $(1)/usr/lib/
 
 	$(CP) \
