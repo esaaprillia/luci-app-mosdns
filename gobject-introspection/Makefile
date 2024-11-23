@@ -12,8 +12,8 @@ PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
 PKG_LICENSE:=GNU Library General Public License v2 only
 PKG_LICENSE_FILES:=COPYING COPYING.GPL COPYING.LGPL
 
-HOST_BUILD_DEPENDS:=glib2/host pcre2/host libffi/host python3/host python-mako/host python-markdown/host python-setuptools-scm/host meson/host
-PKG_BUILD_DEPENDS:=glib2/host pcre2/host libffi/host python3/host python-mako/host python-markdown/host python-setuptools-scm/host meson/host
+HOST_BUILD_DEPENDS:=glib2/host pcre2/host libffi/host python-setuptools-scm/host meson/host
+PKG_BUILD_DEPENDS:=glib2/host pcre2/host libffi/host python-setuptools-scm/host meson/host
 
 PKG_BUILD_PARALLEL:=1
 HOST_BUILD_PARALLEL:=1
