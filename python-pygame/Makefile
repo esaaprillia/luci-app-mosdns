@@ -13,8 +13,8 @@ PKG_LICENSE_FILES:=LGPL.txt
 
 PKG_FORTIFY_SOURCE:=0
 
-HOST_BUILD_DEPENDS:=python-setuptools-scm/host python-cython/host
-PKG_BUILD_DEPENDS:=python-setuptools-scm/host python-cython/host
+HOST_BUILD_DEPENDS:=python-setuptools-scm/host
+PKG_BUILD_DEPENDS:=python-setuptools-scm/host
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
