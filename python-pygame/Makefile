@@ -11,8 +11,6 @@ PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
 PKG_LICENSE:=LGPL-2.1-or-later
 PKG_LICENSE_FILES:=LGPL.txt
 
-PKG_FORTIFY_SOURCE:=0
-
 HOST_BUILD_DEPENDS:=python-setuptools-scm/host
 PKG_BUILD_DEPENDS:=python-setuptools-scm/host
 
