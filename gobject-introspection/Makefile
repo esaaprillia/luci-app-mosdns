@@ -13,7 +13,7 @@ PKG_LICENSE:=GNU Library General Public License v2 only
 PKG_LICENSE_FILES:=COPYING COPYING.GPL COPYING.LGPL
 
 HOST_BUILD_DEPENDS:=glib2/host pcre2/host libffi/host python-setuptools-scm/host meson/host
-PKG_BUILD_DEPENDS:=glib2/host pcre2/host libffi/host python-setuptools-scm/host meson/host
+PKG_BUILD_DEPENDS:=python3 python-setuptools-scm/host meson/host
 
 PKG_BUILD_PARALLEL:=1
 HOST_BUILD_PARALLEL:=1
@@ -29,7 +29,7 @@ define Package/gobject-introspection
 	SECTION:=libs
 	CATEGORY:=Libraries
 	TITLE:=Introspection system for GObject-based libraries
-	DEPENDS:=+glib2 +libffi +python3 +python3-mako +python3-markdown +python3-setuptools
+	DEPENDS:=+glib2 +libffi
 	URL:=https://wiki.gnome.org/action/show/Projects/GObjectIntrospection
 endef
 
