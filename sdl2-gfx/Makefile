@@ -47,6 +47,12 @@ define Build/InstallDev
 	$(CP) \
 	  $(PKG_INSTALL_DIR)/usr/lib/{pkgconfig,*.so*} \
 	  $(1)/usr/lib/
+	
+	$(SED) \
+	  's,/usr/include,$$$${prefix}/include,g' $(1)/usr/lib/pkgconfig/SDL2_gfx.pc
+
+	$(SED) \
+	  's,/usr/lib,$$$${exec_prefix}/lib,g' $(1)/usr/lib/pkgconfig/SDL2_gfx.pc
 endef
 
 define Package/sdl2-gfx/install
