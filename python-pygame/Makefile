@@ -11,8 +11,8 @@ PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
 PKG_LICENSE:=LGPL-2.1-or-later
 PKG_LICENSE_FILES:=LGPL.txt
 
-HOST_BUILD_DEPENDS:=python-setuptools-scm/host
-PKG_BUILD_DEPENDS:=python-setuptools-scm/host
+HOST_BUILD_DEPENDS:=python-cython/host python-pkgconfig/host python-setuptools-scm/host
+PKG_BUILD_DEPENDS:=python-cython/host python-pkgconfig/host python-setuptools-scm/host
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
