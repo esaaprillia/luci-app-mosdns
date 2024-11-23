@@ -11,6 +11,8 @@ PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
 PKG_LICENSE:=LGPL-2.1-or-later
 PKG_LICENSE_FILES:=LGPL.txt
 
+PKG_FORTIFY_SOURCE:=0
+
 HOST_BUILD_DEPENDS:=python-setuptools-scm/host python-cython/host
 PKG_BUILD_DEPENDS:=python-setuptools-scm/host python-cython/host
 
@@ -37,9 +39,6 @@ endef
 PYTHON3_PKG_SETUP_VARS += \
 	LOCALBASE="$(STAGING_DIR)/usr" \
 	PORTMIDI_INC_PORTTIME=1
-
-PYTHON3_PKG_SETUP_GLOBAL_ARGS:=cython build
-PYTHON3_PKG_SETUP_ARGS:=
 
 $(eval $(call Py3Package,python3-pygame))
 $(eval $(call BuildPackage,python3-pygame))
