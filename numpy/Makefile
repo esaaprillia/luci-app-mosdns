@@ -18,7 +18,7 @@ PKG_LICENSE:=BSD-3-Clause
 PKG_LICENSE_FILES:=LICENSE.txt
 PKG_CPE_ID:=cpe:/a:numpy:numpy
 
-PKG_BUILD_DEPENDS:=python-setuptools-scm/host python-cython/host meson-python/host python-pkgconfig/host
+PKG_BUILD_DEPENDS:=python-setuptools-scm/host python-cython/host meson-python/host
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
@@ -48,9 +48,6 @@ By default, this package is built without some modules.
 For some modules to be available, the INSTALL_GFORTRAN symbol needs
 to be enabled in the OpenWrt core/toolchain.
 endef
-
-MESON_VARS += \
-        PKG_CONFIG_PATH=$(STAGING_DIR)/usr/lib/pkgconfig
 
 $(eval $(call Py3Package,python3-numpy))
 $(eval $(call BuildPackage,python3-numpy))
