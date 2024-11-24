@@ -116,7 +116,7 @@ define Build/InstallDev
 	$(INSTALL_DIR) $(1)/usr/include/openblas
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/* $(1)/usr/lib/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/cmake/* $(1)/usr/lib/cmake/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/cmake/* $(1)/usr/lib/cmake/OpenBLAS/
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/cmake/openblas/* $(1)/usr/lib/cmake/OpenBLAS/
 	$(CP) $(PKG_INSTALL_DIR)/usr/include/* $(1)/usr/include/
 	$(CP) $(PKG_INSTALL_DIR)/usr/include/* $(1)/usr/include/openblas/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/pkgconfig/* $(1)/usr/lib/pkgconfig/
