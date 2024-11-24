@@ -35,7 +35,10 @@ define Package/openblas/description
 endef
 
 CMAKE_OPTIONS += \
-	-DBUILD_SHARED_LIBS=ON
+	-Wno-dev \
+	-DBUILD_SHARED_LIBS=ON \
+	-DNOFORTRAN=1 \
+	-DCMAKE_C_COMPILER="$(CMAKE_C_COMPILER)"
 
 define Build/InstallDev
 	$(INSTALL_DIR) \
