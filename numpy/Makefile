@@ -6,11 +6,11 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=numpy
-PKG_VERSION:=2.1.0
+PKG_VERSION:=2.1.3
 PKG_RELEASE:=1
 
 PYPI_NAME:=$(PKG_NAME)
-PKG_HASH:=7dc90da0081f7e1da49ec4e398ede6a8e9cc4f5ebe5f9e06b443ed889ee9aaa2
+PKG_HASH:=aa08e04e08aaf974d4458def539dece0d28146d866a39da5639596f4921fd761
 
 PKG_MAINTAINER:=Alexandru Ardelean <ardeleanalex@gmail.com>
 
@@ -18,7 +18,7 @@ PKG_LICENSE:=BSD-3-Clause
 PKG_LICENSE_FILES:=LICENSE.txt
 PKG_CPE_ID:=cpe:/a:numpy:numpy
 
-PKG_BUILD_DEPENDS:=python-cython/host pyproject-metadata/host meson-python/host
+PKG_BUILD_DEPENDS:=python-setuptools-scm/host python-cython/host meson-python/host
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
@@ -41,19 +41,6 @@ ifeq ($(ARCH),x86_64)
 #        numpy does not detect this compiler extension, so we just enable it
 TARGET_CFLAGS += -mavx512f
 endif
-
-define Build/Prepare/numpy-sitecfg
-	echo                                             >> $(PKG_BUILD_DIR)/site.cfg
-	echo "[openblas]"                                >> $(PKG_BUILD_DIR)/site.cfg
-	echo "libraries = openblas"                      >> $(PKG_BUILD_DIR)/site.cfg
-	echo "library_dirs = $(STAGING_DIR)/usr/lib"     >> $(PKG_BUILD_DIR)/site.cfg
-	echo "include_dirs = $(STAGING_DIR)/usr/include" >> $(PKG_BUILD_DIR)/site.cfg
-endef
-
-define Build/Prepare
-	$(call Build/Prepare/Default)
-	$(call Build/Prepare/numpy-sitecfg)
-endef
 
 define Package/python3-numpy/description
 NumPy is the fundamental package for array computing with Python.
