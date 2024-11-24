@@ -36,18 +36,9 @@ define Package/python3-numpy
   DEPENDS:=@!SOFT_FLOAT +INSTALL_GFORTRAN:libgfortran +python3 +libstdcpp +openblas
 endef
 
-define Build/Prepare/numpy-sitecfg
-	echo                                             >> $(PKG_BUILD_DIR)/site.cfg
-	echo "[openblas]"                                >> $(PKG_BUILD_DIR)/site.cfg
-	echo "libraries = openblas"                      >> $(PKG_BUILD_DIR)/site.cfg
-	echo "library_dirs = $(STAGING_DIR)/usr/lib"                      >> $(PKG_BUILD_DIR)/site.cfg
-	echo "include_dirs = $(STAGING_DIR)/usr/include"                      >> $(PKG_BUILD_DIR)/site.cfg
-	echo "runtime_library_dirs = $(STAGING_DIR)/usr/lib"           >> $(PKG_BUILD_DIR)/site.cfg
-endef
-
 define Build/Prepare
 	$(call Build/Prepare/Default)
-	$(call Build/Prepare/numpy-sitecfg)
+	$(CP) $(PKG_BUILD_DIR)/site.cfg $(PKG_BUILD_DIR)/
 endef
 
 define Package/python3-numpy/description
