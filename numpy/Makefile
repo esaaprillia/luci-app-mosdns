@@ -18,7 +18,7 @@ PKG_LICENSE:=BSD-3-Clause
 PKG_LICENSE_FILES:=LICENSE.txt
 PKG_CPE_ID:=cpe:/a:numpy:numpy
 
-PKG_BUILD_DEPENDS:=python-setuptools-scm/host python-cython/host meson-python/host
+PKG_BUILD_DEPENDS:=python-setuptools-scm/host python-cython/host meson-python/host python-pkgconfig/host
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
