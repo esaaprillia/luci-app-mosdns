@@ -37,7 +37,6 @@ endef
 CMAKE_OPTIONS += \
 	-Wno-dev \
 	-DBUILD_SHARED_LIBS=ON \
-	-DNOFORTRAN=1 \
 	-DCMAKE_C_COMPILER="$(CMAKE_C_COMPILER)"
 
 define Build/InstallDev
