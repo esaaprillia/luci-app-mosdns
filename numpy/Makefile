@@ -49,6 +49,9 @@ For some modules to be available, the INSTALL_GFORTRAN symbol needs
 to be enabled in the OpenWrt core/toolchain.
 endef
 
+MESON_VARS += \
+        PKG_CONFIG_PATH=$(STAGING_DIR)/usr/lib/pkgconfig
+
 $(eval $(call Py3Package,python3-numpy))
 $(eval $(call BuildPackage,python3-numpy))
 $(eval $(call BuildPackage,python3-numpy-src))
