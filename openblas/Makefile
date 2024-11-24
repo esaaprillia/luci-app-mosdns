@@ -36,8 +36,8 @@ endef
 
 CMAKE_OPTIONS += \
 	-Wno-dev \
-	-DCMAKE_CROSSCOMPILING=ON \
-	-DBUILD_SHARED_LIBS=ON
+	-DBUILD_SHARED_LIBS=ON \
+	-DNOFORTRAN=1
 
 define Build/InstallDev
 	$(INSTALL_DIR) \
