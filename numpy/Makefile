@@ -36,12 +36,6 @@ define Package/python3-numpy
   DEPENDS:=@!SOFT_FLOAT +INSTALL_GFORTRAN:libgfortran +python3 +libstdcpp +openblas
 endef
 
-ifeq ($(ARCH),x86_64)
-# FIXME: temporary fix for x86_64 with GCC 13 + musl;
-#        numpy does not detect this compiler extension, so we just enable it
-TARGET_CFLAGS += -mavx512f
-endif
-
 define Package/python3-numpy/description
 NumPy is the fundamental package for array computing with Python.
 
