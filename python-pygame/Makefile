@@ -34,6 +34,8 @@ define Package/python3-pygame/description
   It uses the Simple DirectMedia Layer library and several other popular libraries to abstract the most common functions, making writing these programs a more intuitive task.
 endef
 
+CFLAGS:="$(TARGET_CFLAGS)  -D_FORTIFY_SOURCE=0
+
 PYTHON3_PKG_SETUP_VARS += \
 	LOCALBASE="$(STAGING_DIR)/usr" \
 	PORTMIDI_INC_PORTTIME=1
