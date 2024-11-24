@@ -20,16 +20,6 @@ PKG_CPE_ID:=cpe:/a:numpy:numpy
 
 PKG_BUILD_DEPENDS:=python-setuptools-scm/host python-cython/host meson-python/host
 
-MESON_VARS := \
-        BLAS_INCLUDEDIR=$(STAGING_DIR)/usr/include \
-        BLAS_LIBDIR=$(STAGING_DIR)/usr/lib \
-        BLAS_PCFILEDIR=$(STAGING_DIR)/usr/lib/pkgconfig
-
-PYTHON3_PKG_BUILD_VARS := \
-        BLAS_INCLUDEDIR=$(STAGING_DIR)/usr/include \
-        BLAS_LIBDIR=$(STAGING_DIR)/usr/lib \
-        BLAS_PCFILEDIR=$(STAGING_DIR)/usr/lib/pkgconfig
-
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/host-build.mk
@@ -50,16 +40,6 @@ define Build/Prepare
 	$(call Build/Prepare/Default)
 	$(CP) ./files/site.cfg $(PKG_BUILD_DIR)/
 endef
-
-MESON_VARS += \
-        BLAS_INCLUDEDIR=$(STAGING_DIR)/usr/include \
-        BLAS_LIBDIR=$(STAGING_DIR)/usr/lib \
-        BLAS_PCFILEDIR=$(STAGING_DIR)/usr/lib/pkgconfig
-
-PYTHON3_PKG_BUILD_VARS += \
-        BLAS_INCLUDEDIR=$(STAGING_DIR)/usr/include \
-        BLAS_LIBDIR=$(STAGING_DIR)/usr/lib \
-        BLAS_PCFILEDIR=$(STAGING_DIR)/usr/lib/pkgconfig
 
 define Package/python3-numpy/description
 NumPy is the fundamental package for array computing with Python.
