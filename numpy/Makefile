@@ -38,7 +38,7 @@ endef
 
 define Build/Prepare
 	$(call Build/Prepare/Default)
-	$(CP) $(PKG_BUILD_DIR)/site.cfg $(PKG_BUILD_DIR)/
+	$(CP) ./files/site.cfg $(PKG_BUILD_DIR)/
 endef
 
 define Package/python3-numpy/description
