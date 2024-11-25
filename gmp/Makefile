@@ -44,6 +44,7 @@ CONFIGURE_VARS += CC="$(TARGET_CROSS)gcc"
 CONFIGURE_ARGS += \
 	--enable-shared \
 	--enable-static \
+	--enable-cxx \
 	--without-readline \
 	--disable-fft \
 
@@ -64,11 +65,14 @@ define Build/InstallDev
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/pkgconfig/gmp* $(1)/usr/lib/pkgconfig/
 	$(SED) 's,/usr/include,$$$${prefix}/include,g' $(1)/usr/lib/pkgconfig/gmp.pc
 	$(SED) 's,/usr/lib,$$$${exec_prefix}/lib,g' $(1)/usr/lib/pkgconfig/gmp.pc
+	$(SED) 's,/usr/include,$$$${prefix}/include,g' $(1)/usr/lib/pkgconfig/gmpxx.pc
+	$(SED) 's,/usr/lib,$$$${exec_prefix}/lib,g' $(1)/usr/lib/pkgconfig/gmpxx.pc
 endef
 
 define Package/libgmp/install
 	$(INSTALL_DIR) $(1)/usr/lib
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libgmp.so.* $(1)/usr/lib/
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libgmpxx.so.* $(1)/usr/lib/
 endef
 
 $(eval $(call BuildPackage,libgmp))
