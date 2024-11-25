@@ -43,7 +43,7 @@ define Build/InstallDev
 	  $(1)/usr/lib
 
 	$(CP) \
-	  $(PKG_INSTALL_DIR)/usr/include/superlu \
+	  $(PKG_INSTALL_DIR)/usr/include/* \
 	  $(1)/usr/include/
 
 	$(CP) \
