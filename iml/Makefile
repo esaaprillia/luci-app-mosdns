@@ -33,10 +33,7 @@ endef
 
 CONFIGURE_ARGS += \
 	--enable-shared \
-	--with-gmp-include="$(STAGING_DIR)/usr/include" \
-	--with-gmp-lib="$(STAGING_DIR)/usr/lib" \
-	--with-cblas-include="$(STAGING_DIR)/usr/include/openblas" \
-	--with-cblas-lib="$(STAGING_DIR)/usr/lib"
+	--with-cblas=-lopenblas
 
 define Build/InstallDev
 	$(INSTALL_DIR) \
