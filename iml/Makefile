@@ -31,9 +31,14 @@ define Package/iml/description
 	Written in portable C, IML can be used on both 32-bit and 64-bit machines. It can be called from C++.
 endef
 
+CONFIGURE_VARS += \
+	CBLAS_CFLAGS="-I$(STAGING_DIR)/usr/include/openblas" \
+	CBLAS_LIBS="-L$(STAGING_DIR)/usr/lib -lopenblas" \
+	GMP_CFLAGS="-I$(STAGING_DIR)/usr/include" \
+	GMP_LIBS="-L$(STAGING_DIR)/usr/lib -lgmp"
+
 CONFIGURE_ARGS += \
-	--enable-shared \
-	--with-cblas=-lopenblas
+	--enable-shared
 
 define Build/InstallDev
 	$(INSTALL_DIR) \
