@@ -32,10 +32,10 @@ define Package/iml/description
 endef
 
 CONFIGURE_VARS += \
-	CBLAS_CFLAGS="-I$(STAGING_DIR)/usr/include/openblas" \
-	CBLAS_LIBS="-L$(STAGING_DIR)/usr/lib -lopenblas" \
 	GMP_CFLAGS="-I$(STAGING_DIR)/usr/include" \
-	GMP_LIBS="-L$(STAGING_DIR)/usr/lib -lgmp"
+	GMP_LIBS="-L$(STAGING_DIR)/usr/lib -lgmp" \
+	CBLAS_CFLAGS="-I$(STAGING_DIR)/usr/include/openblas" \
+	CBLAS_LIBS="-L$(STAGING_DIR)/usr/lib -lopenblas"
 
 CONFIGURE_ARGS += \
 	--enable-shared
