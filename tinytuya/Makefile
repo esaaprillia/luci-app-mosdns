@@ -12,8 +12,8 @@ PKG_MAINTAINER:=Andy Syam <privasisource@gmail.com>
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
 
-HOST_BUILD_DEPENDS:=python-setuptools-scm/host python-colorama/host python-requests/host python-cryptography/host
-PKG_BUILD_DEPENDS:=python-setuptools-scm/host python-colorama/host python-requests/host python-cryptography/host
+HOST_BUILD_DEPENDS:=python-setuptools-scm/host python-colorama/host python-requests/host python-cryptography/host python-cryptodome/host python-pyaes/host
+PKG_BUILD_DEPENDS:=python-setuptools-scm/host python-colorama/host python-requests/host python-cryptography/host python-cryptodome/host python-pyaes/host
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/host-build.mk
