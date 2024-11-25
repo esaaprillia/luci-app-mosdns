@@ -1,68 +1,71 @@
 #
-# Copyright (C) 2019 Jakub Piotr Cłapa <jpc@loee.pl>
-# Copyright (C) 2020 Alexandru Ardelean <ardeleanalex@gmail.com>
+# Copyright (C) 2006-2016 OpenWrt.org
+#
+# This is free software, licensed under the GNU General Public License v2.
+# See /LICENSE for more information.
 #
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=numpy
-PKG_VERSION:=2.1.0
+PKG_NAME:=gmp
+PKG_VERSION:=6.3.0
 PKG_RELEASE:=1
 
-PYPI_NAME:=$(PKG_NAME)
-PKG_HASH:=7dc90da0081f7e1da49ec4e398ede6a8e9cc4f5ebe5f9e06b443ed889ee9aaa2
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)$(PKG_REVISION).tar.xz
+PKG_SOURCE_URL:=@GNU/gmp/
+PKG_HASH:=a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898
 
-PKG_MAINTAINER:=Alexandru Ardelean <ardeleanalex@gmail.com>
+PKG_BUILD_PARALLEL:=1
+PKG_INSTALL:=1
+PKG_FIXUP:=autoreconf
+PKG_LICENSE:=GPL-2.0-or-later
+PKG_CPE_ID:=cpe:/a:gmplib:gmp
 
-PKG_LICENSE:=BSD-3-Clause
-PKG_LICENSE_FILES:=LICENSE.txt
-PKG_CPE_ID:=cpe:/a:numpy:numpy
+PKG_BUILD_FLAGS:=no-mips16
 
-PKG_BUILD_DEPENDS:=python-cython/host pyproject-metadata/host meson-python/host
-
-include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
-include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/host-build.mk
-include $(TOPDIR)/feeds/mosdns/meson/meson.mk
-include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
-include $(TOPDIR)/feeds/packages/lang/python/python3-host-build.mk
+include $(INCLUDE_DIR)/package.mk
 
-define Package/python3-numpy
-  SUBMENU:=Python
-  SECTION:=lang
-  CATEGORY:=Languages
-  TITLE:=The fundamental package for scientific computing with Python
-  URL:=https://www.numpy.org/
-  DEPENDS:=@!SOFT_FLOAT +INSTALL_GFORTRAN:libgfortran +python3 +libstdcpp +openblas
+define Package/libgmp
+  SECTION:=libs
+  CATEGORY:=Libraries
+  TITLE:=GNU multiprecision arithmetic library
+  URL:=http://gmplib.org/
+  ABI_VERSION:=10
 endef
 
-ifeq ($(ARCH),x86_64)
-# FIXME: temporary fix for x86_64 with GCC 13 + musl;
-#        numpy does not detect this compiler extension, so we just enable it
-TARGET_CFLAGS += -mavx512f
-endif
-
-define Build/Prepare/numpy-sitecfg
-	echo                                             >> $(PKG_BUILD_DIR)/site.cfg
-	echo "[openblas]"                                >> $(PKG_BUILD_DIR)/site.cfg
-	echo "libraries = openblas"                      >> $(PKG_BUILD_DIR)/site.cfg
-	echo "library_dirs = $(STAGING_DIR)/usr/lib"     >> $(PKG_BUILD_DIR)/site.cfg
-	echo "include_dirs = $(STAGING_DIR)/usr/include" >> $(PKG_BUILD_DIR)/site.cfg
+define Package/libgmp/description
+	GMP is a free library for arbitrary precision arithmetic, operating on
+	signed integers, rational numbers, and floating point numbers.
 endef
 
-define Build/Prepare
-	$(call Build/Prepare/Default)
-	$(call Build/Prepare/numpy-sitecfg)
+TARGET_CFLAGS += $(FPIC)
+CONFIGURE_VARS += CC="$(TARGET_CROSS)gcc"
+CONFIGURE_ARGS += \
+	--enable-shared \
+	--enable-static \
+	--without-readline \
+	--disable-fft \
+
+define Build/Compile
+	$(call Build/Compile/Default, \
+		DESTDIR="$(PKG_INSTALL_DIR)" \
+		CC="$(TARGET_CC)" \
+		all \
+	)
 endef
 
-define Package/python3-numpy/description
-NumPy is the fundamental package for array computing with Python.
-
-By default, this package is built without some modules.
-For some modules to be available, the INSTALL_GFORTRAN symbol needs
-to be enabled in the OpenWrt core/toolchain.
+define Build/InstallDev
+	$(INSTALL_DIR) $(1)/usr/include
+	$(CP) $(PKG_INSTALL_DIR)/usr/include/gmp* $(1)/usr/include/
+	$(INSTALL_DIR) $(1)/usr/lib
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libgmp.{a,so*} $(1)/usr/lib/
 endef
 
-$(eval $(call Py3Package,python3-numpy))
-$(eval $(call BuildPackage,python3-numpy))
-$(eval $(call BuildPackage,python3-numpy-src))
+define Package/libgmp/install
+	$(INSTALL_DIR) $(1)/usr/lib
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libgmp.so.* $(1)/usr/lib/
+endef
+
+$(eval $(call BuildPackage,libgmp))
+$(eval $(call HostBuild))
