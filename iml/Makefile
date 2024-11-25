@@ -33,6 +33,7 @@ endef
 
 CONFIGURE_ARGS += \
 	--enable-shared \
+	--with-default="$(STAGING_DIR)/usr" \
 	--with-cblas=-lopenblas
 
 define Build/InstallDev
