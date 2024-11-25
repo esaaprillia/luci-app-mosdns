@@ -21,7 +21,7 @@ define Package/luci-app-mosdns
   #DEPENDS:=php7 php7-pecl-dio php7-pecl-http php7-pecl-imagick php7-pecl-krb5 php7-pecl-libevent php7-pecl-mcrypt php7-pecl-propro php7-pecl-raphf php7-pecl-redis freeradius3 mysql-server pear pear-db pear-archive-tar pear-structures-graph pear-console-getopt pear-xml-util pear-xmlrpc
   #DEPENDS:=freeradius3 mysql-server pear pear-db pear-archive-tar pear-structures-graph pear-console-getopt pear-xml-util pear-xmlrpc
   #DEPENDS:=python3-protobuf python3-pyperclip python3-ruamel-yaml python3-sortedcontainers python3-tornado python3-urwid python3-wsproto python3-publicsuffix2 python3-zstandard
-  DEPENDS:=iml
+  DEPENDS:=+python3-colorama +python3-pyaes +python3-cryptodome
   TITLE:=Tools Inject xderm-mini
 endef
 
