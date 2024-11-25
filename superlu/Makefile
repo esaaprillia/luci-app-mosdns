@@ -35,8 +35,7 @@ endef
 
 CMAKE_OPTIONS += \
 	-DBUILD_SHARED_LIBS=ON \
-	-Denable_internal_blaslib:BOOL=OFF \
-	-DTPL_BLAS_LIBRARIES="$(STAGING_DIR)/usr/lib"
+	-Denable_internal_blaslib:BOOL=OFF
 
 define Build/InstallDev
 	$(INSTALL_DIR) \
