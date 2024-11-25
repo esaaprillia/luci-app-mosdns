@@ -12,6 +12,7 @@ PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
 PKG_LICENSE:=GPL-2.0-or-later
 PKG_LICENSE_FILES:=COPYING
 
+PKG_FIXUP:=autoreconf
 PKG_BUILD_PARALLEL:=1
 PKG_INSTALL:=1
 
@@ -33,7 +34,7 @@ endef
 
 CONFIGURE_ARGS += \
 	--enable-shared \
-	--with-cblas
+	--with-cblas=-lopenblas
 
 define Build/InstallDev
 	$(INSTALL_DIR) \
