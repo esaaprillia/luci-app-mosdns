@@ -49,6 +49,12 @@ define Build/InstallDev
 	$(CP) \
 	  $(PKG_INSTALL_DIR)/usr/lib/{pkgconfig,*.so*,cmake} \
 	  $(1)/usr/lib/
+
+	$(SED) \
+	  's,/usr/include,$$$${prefix}/include,g' $(1)/usr/lib/pkgconfig/superlu.pc
+
+	$(SED) \
+	  's,/usr/lib,$$$${exec_prefix}/lib,g' $(1)/usr/lib/pkgconfig/superlu.pc
 endef
 
 define Package/superlu/install
