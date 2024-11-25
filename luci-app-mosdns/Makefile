@@ -7,7 +7,7 @@ PKG_LICENSE:=GPL-2.0
 
 PKG_MAINTAINER:=
 
-PKG_BUILD_DEPENDS:=python-cryptodome/host python-pyaes/host
+PKG_BUILD_DEPENDS:=python-colorama/host python-cryptodome/host python-pyaes/host
 PKG_BUILD_DIR := $(BUILD_DIR)/$(PKG_NAME)
 PKG_BUILD_PARALLEL:=1
 
