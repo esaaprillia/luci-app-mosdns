@@ -36,11 +36,6 @@ define Package/python3-numpy
   DEPENDS:=@!SOFT_FLOAT +INSTALL_GFORTRAN:libgfortran +python3 +libstdcpp +openblas
 endef
 
-define Build/Prepare
-	$(call Build/Prepare/Default)
-	$(CP) ./files/site.cfg $(PKG_BUILD_DIR)/
-endef
-
 define Package/python3-numpy/description
 NumPy is the fundamental package for array computing with Python.
 
