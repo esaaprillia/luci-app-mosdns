@@ -31,6 +31,7 @@ define Package/libgmp
   CATEGORY:=Libraries
   TITLE:=GNU multiprecision arithmetic library
   URL:=http://gmplib.org/
+  DEPENDS:=+libstdcpp
   ABI_VERSION:=10
 endef
 
