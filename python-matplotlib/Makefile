@@ -11,8 +11,8 @@ PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
 PKG_LICENSE:=LICENSE
 PKG_LICENSE_FILES:=LICENSE
 
-HOST_BUILD_DEPENDS:=python-setuptools-scm/host python-pybind11/host meson-python/host
-PKG_BUILD_DEPENDS:=python-setuptools-scm/host python-pybind11/host meson-python/host
+HOST_BUILD_DEPENDS:=python-setuptools-scm/host python-pybind11/host meson-python/host numpy/host
+PKG_BUILD_DEPENDS:=python-setuptools-scm/host python-pybind11/host meson-python/host numpy/host
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
