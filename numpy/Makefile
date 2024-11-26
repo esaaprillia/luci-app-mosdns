@@ -1,8 +1,3 @@
-#
-# Copyright (C) 2019 Jakub Piotr Cłapa <jpc@loee.pl>
-# Copyright (C) 2020 Alexandru Ardelean <ardeleanalex@gmail.com>
-#
-
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=numpy
@@ -12,7 +7,7 @@ PKG_RELEASE:=1
 PYPI_NAME:=$(PKG_NAME)
 PKG_HASH:=aa08e04e08aaf974d4458def539dece0d28146d866a39da5639596f4921fd761
 
-PKG_MAINTAINER:=Alexandru Ardelean <ardeleanalex@gmail.com>
+PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
 
 PKG_LICENSE:=BSD-3-Clause
 PKG_LICENSE_FILES:=LICENSE.txt
