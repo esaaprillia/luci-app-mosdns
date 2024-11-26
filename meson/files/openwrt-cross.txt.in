@@ -24,4 +24,4 @@ cpu = '@CPU@'
 endian = '@ENDIAN@'
 
 [properties]
-needs_exe_wrapper = true
+needs_exe_wrapper = false
