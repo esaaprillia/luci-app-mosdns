@@ -24,17 +24,5 @@ cpu = '@CPU@'
 endian = '@ENDIAN@'
 
 [properties]
-sizeof_short = 2
-sizeof_int = 4
-sizeof_long = 4
-sizeof_long_long = 8
-sizeof_float = 4
-sizeof_double = 8
-sizeof_long_double = 8
-sizeof_size_t = 8
-sizeof_wchar_t = 2
-sizeof_off_t = 4
-sizeof_Py_intptr_t = 8
-sizeof_PY_LONG_LONG = 8
 longdouble_format = 'IEEE_DOUBLE_LE'
 needs_exe_wrapper = true
