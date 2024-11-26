@@ -1,80 +1,40 @@
-#
-# Copyright (C) 2006-2016 OpenWrt.org
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
-
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=gmp
-PKG_VERSION:=6.3.0
+PKG_NAME:=python-tzdata
+PKG_VERSION:=2024.2
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)$(PKG_REVISION).tar.xz
-PKG_SOURCE_URL:=@GNU/gmp/
-PKG_HASH:=a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898
+PYPI_NAME:=tzdata
+PKG_HASH:=7d85cc416e9382e69095b7bdf4afd9e3880418a2413feec7069d533d6b4e31cc
 
-PKG_BUILD_PARALLEL:=1
-PKG_INSTALL:=1
-PKG_FIXUP:=autoreconf
-PKG_LICENSE:=GPL-2.0-or-later
-PKG_CPE_ID:=cpe:/a:gmplib:gmp
+PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
+PKG_LICENSE:=License
+PKG_LICENSE_FILES:=LICENSE
 
-PKG_BUILD_FLAGS:=no-mips16
+HOST_BUILD_DEPENDS:=python-setuptools-scm/host
+PKG_BUILD_DEPENDS:=python-setuptools-scm/host
 
-include $(INCLUDE_DIR)/host-build.mk
+include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/host-build.mk
+include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
+include $(TOPDIR)/feeds/packages/lang/python/python3-host-build.mk
 
-define Package/libgmp
-  SECTION:=libs
-  CATEGORY:=Libraries
-  TITLE:=GNU multiprecision arithmetic library
-  URL:=http://gmplib.org/
-  ABI_VERSION:=10
+define Package/python3-tzdata
+  SUBMENU:=Python
+  SECTION:=lang
+  CATEGORY:=Languages
+  TITLE:=Provider of IANA time zone data
+  URL:=https://github.com/python/tzdata
+  DEPENDS:=+python3 +python3-attrs
 endef
 
-define Package/libgmp/description
-	GMP is a free library for arbitrary precision arithmetic, operating on
-	signed integers, rational numbers, and floating point numbers.
+define Package/python3-tzdata/description
+  This is a Python package containing zic-compiled binaries for the IANA time zone database.
+  It is intended to be a fallback for systems that do not have system time zone data installed (or don’t have it installed in a standard location), as a part of PEP 615
 endef
 
-TARGET_CFLAGS += $(FPIC)
-CONFIGURE_VARS += CC="$(TARGET_CROSS)gcc"
-CONFIGURE_ARGS += \
-	--enable-shared \
-	--enable-static \
-	--enable-cxx \
-	--without-readline \
-	--disable-fft \
-
-define Build/Compile
-	$(call Build/Compile/Default, \
-		DESTDIR="$(PKG_INSTALL_DIR)" \
-		CC="$(TARGET_CC)" \
-		all \
-	)
-endef
-
-define Build/InstallDev
-	$(INSTALL_DIR) $(1)/usr/include
-	$(CP) $(PKG_INSTALL_DIR)/usr/include/gmp* $(1)/usr/include/
-	$(INSTALL_DIR) $(1)/usr/lib
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libgmp.{a,so*} $(1)/usr/lib/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libgmpxx.{a,so*} $(1)/usr/lib/
-	$(INSTALL_DIR) $(1)/usr/lib/pkgconfig
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/pkgconfig/gmp* $(1)/usr/lib/pkgconfig/
-	$(SED) 's,/usr/include,$$$${prefix}/include,g' $(1)/usr/lib/pkgconfig/gmp.pc
-	$(SED) 's,/usr/lib,$$$${exec_prefix}/lib,g' $(1)/usr/lib/pkgconfig/gmp.pc
-	$(SED) 's,/usr/include,$$$${prefix}/include,g' $(1)/usr/lib/pkgconfig/gmpxx.pc
-	$(SED) 's,/usr/lib,$$$${exec_prefix}/lib,g' $(1)/usr/lib/pkgconfig/gmpxx.pc
-endef
-
-define Package/libgmp/install
-	$(INSTALL_DIR) $(1)/usr/lib
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libgmp.so.* $(1)/usr/lib/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libgmpxx.so.* $(1)/usr/lib/
-endef
-
-$(eval $(call BuildPackage,libgmp))
+$(eval $(call Py3Package,python3-tzdata))
+$(eval $(call BuildPackage,python3-tzdata))
+$(eval $(call BuildPackage,python3-tzdata-src))
 $(eval $(call HostBuild))
