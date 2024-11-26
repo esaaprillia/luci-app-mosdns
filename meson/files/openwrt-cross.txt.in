@@ -37,4 +37,4 @@ sizeof_off_t = 4
 sizeof_Py_intptr_t = 8
 sizeof_PY_LONG_LONG = 8
 longdouble_format = 'IEEE_DOUBLE_LE'
-needs_exe_wrapper = false
+needs_exe_wrapper = true
