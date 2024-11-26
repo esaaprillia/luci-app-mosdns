@@ -13,6 +13,7 @@ PKG_LICENSE:=BSD-3-Clause
 PKG_LICENSE_FILES:=LICENSE.txt
 PKG_CPE_ID:=cpe:/a:numpy:numpy
 
+HOST_BUILD_DEPENDS:=python-setuptools-scm/host python-cython/host meson-python/host openblas/host
 PKG_BUILD_DEPENDS:=python-setuptools-scm/host python-cython/host meson-python/host
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
