@@ -13,6 +13,7 @@ PKG_LICENSE:=BSD-3-Clause
 PKG_LICENSE_FILES:=LICENSE
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/OpenBLAS-$(PKG_VERSION)
+HOST_BUILD_DIR:=$(BUILD_DIR_HOST)/OpenBLAS-$(PKG_VERSION)
 
 CMAKE_BINARY_SUBDIR := build
 
@@ -20,6 +21,7 @@ PKG_BUILD_PARALLEL:=1
 PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/cmake.mk
 
 define Package/openblas
@@ -33,6 +35,10 @@ endef
 define Package/openblas/description
 	OpenBLAS is an optimized BLAS library based on GotoBLAS2 1.13 BSD version.
 endef
+
+CMAKE_HOST_OPTIONS += \
+	-Wno-dev \
+	-DNOFORTRAN=1
 
 CMAKE_OPTIONS += \
 	-Wno-dev \
@@ -69,3 +75,4 @@ define Package/openblas/install
 endef
 
 $(eval $(call BuildPackage,openblas))
+$(eval $(call HostBuild))
