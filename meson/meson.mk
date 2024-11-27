@@ -120,8 +120,7 @@ define Host/Uninstall/Meson
 endef
 
 define Build/Configure/Meson
-	$(call Meson/CreateNativeFile,$(PKG_BUILD_DIR)/openwrt-native.txt)
-	$(call Meson/CreateCrossFile,$(PKG_BUILD_DIR)/openwrt-cross.txt)
+	$(call Meson/CreateCrossFile,$(PKG_BUILD_DIR)/openwrt-native.txt)
 	$(call Meson, \
 		setup \
 		--buildtype $(if $(CONFIG_DEBUG),debug,plain) \
