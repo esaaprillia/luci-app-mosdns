@@ -125,7 +125,6 @@ define Build/Configure/Meson
 		setup \
 		--buildtype $(if $(CONFIG_DEBUG),debug,plain) \
 		--native-file $(PKG_BUILD_DIR)/openwrt-native.txt \
-		--cross-file $(PKG_BUILD_DIR)/openwrt-cross.txt \
 		-Ddefault_library=both \
 		$(MESON_ARGS) \
 		$(MESON_BUILD_DIR) \
