@@ -97,7 +97,7 @@ endef
 
 define Host/Configure/Meson
 	$(call Meson/CreateNativeFile,$(HOST_BUILD_DIR)/openwrt-native.txt)
-	$(call Meson/CreateCrossFile,$(PKG_BUILD_DIR)/openwrt-cross.txt)
+	$(call Meson/CreateCrossFile,$(HOST_BUILD_DIR)/openwrt-cross.txt)
 	$(call Meson, \
 		setup \
 		--native-file $(HOST_BUILD_DIR)/openwrt-native.txt \
