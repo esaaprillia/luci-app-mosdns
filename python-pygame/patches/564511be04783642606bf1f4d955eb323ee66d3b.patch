@@ -1,0 +1,28 @@
+From 564511be04783642606bf1f4d955eb323ee66d3b Mon Sep 17 00:00:00 2001
+From: esaaprillia <esaapriliasalsabila@gmail.com>
+Date: Thu, 28 Nov 2024 23:21:12 +0800
+Subject: [PATCH] Update _pygame.h
+
+---
+ src_c/_pygame.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src_c/_pygame.h b/src_c/_pygame.h
+index e3521b3..db6766a 100644
+--- a/src_c/_pygame.h
++++ b/src_c/_pygame.h
+@@ -26,13 +26,13 @@
+ #ifndef _PYGAME_INTERNAL_H
+ #define _PYGAME_INTERNAL_H
+ 
+-#include "pgplatform.h"
+ /*
+     If PY_SSIZE_T_CLEAN is defined before including Python.h, length is a
+     Py_ssize_t rather than an int for all # variants of formats (s#, y#, etc.)
+ */
+ #define PY_SSIZE_T_CLEAN
+ #include <Python.h>
++#include "pgplatform.h"
+ 
+ /* Ensure PyPy-specific code is not in use when running on GraalPython (PR
+  * #2580) */
