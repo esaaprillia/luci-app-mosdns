@@ -1,0 +1,46 @@
+include $(TOPDIR)/rules.mk
+
+PKG_NAME:=numpy-native
+PKG_VERSION:=2.1.3
+PKG_RELEASE:=1
+
+PYPI_NAME:=numpy
+PKG_HASH:=aa08e04e08aaf974d4458def539dece0d28146d866a39da5639596f4921fd761
+
+PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
+
+PKG_LICENSE:=BSD-3-Clause
+PKG_LICENSE_FILES:=LICENSE.txt
+PKG_CPE_ID:=cpe:/a:numpy:numpy
+
+HOST_BUILD_DEPENDS:=python-setuptools-scm/host python-cython/host meson-python-native/host openblas/host
+PKG_BUILD_DEPENDS:=python-setuptools-scm/host python-cython/host meson-python/host
+
+include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
+include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/host-build.mk
+include $(TOPDIR)/feeds/mosdns/meson/meson.mk
+include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
+include $(TOPDIR)/feeds/packages/lang/python/python3-host-build.mk
+
+define Package/python3-numpy-native
+  SUBMENU:=Python
+  SECTION:=lang
+  CATEGORY:=Languages
+  TITLE:=The fundamental package for scientific computing with Python
+  URL:=https://www.numpy.org/
+  DEPENDS:=@!SOFT_FLOAT +INSTALL_GFORTRAN:libgfortran +python3 +libstdcpp +openblas
+endef
+
+define Package/python3-numpy-native/description
+NumPy is the fundamental package for array computing with Python.
+
+By default, this package is built without some modules.
+For some modules to be available, the INSTALL_GFORTRAN symbol needs
+to be enabled in the OpenWrt core/toolchain.
+endef
+
+$(eval $(call Py3Package,python3-numpy-native))
+$(eval $(call BuildPackage,python3-numpy-native))
+$(eval $(call BuildPackage,python3-numpy-native-src))
+$(eval $(call HostBuild))
