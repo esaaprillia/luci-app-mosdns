@@ -1,28 +1,41 @@
-From 564511be04783642606bf1f4d955eb323ee66d3b Mon Sep 17 00:00:00 2001
+From 915566219c4641f952d51b4c3b9f9b373e52c7bb Mon Sep 17 00:00:00 2001
 From: esaaprillia <esaapriliasalsabila@gmail.com>
-Date: Thu, 28 Nov 2024 23:21:12 +0800
-Subject: [PATCH] Update _pygame.h
+Date: Fri, 29 Nov 2024 01:03:24 +0800
+Subject: [PATCH] Update imageext.c
 
 ---
- src_c/_pygame.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ src_c/imageext.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/src_c/_pygame.h b/src_c/_pygame.h
-index e3521b3..db6766a 100644
---- a/src_c/_pygame.h
-+++ b/src_c/_pygame.h
-@@ -26,13 +26,13 @@
- #ifndef _PYGAME_INTERNAL_H
- #define _PYGAME_INTERNAL_H
- 
--#include "pgplatform.h"
- /*
-     If PY_SSIZE_T_CLEAN is defined before including Python.h, length is a
-     Py_ssize_t rather than an int for all # variants of formats (s#, y#, etc.)
+diff --git a/src_c/imageext.c b/src_c/imageext.c
+index f1a2b0b..0caf828 100644
+--- a/src_c/imageext.c
++++ b/src_c/imageext.c
+@@ -21,13 +21,6 @@
+   pete@shinners.org
  */
- #define PY_SSIZE_T_CLEAN
- #include <Python.h>
-+#include "pgplatform.h"
  
- /* Ensure PyPy-specific code is not in use when running on GraalPython (PR
-  * #2580) */
+-/*
+- *  extended image module for pygame, note this only has
+- *  the extended load and save functions, which are automatically used
+- *  by the normal pygame.image module if it is available.
+- */
+-#include "pygame.h"
+-
+ /* Keep a stray macro from conflicting with python.h */
+ #if defined(HAVE_PROTOTYPES)
+ #undef HAVE_PROTOTYPES
+@@ -40,6 +33,13 @@
+ #undef HAVE_STDLIB_H
+ #endif
+ 
++/*
++ *  extended image module for pygame, note this only has
++ *  the extended load and save functions, which are automatically used
++ *  by the normal pygame.image module if it is available.
++ */
++#include "pygame.h"
++
+ // PNG_SKIP_SETJMP_CHECK : non-regression on #662 (build error on old libpng)
+ #define PNG_SKIP_SETJMP_CHECK
+ #include <png.h>
