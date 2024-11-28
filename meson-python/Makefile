@@ -11,8 +11,6 @@ PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
 
-PKG_BUILD_PARALLEL:=0
-
 HOST_BUILD_DEPENDS:=python-setuptools-scm/host pyproject-metadata/host meson/host
 PKG_BUILD_DEPENDS:=python-setuptools-scm/host pyproject-metadata/host meson/host
 
