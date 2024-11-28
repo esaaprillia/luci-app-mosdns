@@ -11,8 +11,8 @@ PKG_LICENSE_FILES:=LICENSE
 PYPI_NAME:=scikit_build
 PKG_HASH:=a4152ac5a084d499c28a7797be0628d8366c336e2fb0e1a063eb32e55efcb8e7
 
-HOST_BUILD_DEPENDS:=python-setuptools-scm/host python-hatchling/host python-hatch-vcs/host
-PKG_BUILD_DEPENDS:=python-setuptools-scm/host python-hatchling/host python-hatch-vcs/host
+HOST_BUILD_DEPENDS:=python-setuptools-scm/host python-hatchling/host python-hatch-vcs/host python-hatch-fancy-pypi-readme/host
+PKG_BUILD_DEPENDS:=python-setuptools-scm/host python-hatchling/host python-hatch-vcs/host python-hatch-fancy-pypi-readme/host
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
