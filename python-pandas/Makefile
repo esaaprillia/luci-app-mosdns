@@ -36,6 +36,11 @@ It aims to be the fundamental high-level building block for doing practical, rea
 Additionally, it has the broader goal of becoming the most powerful and flexible open source data analysis / manipulation tool available in any language. It is already well on its way towards this goal.
 endef
 
+define Build/Prepare
+	$(call Build/Prepare/Default)
+	$(INSTALL_CONF) files/cross/__init__.py $(HOST_PYTHON3_PKG_DIR)/mesonpy/
+endef
+
 $(eval $(call Py3Package,python3-pandas))
 $(eval $(call BuildPackage,python3-pandas))
 $(eval $(call BuildPackage,python3-pandas-src))
