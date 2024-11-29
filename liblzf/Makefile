@@ -32,6 +32,8 @@ define Package/liblzf/description
 	Last not least, it is freely usable, unlike most other compression libraries which are under the GPL, this library uses a BSD-type license, so you can include it in your programs without worrying.
 endef
 
+CONFIGURE_CMD:=./bootstrap.sh
+
 CONFIGURE_ARGS += \
 	--disable-static
 
