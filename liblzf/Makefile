@@ -12,7 +12,7 @@ PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
 PKG_LICENSE:=BSD-2-Clause
 PKG_LICENSE_FILES:=LICENSE
 
-PKG_FIXUP:=autoreconf
+#PKG_FIXUP:=autoreconf
 PKG_BUILD_PARALLEL:=1
 PKG_INSTALL:=1
 
@@ -32,9 +32,9 @@ define Package/liblzf/description
 	Last not least, it is freely usable, unlike most other compression libraries which are under the GPL, this library uses a BSD-type license, so you can include it in your programs without worrying.
 endef
 
-define Build/Configure
-	(cd $(PKG_BUILD_DIR); ./bootstrap.sh );
-	$(call Build/Configure/Default)
+define Build/Prepare
+	$(call Build/Prepare/Default)
+	(cd $(PKG_BUILD_DIR); sh ./bootstrap.sh );
 endef
 
 CONFIGURE_ARGS += \
