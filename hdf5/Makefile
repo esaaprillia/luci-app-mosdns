@@ -12,13 +12,12 @@ PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
 PKG_LICENSE:=License
 PKG_LICENSE_FILES:=LICENSE LICENSE_LBNL_HDF5
 
-CMAKE_BINARY_SUBDIR := build
+#CMAKE_BINARY_SUBDIR := build
 
 PKG_BUILD_PARALLEL:=1
 PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
-include $(INCLUDE_DIR)/cmake.mk
 
 define Package/hdf5
 	SECTION:=libs
@@ -33,28 +32,9 @@ define Package/hdf5/description
 	The model has been adopted across many industries, and this implementation has become a de facto data management standard in science, engineering, and research communities worldwide.
 endef
 
-CMAKE_OPTIONS += \
-	-DBUILD_STATIC_LIBS=OFF \
-	-DHDF5_BUILD_HL_LIB=ON \
-	-DHDF5_BUILD_CPP_LIB=ON \
-	-DHDF5_BUILD_FORTRAN=OFF \
-	-DHDF5_BUILD_JAVA=OFF \
-	-DHDF5_ENABLE_Z_LIB_SUPPORT=ON \
-	-DHDF5_ENABLE_SZIP_SUPPORT=ON \
-	-DHDF5_ENABLE_SZIP_ENCODING=ON \
-	-DUSE_LIBAEC=ON
-
 CONFIGURE_VARS += \
-	--disable-static \
-	--disable-sharedlib-rpath \
-	--enable-build-mode=production \
-	--enable-hl \
-	--enable-cxx \
 	--disable-fortran \
-	--disable-java \
-	--with-pic \
-	--with-zlib \
-	--with-szlib
+	--disable-java
 
 define Build/InstallDev
 	$(INSTALL_DIR) \
