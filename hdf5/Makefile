@@ -50,8 +50,7 @@ define Build/InstallDev
 	  $(PKG_INSTALL_DIR)/usr/lib/*.so* \
 	  $(1)/usr/lib/
 	
-	$(CP) \
-	  $(INSTALL_CONF) files/pkgconfig/{hdf5.pc,hdf5_hl.pc} \
+	$(INSTALL_CONF) files/pkgconfig/{hdf5.pc,hdf5_hl.pc} \
 	  $(1)/usr/lib/pkgconfig/
 
 	$(SED) \
