@@ -33,10 +33,6 @@ define Package/hdf5/description
 	The model has been adopted across many industries, and this implementation has become a de facto data management standard in science, engineering, and research communities worldwide.
 endef
 
-CONFIGURE_ARGS += \
-	--disable-fortran \
-	--disable-java
-
 define Build/InstallDev
 	$(INSTALL_DIR) \
 	  $(1)/usr/include \
@@ -47,7 +43,11 @@ define Build/InstallDev
 	  $(1)/usr/include/
 
 	$(CP) \
-	  $(PKG_INSTALL_DIR)/usr/lib/*.so* \
+	  $(PKG_INSTALL_DIR)/usr/lib/{pkgconfig,*.so*,libhdf5.settings} \
+	  $(1)/usr/lib/
+	
+	$(CP) \
+	  $(PKG_INSTALL_DIR)/usr/share/cmake \
 	  $(1)/usr/lib/
 endef
 
