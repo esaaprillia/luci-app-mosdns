@@ -50,7 +50,7 @@ define Build/InstallDev
 	  $(1)/usr/lib/
 endef
 
-define Package/brotli/install
+define Package/hdf5/install
 	$(INSTALL_DIR) \
 	  $(1)/usr/bin \
 	  $(1)/usr/lib
