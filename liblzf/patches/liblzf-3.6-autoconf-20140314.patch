@@ -1,3 +1,124 @@
+Taken from Fedora, required to make liblzf respect proper directories
+
+https://src.fedoraproject.org/rpms/liblzf/blob/master/f/liblzf-3.6-autoconf-20140314.patch
+
+diff -uNr liblzf-3.6.ORIG/bootstrap.sh liblzf-3.6/bootstrap.sh
+--- liblzf-3.6.ORIG/bootstrap.sh	1970-01-01 00:00:00.000000000 +0000
++++ liblzf-3.6/bootstrap.sh	2014-03-13 08:10:49.132000000 +0000
+@@ -0,0 +1,10 @@
++#!/bin/sh
++set -x
++mkdir -p config
++aclocal -I config
++#aclocal-1.10 -I config
++autoheader
++libtoolize --automake
++automake  --add-missing --copy --foreign
++#automake-1.10  --add-missing --copy
++autoconf
+diff -uNr liblzf-3.6.ORIG/config.h.in liblzf-3.6/config.h.in
+--- liblzf-3.6.ORIG/config.h.in	2014-03-13 08:10:30.234000000 +0000
++++ liblzf-3.6/config.h.in	2014-03-13 08:10:49.133000000 +0000
+@@ -1,16 +1,89 @@
+-/* config.h.in.  Generated automatically from configure.in by autoheader 2.13.  */
++/* config.h.in.  Generated from configure.ac by autoheader.  */
+ 
+-/* Define to empty if the keyword does not work.  */
+-#undef const
++/* Define to 1 if you have the <dlfcn.h> header file. */
++#undef HAVE_DLFCN_H
++
++/* Define to 1 if you have the <errno.h> header file. */
++#undef HAVE_ERRNO_H
++
++/* Define to 1 if you have the <fcntl.h> header file. */
++#undef HAVE_FCNTL_H
++
++/* Define to 1 if you have the <getopt.h> header file. */
++#undef HAVE_GETOPT_H
++
++/* Define to 1 if you have the `getopt_long' function. */
++#undef HAVE_GETOPT_LONG
++
++/* Define to 1 if you have the <inttypes.h> header file. */
++#undef HAVE_INTTYPES_H
++
++/* Define to 1 if you have the <limits.h> header file. */
++#undef HAVE_LIMITS_H
++
++/* Define to 1 if you have the <memory.h> header file. */
++#undef HAVE_MEMORY_H
++
++/* Define to 1 if you have the <stdint.h> header file. */
++#undef HAVE_STDINT_H
++
++/* Define to 1 if you have the <stdio.h> header file. */
++#undef HAVE_STDIO_H
++
++/* Define to 1 if you have the <stdlib.h> header file. */
++#undef HAVE_STDLIB_H
++
++/* Define to 1 if you have the <strings.h> header file. */
++#undef HAVE_STRINGS_H
++
++/* Define to 1 if you have the <string.h> header file. */
++#undef HAVE_STRING_H
+ 
+-/* Define if you have the ANSI C header files.  */
++/* Define to 1 if you have the <sys/stat.h> header file. */
++#undef HAVE_SYS_STAT_H
++
++/* Define to 1 if you have the <sys/types.h> header file. */
++#undef HAVE_SYS_TYPES_H
++
++/* Define to 1 if you have the <unistd.h> header file. */
++#undef HAVE_UNISTD_H
++
++/* Define to the sub-directory in which libtool stores uninstalled libraries.
++   */
++#undef LT_OBJDIR
++
++/* Define to the address where bug reports for this package should be sent. */
++#undef PACKAGE_BUGREPORT
++
++/* Define to the full name of this package. */
++#undef PACKAGE_NAME
++
++/* Define to the full name and version of this package. */
++#undef PACKAGE_STRING
++
++/* Define to the one symbol short name of this package. */
++#undef PACKAGE_TARNAME
++
++/* Define to the home page for this package. */
++#undef PACKAGE_URL
++
++/* Define to the version of this package. */
++#undef PACKAGE_VERSION
++
++/* Define to 1 if you have the ANSI C header files. */
+ #undef STDC_HEADERS
+ 
+-/* The number of bytes in a int.  */
+-#undef SIZEOF_INT
++/* Number of bits in a file offset, on hosts where this is settable. */
++#undef _FILE_OFFSET_BITS
++
++/* Define for large files, on AIX-style hosts. */
++#undef _LARGE_FILES
+ 
+-/* The number of bytes in a long.  */
+-#undef SIZEOF_LONG
++/* Define to empty if `const' does not conform to ANSI C. */
++#undef const
+ 
+-/* The number of bytes in a short.  */
+-#undef SIZEOF_SHORT
++/* Define to `__inline__' or `__inline' if that's what the C compiler
++   calls it, or to nothing if 'inline' is not supported under any name.  */
++#ifndef __cplusplus
++#undef inline
++#endif
 diff -uNr liblzf-3.6.ORIG/configure.ac liblzf-3.6/configure.ac
 --- liblzf-3.6.ORIG/configure.ac	2014-03-13 08:10:30.233000000 +0000
 +++ liblzf-3.6/configure.ac	2014-03-13 08:10:49.133000000 +0000
