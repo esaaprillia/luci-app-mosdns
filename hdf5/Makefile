@@ -34,7 +34,27 @@ define Package/hdf5/description
 endef
 
 CMAKE_OPTIONS += \
-	-DBUILD_SHARED_LIBS=ON
+	-DBUILD_STATIC_LIBS=OFF \
+	-DHDF5_BUILD_HL_LIB=ON \
+	-DHDF5_BUILD_CPP_LIB=ON \
+	-DHDF5_BUILD_FORTRAN=OFF \
+	-DHDF5_BUILD_JAVA=OFF \
+	-DHDF5_ENABLE_Z_LIB_SUPPORT=ON \
+	-DHDF5_ENABLE_SZIP_SUPPORT=ON \
+	-DHDF5_ENABLE_SZIP_ENCODING=ON \
+	-DUSE_LIBAEC=ON
+
+CONFIGURE_VARS += \
+	--disable-static \
+	--disable-sharedlib-rpath \
+	--enable-build-mode=production \
+	--enable-hl \
+	--enable-cxx \
+	--disable-fortran \
+	--disable-java \
+	--with-pic \
+	--with-zlib \
+	--with-szlib
 
 define Build/InstallDev
 	$(INSTALL_DIR) \
