@@ -16,6 +16,8 @@ PKG_FIXUP:=autoreconf
 PKG_BUILD_PARALLEL:=1
 PKG_INSTALL:=1
 
+CFLAGS += $(FPIC)
+
 include $(INCLUDE_DIR)/package.mk
 
 define Package/liblzf
