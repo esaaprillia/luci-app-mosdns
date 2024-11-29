@@ -32,7 +32,7 @@ define Package/hdf5/description
 	The model has been adopted across many industries, and this implementation has become a de facto data management standard in science, engineering, and research communities worldwide.
 endef
 
-CONFIGURE_VARS += \
+CONFIGURE_ARGS += \
 	--disable-fortran \
 	--disable-java
 
