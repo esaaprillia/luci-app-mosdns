@@ -1,21 +1,21 @@
-From dda53ea1f8f07cf9436f70eee9eeb5a77f8a7a46 Mon Sep 17 00:00:00 2001
+From f7ab0f2a214bc59b76f9a85df64dab7e54e1359a Mon Sep 17 00:00:00 2001
 From: esaaprillia <esaapriliasalsabila@gmail.com>
-Date: Fri, 29 Nov 2024 18:49:48 +0800
+Date: Fri, 29 Nov 2024 19:01:30 +0800
 Subject: [PATCH] Update lzf.c
 
 ---
- lzf.c | 1 +
- 1 file changed, 1 insertion(+)
+ lzf.c | 1 -
+ 1 file changed, 1 deletion(-)
 
 diff --git a/lzf.c b/lzf.c
-index bedfdb6..c1cb271 100644
+index bedfdb6..9c1f41d 100644
 --- a/lzf.c
 +++ b/lzf.c
-@@ -35,6 +35,7 @@
+@@ -35,7 +35,6 @@
   */
  
  #include "config.h"
-+#include <stdarg.h>
- #include <stdio.h>
+-#include <stdio.h>
  #include <string.h>
  #include <stdlib.h>
+ #include <unistd.h>
