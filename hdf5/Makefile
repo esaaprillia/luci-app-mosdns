@@ -12,12 +12,13 @@ PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
 PKG_LICENSE:=License
 PKG_LICENSE_FILES:=LICENSE LICENSE_LBNL_HDF5
 
-#CMAKE_BINARY_SUBDIR := build
+CMAKE_BINARY_SUBDIR := build
 
 PKG_BUILD_PARALLEL:=1
 PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/cmake.mk
 
 define Package/hdf5
 	SECTION:=libs
@@ -39,8 +40,7 @@ CONFIGURE_ARGS += \
 define Build/InstallDev
 	$(INSTALL_DIR) \
 	  $(1)/usr/include \
-	  $(1)/usr/lib \
-	  $(1)/usr/lib/pkgconfig
+	  $(1)/usr/lib
 
 	$(CP) \
 	  $(PKG_INSTALL_DIR)/usr/include/*.h \
@@ -49,18 +49,6 @@ define Build/InstallDev
 	$(CP) \
 	  $(PKG_INSTALL_DIR)/usr/lib/*.so* \
 	  $(1)/usr/lib/
-	
-	$(INSTALL_CONF) files/pkgconfig/{hdf5.pc,hdf5_hl.pc} \
-	  $(1)/usr/lib/pkgconfig/
-
-	$(SED) \
-	  's,^\(prefix\)=.*,\1=$(STAGING_DIR)/usr,g' $(1)/usr/lib/pkgconfig/hdf5.pc
-
-	$(SED) \
-	  's,/usr/lib,$(STAGING_DIR)/usr/lib,g' $(1)/usr/lib/pkgconfig/hdf5.pc
-
-	$(SED) \
-	  's,^\(prefix\)=.*,\1=$(STAGING_DIR)/usr,g' $(1)/usr/lib/pkgconfig/hdf5_hl.pc
 endef
 
 define Package/hdf5/install
