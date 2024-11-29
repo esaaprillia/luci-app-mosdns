@@ -39,7 +39,8 @@ CONFIGURE_ARGS += \
 define Build/InstallDev
 	$(INSTALL_DIR) \
 	  $(1)/usr/include \
-	  $(1)/usr/lib
+	  $(1)/usr/lib \
+	  $(1)/usr/lib/pkgconfig
 
 	$(CP) \
 	  $(PKG_INSTALL_DIR)/usr/include/*.h \
@@ -48,6 +49,19 @@ define Build/InstallDev
 	$(CP) \
 	  $(PKG_INSTALL_DIR)/usr/lib/*.so* \
 	  $(1)/usr/lib/
+	
+	$(CP) \
+	  $(INSTALL_CONF) files/pkgconfig/{hdf5.pc,hdf5_hl.pc} \
+	  $(1)/usr/lib/pkgconfig/
+
+	$(SED) \
+	  's,^\(prefix\)=.*,\1=$(STAGING_DIR)/usr,g' $(1)/usr/lib/pkgconfig/hdf5.pc
+
+	$(SED) \
+	  's,/usr/lib,$(STAGING_DIR)/usr/lib,g' $(1)/usr/lib/pkgconfig/hdf5.pc
+
+	$(SED) \
+	  's,^\(prefix\)=.*,\1=$(STAGING_DIR)/usr,g' $(1)/usr/lib/pkgconfig/hdf5_hl.pc
 endef
 
 define Package/hdf5/install
