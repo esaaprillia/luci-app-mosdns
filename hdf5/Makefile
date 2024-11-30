@@ -16,7 +16,6 @@ PKG_FIXUP:=autoreconf
 #CMAKE_BINARY_SUBDIR := build
 
 PKG_BUILD_PARALLEL:=1
-PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -37,7 +36,7 @@ CONFIGURE_ARGS += \
 	--prefix=/usr \
 	--docdir=/usr/share/doc/hdf5/ \
 	--with-examplesdir=/usr/share/doc/hdf5/examples \
-	--enable-static \
+	--disable-static \
 	--disable-sharedlib-rpath \
 	--enable-build-mode=production \
 	--enable-hl \
