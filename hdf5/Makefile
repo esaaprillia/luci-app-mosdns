@@ -71,10 +71,6 @@ define Build/InstallDev
 	  $(1)/usr/lib/libhdf5_hl.so
 
 	$(CP) \
-	  $(PKG_INSTALL_DIR)/usr/lib/libhdf5_hl.so.310.0.5 \
-	  $(1)/usr/lib/libhdf5_hl.so
-
-	$(CP) \
 	  $(PKG_INSTALL_DIR)/usr/lib/libhdf5_cpp.so.310.0.5 \
 	  $(1)/usr/lib/libhdf5_cpp.so
 
