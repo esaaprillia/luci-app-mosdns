@@ -35,6 +35,8 @@ define Package/python3-h5py/description
 endef
 
 PYTHON3_PKG_SETUP_VARS += \
+	HDF5_INCLUDEDIR=$(STAGING_DIR)/usr/include \
+	HDF5_LIBDIR=$(STAGING_DIR)/usr/lib \
 	H5PY_SETUP_REQUIRES=0
 
 $(eval $(call Py3Package,python3-h5py))
