@@ -59,8 +59,28 @@ define Build/InstallDev
 	  $(1)/usr/include/
 
 	$(CP) \
-	  $(PKG_INSTALL_DIR)/usr/lib/{*.so*,libhdf5.settings} \
+	  $(PKG_INSTALL_DIR)/usr/lib/libhdf5.settings \
 	  $(1)/usr/lib/
+
+	$(CP) \
+	  $(PKG_INSTALL_DIR)/usr/lib/libhdf5_hl_cpp.so.310.0.5 \
+	  $(1)/usr/lib/libhdf5_hl_cpp.so
+
+	$(CP) \
+	  $(PKG_INSTALL_DIR)/usr/lib/libhdf5_hl.so.310.0.5 \
+	  $(1)/usr/lib/libhdf5_hl.so
+
+	$(CP) \
+	  $(PKG_INSTALL_DIR)/usr/lib/libhdf5_hl.so.310.0.5 \
+	  $(1)/usr/lib/libhdf5_hl.so
+
+	$(CP) \
+	  $(PKG_INSTALL_DIR)/usr/lib/libhdf5_cpp.so.310.0.5 \
+	  $(1)/usr/lib/libhdf5_cpp.so
+
+	$(CP) \
+	  $(PKG_INSTALL_DIR)/usr/lib/libhdf5.so.310.5.0 \
+	  $(1)/usr/lib/libhdf5.so
 endef
 
 define Package/hdf5/install
