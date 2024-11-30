@@ -12,6 +12,7 @@ PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
 PKG_LICENSE:=License
 PKG_LICENSE_FILES:=LICENSE LICENSE_LBNL_HDF5
 
+PKG_BUILD_DEPENDS:=perl/host
 CMAKE_BINARY_SUBDIR := build
 
 PKG_BUILD_PARALLEL:=1
