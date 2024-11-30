@@ -46,8 +46,7 @@ CONFIGURE_ARGS += \
 	--disable-java \
 	--with-pic \
 	--with-zlib \
-	--with-szlib \
-	--with-default-api-version=v18
+	--with-szlib
 
 define Build/InstallDev
 	$(INSTALL_DIR) \
