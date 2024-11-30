@@ -1,0 +1,22 @@
+From a029c305a036aab7309ff00de9270fcd328b216f Mon Sep 17 00:00:00 2001
+From: esaaprillia <esaapriliasalsabila@gmail.com>
+Date: Sat, 30 Nov 2024 08:39:34 +0800
+Subject: [PATCH] Add files via upload
+
+---
+ setup_build.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/setup_build.py b/setup_build.py
+index a041fa6..e8d2fe1 100644
+--- a/setup_build.py
++++ b/setup_build.py
+@@ -113,7 +113,7 @@ def _make_extensions(config):
+ 
+         # TODO: should this only be done on UNIX?
+         if os.name != 'nt':
+-            settings['runtime_library_dirs'] = settings['library_dirs']
++            pass
+ 
+         def make_extension(module):
+             sources = [localpath('h5py', module + '.pyx')] + EXTRA_SRC.get(module, [])
