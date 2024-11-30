@@ -14,13 +14,13 @@ PKG_LICENSE_FILES:=LICENSE
 HOST_BUILD_DEPENDS:=python-cython/host python-setuptools-scm/host python-pkgconfig/host numpy/host
 PKG_BUILD_DEPENDS:=python-cython/host python-setuptools-scm/host python-pkgconfig/host numpy/host
 
-PYTHON3_PKG_SETUP_VARS:=H5PY_SETUP_REQUIRES=0
-
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/host-build.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-host-build.mk
+
+PYTHON3_PKG_SETUP_VARS:=H5PY_SETUP_REQUIRES=0
 
 define Package/python3-h5py
   SUBMENU:=Python
