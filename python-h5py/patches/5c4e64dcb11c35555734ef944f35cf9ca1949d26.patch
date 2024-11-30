@@ -1,0 +1,22 @@
+From 5c4e64dcb11c35555734ef944f35cf9ca1949d26 Mon Sep 17 00:00:00 2001
+From: esaaprillia <esaapriliasalsabila@gmail.com>
+Date: Sat, 30 Nov 2024 10:43:27 +0800
+Subject: [PATCH] Update setup.py
+
+---
+ setup.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/setup.py b/setup.py
+index d5634c9..72631ce 100644
+--- a/setup.py
++++ b/setup.py
+@@ -52,7 +52,7 @@
+ 
+ # Set the environment variable H5PY_SETUP_REQUIRES=0 if we need to skip
+ # setup_requires for any reason.
+-if os.environ.get('H5PY_SETUP_REQUIRES', '1') == '0':
++if os.environ.get('H5PY_SETUP_REQUIRES', '0') == '0':
+     SETUP_REQUIRES = []
+ 
+ # --- Custom Distutils commands -----------------------------------------------
