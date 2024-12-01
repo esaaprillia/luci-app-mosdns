@@ -9,7 +9,7 @@ PKG_SOURCE_URL:=https://support.hdfgroup.org/ftp/lib-external/szip/$(PKG_VERSION
 PKG_HASH:=skip
 
 PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
-PKG_LICENSE:=lib.licenses.unfree
+PKG_LICENSE:=License
 PKG_LICENSE_FILES:=COPYING
 
 CMAKE_BINARY_SUBDIR := build
