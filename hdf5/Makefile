@@ -39,19 +39,9 @@ CONFIGURE_VARS += \
 	LD_LIBRARY_PATH="$(STAGING_DIR)/usr/lib"
 
 CONFIGURE_ARGS += \
-	--prefix=$(CONFIGURE_PREFIX) \
-	--docdir=$(CONFIGURE_PREFIX)/share/doc/hdf5/ \
-	--with-examplesdir=$(CONFIGURE_PREFIX)/share/doc/hdf5/examples \
-	--disable-static \
-	--disable-sharedlib-rpath \
-	--enable-build-mode=production \
-	--enable-hl \
 	--enable-cxx \
 	--disable-fortran \
-	--disable-java \
-	--with-pic \
-	--with-zlib \
-	--with-szlib
+	--disable-java
 
 define Build/InstallDev
 	$(INSTALL_DIR) \
@@ -63,7 +53,7 @@ define Build/InstallDev
 	  $(1)/usr/include/
 
 	$(CP) \
-	  $(PKG_INSTALL_DIR)/usr/lib/{*.so*,libhdf5.settings} \
+	  $(PKG_INSTALL_DIR)/usr/lib/{*.so*,libhdf5.settings,*.a} \
 	  $(1)/usr/lib/
 endef
 
