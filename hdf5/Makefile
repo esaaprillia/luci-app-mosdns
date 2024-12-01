@@ -13,7 +13,6 @@ PKG_LICENSE:=License
 PKG_LICENSE_FILES:=LICENSE LICENSE_LBNL_HDF5
 
 PKG_FIXUP:=autoreconf
-#CMAKE_BINARY_SUBDIR := build
 
 PKG_BUILD_PARALLEL:=1
 PKG_INSTALL:=1
@@ -32,6 +31,9 @@ define Package/hdf5/description
 	This repository contains a high-performance library's source code and a file format specification that implements the HDF5® data model.
 	The model has been adopted across many industries, and this implementation has become a de facto data management standard in science, engineering, and research communities worldwide.
 endef
+
+MAKE_VARS += \
+	LD_LIBRARY_PATH="$(STAGING_DIR)/usr/lib"
 
 CONFIGURE_VARS += \
 	LD_LIBRARY_PATH="$(STAGING_DIR)/usr/lib"
