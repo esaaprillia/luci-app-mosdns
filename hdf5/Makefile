@@ -18,6 +18,7 @@ PKG_BUILD_PARALLEL:=1
 PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/host-build.mk
 
 define Package/hdf5
 	SECTION:=libs
@@ -66,3 +67,4 @@ define Package/hdf5/install
 endef
 
 $(eval $(call BuildPackage,hdf5))
+$(eval $(call HostBuild))
