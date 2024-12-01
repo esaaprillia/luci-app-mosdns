@@ -37,9 +37,9 @@ CONFIGURE_VARS += \
 	LD_LIBRARY_PATH="$(STAGING_DIR)/usr/lib"
 
 CONFIGURE_ARGS += \
-	--prefix=/usr \
-	--docdir=/usr/share/doc/hdf5/ \
-	--with-examplesdir=/usr/share/doc/hdf5/examples \
+	--prefix=$(CONFIGURE_PREFIX) \
+	--docdir=$(CONFIGURE_PREFIX)/share/doc/hdf5/ \
+	--with-examplesdir=$(CONFIGURE_PREFIX)/share/doc/hdf5/examples \
 	--disable-static \
 	--disable-sharedlib-rpath \
 	--enable-build-mode=production \
