@@ -11,8 +11,8 @@ PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
 PKG_LICENSE:=BSD-3-Clause
 PKG_LICENSE_FILES:=LICENSE
 
-HOST_BUILD_DEPENDS:=python-cython/host python-setuptools-scm/host python-pkgconfig/host numpy/host
-PKG_BUILD_DEPENDS:=python-cython/host python-setuptools-scm/host python-pkgconfig/host numpy/host
+HOST_BUILD_DEPENDS:=python-cython/host python-setuptools-scm/host python-pkgconfig/host numpy/host hdf5/host
+PKG_BUILD_DEPENDS:=python-cython/host python-setuptools-scm/host python-pkgconfig/host numpy/host hdf5/host
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
@@ -21,6 +21,9 @@ include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-host-build.mk
 
 PYTHON3_PKG_SETUP_VARS:= \
+	HDF5_INCLUDEDIR=$(STAGING_DIR_HOSTPKG)/include \
+	HDF5_LIBDIR=$(STAGING_DIR_HOSTPKG)/lib \
+	HDF5_DIR=$(STAGING_DIR_HOSTPKG) \
 	H5PY_SETUP_REQUIRES=0
 
 define Package/python3-h5py
