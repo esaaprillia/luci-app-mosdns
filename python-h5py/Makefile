@@ -22,7 +22,6 @@ include $(TOPDIR)/feeds/packages/lang/python/python3-host-build.mk
 
 PYTHON3_PKG_SETUP_VARS:= \
 	HDF5_DIR=$(STAGING_DIR)/usr \
-	HDF5_VERSION=1.14.5 \
 	H5PY_SETUP_REQUIRES=0
 
 define Package/python3-h5py
