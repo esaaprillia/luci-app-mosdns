@@ -32,12 +32,6 @@ define Package/hdf5/description
 	The model has been adopted across many industries, and this implementation has become a de facto data management standard in science, engineering, and research communities worldwide.
 endef
 
-MAKE_VARS += \
-	LD_LIBRARY_PATH="$(STAGING_DIR)/usr/lib"
-
-CONFIGURE_VARS += \
-	LD_LIBRARY_PATH="$(STAGING_DIR)/usr/lib"
-
 CONFIGURE_ARGS += \
 	--enable-cxx \
 	--disable-fortran \
