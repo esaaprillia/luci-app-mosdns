@@ -41,10 +41,6 @@ define Build/InstallDev
 	$(CP) \
 	  $(PKG_INSTALL_DIR)/usr/lib/*.so* \
 	  $(1)/usr/lib/
-
-	$(CP) \
-	  $(PKG_INSTALL_DIR)/usr/cmake \
-	  $(1)/usr/lib/
 endef
 
 define Package/szip/install
