@@ -33,6 +33,9 @@ define Package/hdf5/description
 	The model has been adopted across many industries, and this implementation has become a de facto data management standard in science, engineering, and research communities worldwide.
 endef
 
+HOST_CONFIGURE_ARGS += \
+	--enable-shared
+
 CONFIGURE_ARGS += \
 	--enable-cxx \
 	--disable-fortran \
