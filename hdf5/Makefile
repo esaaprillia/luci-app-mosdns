@@ -2,7 +2,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=hdf5
 PKG_VERSION:=1.14.5
-PKG_RELEASE:=2
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/HDFGroup/hdf5/releases/download/hdf5_$(PKG_VERSION)/
@@ -12,13 +12,12 @@ PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
 PKG_LICENSE:=License
 PKG_LICENSE_FILES:=LICENSE LICENSE_LBNL_HDF5
 
-PKG_FIXUP:=libtool
+CMAKE_BINARY_SUBDIR := build
 
 PKG_BUILD_PARALLEL:=1
-#PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
-include $(INCLUDE_DIR)/host-build.mk
+include $(INCLUDE_DIR)/cmake.mk
 
 define Package/hdf5
 	SECTION:=libs
@@ -33,17 +32,11 @@ define Package/hdf5/description
 	The model has been adopted across many industries, and this implementation has become a de facto data management standard in science, engineering, and research communities worldwide.
 endef
 
-CONFIGURE_ARGS += \
-	--enable-cxx \
-	--disable-fortran \
-	--disable-java
-
-# We can't use the default, as the default passes $(MAKE_ARGS), which
-# overrides CC, CFLAGS, etc. and defeats the *_FOR_BUILD definitions
-# passed in CONFIGURE_VARS
-define Build/Compile
-	$(MAKE) $(PKG_JOBS) -C $(PKG_BUILD_DIR)/$(MAKE_PATH)
-endef
+CMAKE_OPTIONS += \
+	-DHDF5_INSTALL_CMAKE_DIR=lib/cmake/hdf5 \
+	-DHDF5_BUILD_FORTRAN:BOOL=OFF \
+	-DHDF5_BUILD_CPP_LIB:BOOL=ON \
+	-DHDF5_ENABLE_SZIP_SUPPORT:BOOL=ON
 
 define Build/InstallDev
 	$(INSTALL_DIR) \
@@ -55,19 +48,8 @@ define Build/InstallDev
 	  $(1)/usr/include/
 
 	$(CP) \
-	  $(PKG_INSTALL_DIR)/usr/lib/{*.so*,libhdf5.settings,*.a} \
+	  $(PKG_INSTALL_DIR)/usr/lib/{*.so*,libhdf5.settings} \
 	  $(1)/usr/lib/
-endef
-
-define Build/Install
-	export LD_LIBRARY_PATH="$(PKG_BUILD_DIR)/src/.libs/"
-	export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":"$(PKG_BUILD_DIR)/c++/src/.libs/"
-	export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":"$(PKG_BUILD_DIR)/fortran/src/.libs/"
-	export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":"$(PKG_BUILD_DIR)/hl/src/.libs/"
-	export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":"$(PKG_BUILD_DIR)/hl/c++/src/.libs/"
-	export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":"$(PKG_BUILD_DIR)/hl/fortran/src/.libs/"
-	$(MAKE) check
-	$(call Build/Install/Default)
 endef
 
 define Package/hdf5/install
@@ -85,4 +67,3 @@ define Package/hdf5/install
 endef
 
 $(eval $(call BuildPackage,hdf5))
-$(eval $(call HostBuild))
