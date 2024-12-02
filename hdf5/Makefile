@@ -34,10 +34,12 @@ endef
 
 CONFIGURE_ARGS += \
 	--prefix=$(CONFIGURE_PREFIX) \
-	--docdir=$(CONFIGURE_PREFIX)/share/doc/hdf5/ \
+	--docdir=$(CONFIGURE_PREFIX)/share/doc/hdf5 \
+	--with-default-plugindir=$(CONFIGURE_PREFIX)/lib/hdf5/plugin \
 	--with-examplesdir=$(CONFIGURE_PREFIX)/share/doc/hdf5/examples \
 	--disable-static \
 	--disable-sharedlib-rpath \
+	--enable-deprecated-symbols \
 	--enable-build-mode=production \
 	--enable-hl \
 	--enable-cxx \
@@ -45,12 +47,8 @@ CONFIGURE_ARGS += \
 	--disable-java \
 	--with-pic \
 	--with-zlib \
-	--with-szlib
-
-define Build/Configure
-	(cd $(PKG_BUILD_DIR); ./autogen.sh );
-	$(call Build/Configure/Default)
-endef
+	--with-szlib \
+	--with-default-api-version=v110
 
 define Build/InstallDev
 	$(INSTALL_DIR) \
