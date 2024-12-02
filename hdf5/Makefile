@@ -61,16 +61,16 @@ define Build/InstallDev
 	  $(1)/usr/lib/
 	
 	$(SED) \
-	  's,^\(prefix\)=.*,\1=$(STAGING_PREFIX),g' $(1)/usr/lib/pkgconfig/hdf5.pc
+	  's,^\(prefix\)=.*,\1=$(STAGING_DIR)/usr,g' $(1)/usr/lib/pkgconfig/hdf5.pc
 	
 	$(SED) \
-	  's,^\(prefix\)=.*,\1=$(STAGING_PREFIX),g' $(1)/usr/lib/pkgconfig/hdf5_hl.pc
+	  's,^\(prefix\)=.*,\1=$(STAGING_DIR)/usr,g' $(1)/usr/lib/pkgconfig/hdf5_hl.pc
 	
 	$(SED) \
-	  's,^\(prefix\)=.*,\1=$(STAGING_PREFIX),g' $(1)/usr/lib/pkgconfig/hdf5_hl_cpp.pc
+	  's,^\(prefix\)=.*,\1=$(STAGING_DIR)/usr,g' $(1)/usr/lib/pkgconfig/hdf5_hl_cpp.pc
 	
 	$(SED) \
-	  's,^\(prefix\)=.*,\1=$(STAGING_PREFIX),g' $(1)/usr/lib/pkgconfig/hdf5_cpp.pc
+	  's,^\(prefix\)=.*,\1=$(STAGING_DIR)/usr,g' $(1)/usr/lib/pkgconfig/hdf5_cpp.pc
 endef
 
 define Package/hdf5/install
