@@ -20,8 +20,8 @@ include $(INCLUDE_DIR)/host-build.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-host-build.mk
 
-export CFLAGS+="$(TARGET_CFLAGS) -I$(STAGING_DIR)/usr/include"
-export LDFLAGS+="$(TARGET_LDFLAGS) -L$(STAGING_DIR)/usr/lib"
+export CFLAGS="$(TARGET_CFLAGS) -I$(STAGING_DIR)/usr/include"
+export LDFLAGS="$(TARGET_LDFLAGS) -L$(STAGING_DIR)/usr/lib"
 export H5PY_SYSTEM_LZF=1
 export H5PY_SETUP_REQUIRES=0
 export HDF5_DIR="$(STAGING_DIR)/usr"
