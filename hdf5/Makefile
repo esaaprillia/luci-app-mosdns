@@ -12,12 +12,12 @@ PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
 PKG_LICENSE:=License
 PKG_LICENSE_FILES:=LICENSE LICENSE_LBNL_HDF5
 
-CMAKE_BINARY_SUBDIR := build
+PKG_FIXUP:=libtool
 
 PKG_BUILD_PARALLEL:=1
+PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
-include $(INCLUDE_DIR)/cmake.mk
 
 define Package/hdf5
 	SECTION:=libs
@@ -32,21 +32,37 @@ define Package/hdf5/description
 	The model has been adopted across many industries, and this implementation has become a de facto data management standard in science, engineering, and research communities worldwide.
 endef
 
+CONFIGURE_ARGS += \
+	--prefix=$(CONFIGURE_PREFIX) \
+	--docdir=$(CONFIGURE_PREFIX)/share/doc/hdf5/ \
+	--with-examplesdir=$(CONFIGURE_PREFIX)/share/doc/hdf5/examples \
+	--disable-static \
+	--disable-sharedlib-rpath \
+	--enable-build-mode=production \
+	--enable-hl \
+	--enable-cxx \
+	--disable-fortran \
+	--disable-java \
+	--with-pic \
+	--with-zlib \
+	--with-szlib
+
+define Build/Configure
+	(cd $(PKG_BUILD_DIR); ./autogen.sh );
+	$(call Build/Configure/Default)
+endef
+
 define Build/InstallDev
 	$(INSTALL_DIR) \
 	  $(1)/usr/include \
 	  $(1)/usr/lib
 
 	$(CP) \
-	  $(PKG_INSTALL_DIR)/usr/include/* \
+	  $(PKG_INSTALL_DIR)/usr/include/*.h \
 	  $(1)/usr/include/
 
 	$(CP) \
-	  $(PKG_INSTALL_DIR)/usr/lib/{pkgconfig,*.so*,libhdf5.settings} \
-	  $(1)/usr/lib/
-
-	$(CP) \
-	  $(PKG_INSTALL_DIR)/usr/cmake \
+	  $(PKG_INSTALL_DIR)/usr/lib/{*.so*,libhdf5.settings} \
 	  $(1)/usr/lib/
 endef
 
