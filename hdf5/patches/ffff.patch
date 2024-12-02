@@ -1,0 +1,25 @@
+From e64e1ea881c431a9561b83607d722994af641026 Mon Sep 17 00:00:00 2001
+From: Michael Cho <michael@michaelcho.dev>
+Date: Thu, 17 Oct 2024 12:20:47 -0400
+Subject: [PATCH] Fix linker flag in pkg-config file for system zlib (#4957)
+
+Previously was hardcoding `-lzlib-static` which will result in the wrong
+linker flags when built with system zlib. It looks like there was logic
+to figure out the library name but the resulting `libname` was never used.
+---
+ CMakeFilters.cmake | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/CMakeFilters.cmake b/CMakeFilters.cmake
+index 52d65e59e47f872bdc483d6af8414ed2840732a6..57c51edceaf282951158c3febe3fa77de6772e25 100644
+--- a/CMakeFilters.cmake
++++ b/CMakeFilters.cmake
+@@ -108,7 +108,7 @@ if (HDF5_ENABLE_Z_LIB_SUPPORT)
+         # on the target. The target returned is: ZLIB::ZLIB
+         get_filename_component (libname ${ZLIB_LIBRARIES} NAME_WLE)
+         string (REGEX REPLACE "^lib" "" libname ${libname})
+-        set_target_properties (ZLIB::ZLIB PROPERTIES OUTPUT_NAME zlib-static)
++        set_target_properties (ZLIB::ZLIB PROPERTIES OUTPUT_NAME ${libname})
+         set (LINK_COMP_LIBS ${LINK_COMP_LIBS} ZLIB::ZLIB)
+       endif ()
+     else ()
