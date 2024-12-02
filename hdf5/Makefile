@@ -32,17 +32,6 @@ define Package/hdf5/description
 	The model has been adopted across many industries, and this implementation has become a de facto data management standard in science, engineering, and research communities worldwide.
 endef
 
-CMAKE_OPTIONS += \
-	-DBUILD_SHARED_LIBS=ON \
-	-DBUILD_STATIC_LIBS=OFF \
-	-DHDF5_BUILD_HL_LIB=ON \
-	-DHDF5_BUILD_CPP_LIB=ON \
-	-DHDF5_BUILD_FORTRAN=OFF \
-	-DHDF5_BUILD_JAVA=OFF \
-	-DHDF5_ENABLE_Z_LIB_SUPPORT=ON \
-	-DHDF5_ENABLE_SZIP_SUPPORT=ON \
-	-DHDF5_ENABLE_SZIP_ENCODING=ON
-
 define Build/InstallDev
 	$(INSTALL_DIR) \
 	  $(1)/usr/include \
@@ -59,18 +48,6 @@ define Build/InstallDev
 	$(CP) \
 	  $(PKG_INSTALL_DIR)/usr/cmake \
 	  $(1)/usr/lib/
-	
-	$(SED) \
-	  's,^\(prefix\)=.*,\1=$(STAGING_DIR)/usr,g' $(1)/usr/lib/pkgconfig/hdf5.pc
-	
-	$(SED) \
-	  's,^\(prefix\)=.*,\1=$(STAGING_DIR)/usr,g' $(1)/usr/lib/pkgconfig/hdf5_hl.pc
-	
-	$(SED) \
-	  's,^\(prefix\)=.*,\1=$(STAGING_DIR)/usr,g' $(1)/usr/lib/pkgconfig/hdf5_hl_cpp.pc
-	
-	$(SED) \
-	  's,^\(prefix\)=.*,\1=$(STAGING_DIR)/usr,g' $(1)/usr/lib/pkgconfig/hdf5_cpp.pc
 endef
 
 define Package/hdf5/install
