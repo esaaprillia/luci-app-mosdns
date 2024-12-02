@@ -33,13 +33,15 @@ define Package/hdf5/description
 endef
 
 CMAKE_OPTIONS += \
-	-DHDF5_INSTALL_CMAKE_DIR=lib/cmake/hdf5 \
-	-DHDF5_BUILD_FORTRAN:BOOL=OFF \
-	-DHDF5_BUILD_CPP_LIB:BOOL=ON \
-	-DHDF5_ENABLE_SZIP_SUPPORT:BOOL=ON \
-	-DZLIB_DIR:PATH=$(STAGING_DIR)/usr \
-	-DSZIP_INCLUDE_DIR=$(STAGING_DIR)/usr/include \
-	-DSZIP_LIBRARIES=$(STAGING_DIR)/usr/lib
+	-DBUILD_SHARED_LIBS=ON \
+	-DBUILD_STATIC_LIBS=OFF \
+	-DHDF5_BUILD_HL_LIB=ON \
+	-DHDF5_BUILD_CPP_LIB=ON \
+	-DHDF5_BUILD_FORTRAN=OFF \
+	-DHDF5_BUILD_JAVA=OFF \
+	-DHDF5_ENABLE_Z_LIB_SUPPORT=ON \
+	-DHDF5_ENABLE_SZIP_SUPPORT=ON \
+	-DHDF5_ENABLE_SZIP_ENCODING=ON
 
 define Build/InstallDev
 	$(INSTALL_DIR) \
@@ -47,11 +49,15 @@ define Build/InstallDev
 	  $(1)/usr/lib
 
 	$(CP) \
-	  $(PKG_INSTALL_DIR)/usr/include/*.h \
+	  $(PKG_INSTALL_DIR)/usr/include/* \
 	  $(1)/usr/include/
 
 	$(CP) \
-	  $(PKG_INSTALL_DIR)/usr/lib/{pkgconfig,*.so*,libhdf5.settings,cmake} \
+	  $(PKG_INSTALL_DIR)/usr/lib/{pkgconfig,*.so*,libhdf5.settings} \
+	  $(1)/usr/lib/
+
+	$(CP) \
+	  $(PKG_INSTALL_DIR)/usr/cmake \
 	  $(1)/usr/lib/
 endef
 
