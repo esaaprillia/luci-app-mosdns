@@ -176,7 +176,7 @@ jobs:
       matrix:
         include:
           - platform: openwrt-sdk-24.10-0-rc1-x86_64
-            url_sdk: https://downloads.openwrt.org/releases/24.10.0-rc1/targets/x86/legacy/openwrt-sdk-24.10.0-rc1-x86-legacy_gcc-13.3.0_musl.Linux-x86_64.tar.zst
+            url_sdk: https://downloads.openwrt.org/releases/24.10-SNAPSHOT/targets/x86/64/openwrt-sdk-24.10-SNAPSHOT-x86-64_gcc-13.3.0_musl.Linux-x86_64.tar.zst
 
           - platform: aarch64_generic-snapshots
             url_sdk: https://downloads.openwrt.org/snapshots/targets/armsr/armv8/openwrt-sdk-armsr-armv8_gcc-13.3.0_musl.Linux-x86_64.tar.zst
