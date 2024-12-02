@@ -53,7 +53,7 @@ define Build/InstallDev
 endef
 
 define Build/Install
-	export LD_LIBRARY_PATH="$(PKG_BUILD_DIR)/src/.libs/"
+	export LD_LIBRARY_PATH="$(PKG_SOURCE)/src/.libs/"
 	export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":"$(PKG_BUILD_DIR)/c++/src/.libs/"
 	export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":"$(PKG_BUILD_DIR)/fortran/src/.libs/"
 	export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":"$(PKG_BUILD_DIR)/hl/src/.libs/"
