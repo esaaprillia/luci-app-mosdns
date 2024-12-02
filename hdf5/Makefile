@@ -32,6 +32,8 @@ define Package/hdf5/description
 	The model has been adopted across many industries, and this implementation has become a de facto data management standard in science, engineering, and research communities worldwide.
 endef
 
+TARGET_LDFLAGS += -Wl,--gc-sections,--as-needed
+
 CONFIGURE_ARGS += \
 	--prefix=$(CONFIGURE_PREFIX) \
 	--docdir=$(CONFIGURE_PREFIX)/share/doc/hdf5 \
