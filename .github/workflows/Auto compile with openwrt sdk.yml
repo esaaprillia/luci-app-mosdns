@@ -175,13 +175,13 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - platform: x86_64
-            url_sdk: https://downloads.openwrt.org/releases/21.02.7/targets/x86/64/openwrt-sdk-21.02.7-x86-64_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+          - platform: openwrt-sdk-24.10-0-rc1-x86_64
+            url_sdk: https://downloads.openwrt.org/releases/24.10.0-rc1/targets/x86/legacy/openwrt-sdk-24.10.0-rc1-x86-legacy_gcc-13.3.0_musl.Linux-x86_64.tar.zst
 
           - platform: aarch64_generic-snapshots
             url_sdk: https://downloads.openwrt.org/snapshots/targets/armsr/armv8/openwrt-sdk-armsr-armv8_gcc-13.3.0_musl.Linux-x86_64.tar.zst
             
-          - platform: openwrt-sdk-24.10-0-rc1
+          - platform: openwrt-sdk-24.10-0-rc1-armv8
             url_sdk: https://downloads.openwrt.org/releases/24.10.0-rc1/targets/armsr/armv8/openwrt-sdk-24.10.0-rc1-armsr-armv8_gcc-13.3.0_musl.Linux-x86_64.tar.zst
 
           - platform: aarch64_generic-23
@@ -315,10 +315,10 @@ jobs:
           #zip -jr upload/mosdns_ipk_${{ matrix.platform }}.zip bin/packages/*/xorg/
           #zip -r upload/mosdns_ipk_${{ matrix.platform }}.zip bin/packages/*/mosdns/
           #zip -r upload/mosdns_ipk_${{ matrix.platform }}.zip bin/packages/*/packages/
-          #zip -r upload/mosdns_ipk_${{ matrix.platform }}.zip bin/
+          zip -r upload/mosdns_ipk_${{ matrix.platform }}.zip bin/
           #zip -r upload/mosdns_ipk_${{ matrix.platform }}.zip /home/runner/work/mosdns/mosdns/sdk/build_dir/hostpkg/telegram-tdlib-1.8.30
           #zip -r upload/mosdns_ipk_${{ matrix.platform }}.zip /home/runner/work/mosdns/mosdns/sdk/build_dir/target-aarch64_generic_musl/pypi/numpy-2.1.0/
-          zip -r upload/mosdns_ipk_${{ matrix.platform }}.zip /home/runner/work/mosdns/mosdns/sdk/build_dir/target-aarch64_generic_musl/hdf5-1.14.5/ipkg-install/
+          #zip -r upload/mosdns_ipk_${{ matrix.platform }}.zip /home/runner/work/mosdns/mosdns/sdk/build_dir/target-aarch64_generic_musl/hdf5-1.14.5/ipkg-install/
           #zip -r upload/mosdns_ipk_${{ matrix.platform }}.zip /home/runner/work/mosdns/mosdns/sdk/feeds/mosdns/
           #zip -r upload/mosdns_ipk_${{ matrix.platform }}.zip /home/runner/work/mosdns/mosdns/sdk/feeds/juci/
 
