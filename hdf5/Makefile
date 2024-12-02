@@ -15,7 +15,7 @@ PKG_LICENSE_FILES:=LICENSE LICENSE_LBNL_HDF5
 PKG_FIXUP:=libtool
 
 PKG_BUILD_PARALLEL:=1
-PKG_INSTALL:=1
+#PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/host-build.mk
@@ -32,9 +32,6 @@ define Package/hdf5/description
 	This repository contains a high-performance library's source code and a file format specification that implements the HDF5® data model.
 	The model has been adopted across many industries, and this implementation has become a de facto data management standard in science, engineering, and research communities worldwide.
 endef
-
-HOST_CONFIGURE_ARGS += \
-	--enable-shared
 
 CONFIGURE_ARGS += \
 	--enable-cxx \
@@ -53,6 +50,17 @@ define Build/InstallDev
 	$(CP) \
 	  $(PKG_INSTALL_DIR)/usr/lib/{*.so*,libhdf5.settings,*.a} \
 	  $(1)/usr/lib/
+endef
+
+define Build/Install
+	export LD_LIBRARY_PATH="$(PKG_BUILD_DIR)/src/.libs/"
+	export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":"$(PKG_BUILD_DIR)/c++/src/.libs/"
+	export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":"$(PKG_BUILD_DIR)/fortran/src/.libs/"
+	export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":"$(PKG_BUILD_DIR)/hl/src/.libs/"
+	export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":"$(PKG_BUILD_DIR)/hl/c++/src/.libs/"
+	export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":"$(PKG_BUILD_DIR)/hl/fortran/src/.libs/"
+	$(MAKE) check
+	$(call Build/Install/Default)
 endef
 
 define Package/hdf5/install
