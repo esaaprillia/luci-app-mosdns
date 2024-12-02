@@ -1,0 +1,55 @@
+From 8089a2dd5c3da636ab1c263e1ec7ae2e9bc845f7 Mon Sep 17 00:00:00 2001
+From: Michael Cho <michael@michaelcho.dev>
+Date: Sun, 13 Oct 2024 15:28:33 -0400
+Subject: [PATCH] Fix CMake build detection of `libaec`
+
+Partial revert of https://github.com/HDFGroup/hdf5/pull/4567 as libaec
+is the correct name of latest package and should be searched first.
+Otherwise, it is not found even if `LIBAEC_PACKAGE_NAME=libaec`.
+
+Also fixes pkg-config generation handling. This does mean the output
+CMake configuration files need to `find_package(libaec)` prior to
+`hdf5-static`, but it also avoids using absolute path to shared library
+so that users can do `set(libaec_USE_STATIC_LIBS ON)`.
+
+Also fix build with original SZIP without vcpkg patch.
+---
+ CMakeFilters.cmake | 19 ++++++++++++++++---
+ 1 file changed, 16 insertions(+), 3 deletions(-)
+
+diff --git a/CMakeFilters.cmake b/CMakeFilters.cmake
+index 3eca6e743c8311db4853a44f3f75c2d62a9d391a..3f9b4cc367bac02a842d9a36b52de901ed2740b8 100644
+--- a/CMakeFilters.cmake
++++ b/CMakeFilters.cmake
+@@ -160,15 +160,28 @@ if (HDF5_ENABLE_SZIP_SUPPORT)
+     endif ()
+     set(libaec_USE_STATIC_LIBS ${HDF5_USE_LIBAEC_STATIC})
+     set(SZIP_FOUND FALSE)
+-    find_package (SZIP NAMES ${LIBAEC_PACKAGE_NAME}${HDF_PACKAGE_EXT} COMPONENTS ${LIBAEC_SEACH_TYPE})
++    find_package (libaec CONFIG QUIET)
+     if (NOT SZIP_FOUND)
+-      find_package (SZIP) # Legacy find
++      find_package (SZIP NAMES ${LIBAEC_PACKAGE_NAME}${HDF_PACKAGE_EXT} COMPONENTS ${LIBAEC_SEACH_TYPE})
++      if (NOT SZIP_FOUND)
++        find_package (SZIP) # Legacy find
++      endif ()
+     endif ()
+     set(H5_SZIP_FOUND ${SZIP_FOUND})
+     if (H5_SZIP_FOUND)
+       set (H5_SZIP_INCLUDE_DIR_GEN ${SZIP_INCLUDE_DIR})
+       set (H5_SZIP_INCLUDE_DIRS ${H5_SZIP_INCLUDE_DIRS} ${SZIP_INCLUDE_DIR})
+-      set (LINK_COMP_LIBS ${LINK_COMP_LIBS} ${SZIP_LIBRARIES})
++      set (SZIP_TARGET "szip-${LIBAEC_SEACH_TYPE}")
++      if (TARGET libaec::sz)
++        set (SZIP_TARGET libaec::sz)
++      endif ()
++      if (TARGET ${SZIP_TARGET})
++        get_target_property (libname ${SZIP_TARGET} LOCATION)
++        get_filename_component (libname ${libname} NAME_WE)
++        string (REGEX REPLACE "^lib" "" libname ${libname})
++        set_target_properties (${SZIP_TARGET} PROPERTIES OUTPUT_NAME ${libname})
++        set (LINK_COMP_LIBS ${LINK_COMP_LIBS} ${SZIP_TARGET})
++      endif ()
+     endif ()
+   else ()
+     if (HDF5_ALLOW_EXTERNAL_SUPPORT MATCHES "GIT" OR HDF5_ALLOW_EXTERNAL_SUPPORT MATCHES "TGZ")
