@@ -12,12 +12,12 @@ PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
 PKG_LICENSE:=License
 PKG_LICENSE_FILES:=LICENSE LICENSE_LBNL_HDF5
 
-PKG_FIXUP:=libtool
+CMAKE_BINARY_SUBDIR := build
 
 PKG_BUILD_PARALLEL:=1
-PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/cmake.mk
 
 define Package/hdf5
 	SECTION:=libs
@@ -32,25 +32,19 @@ define Package/hdf5/description
 	The model has been adopted across many industries, and this implementation has become a de facto data management standard in science, engineering, and research communities worldwide.
 endef
 
-TARGET_LDFLAGS += -Wl,--gc-sections,--as-needed
-
-CONFIGURE_ARGS += \
-	--prefix=$(CONFIGURE_PREFIX) \
-	--docdir=$(CONFIGURE_PREFIX)/share/doc/hdf5 \
-	--with-default-plugindir=$(CONFIGURE_PREFIX)/lib/hdf5/plugin \
-	--with-examplesdir=$(CONFIGURE_PREFIX)/share/doc/hdf5/examples \
-	--disable-static \
-	--disable-sharedlib-rpath \
-	--enable-deprecated-symbols \
-	--enable-build-mode=production \
-	--enable-hl \
-	--enable-cxx \
-	--disable-fortran \
-	--disable-java \
-	--with-pic \
-	--with-zlib \
-	--with-szlib \
-	--with-default-api-version=v110
+CMAKE_OPTIONS += \
+	-DBUILD_STATIC_LIBS=OFF \
+	-DHDF5_BUILD_HL_LIB=ON \
+	-DHDF5_BUILD_CPP_LIB=ON \
+	-DHDF5_BUILD_FORTRAN=OFF \
+	-DHDF5_BUILD_JAVA=OFF \
+	-DHDF5_ENABLE_Z_LIB_SUPPORT=ON \
+	-DHDF5_ENABLE_SZIP_SUPPORT=ON \
+	-DHDF5_ENABLE_SZIP_ENCODING=ON \
+	-DH5_SZIP_INCLUDE_DIR=$(STAGING_DIR)/usr/include \
+	-DH5_SZIP_LIBRARY=$(STAGING_DIR)/usr/lib \
+	-DH5_ZLIB_INCLUDE_DIR=$(STAGING_DIR)/usr/include \
+	-DH5_ZLIB_LIBRARY=$(STAGING_DIR)/usr/lib
 
 define Build/InstallDev
 	$(INSTALL_DIR) \
@@ -62,12 +56,16 @@ define Build/InstallDev
 	  $(1)/usr/include/
 
 	$(CP) \
-	  $(PKG_INSTALL_DIR)/usr/lib/libhdf5.settings \
+	  $(PKG_INSTALL_DIR)/usr/lib/{pkgconfig,libhdf5.settings} \
 	  $(1)/usr/lib/
 
 	$(CP) \
 	  $(PKG_INSTALL_DIR)/usr/lib/libhdf5.so.310 \
 	  $(1)/usr/lib/libhdf5.so
+
+	$(CP) \
+	  $(PKG_INSTALL_DIR)/usr/cmake \
+	  $(1)/usr/lib/
 endef
 
 define Package/hdf5/install
