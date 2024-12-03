@@ -52,13 +52,6 @@ CONFIGURE_ARGS += \
 	--with-szlib \
 	--with-default-api-version=v110
 
-# We can't use the default, as the default passes $(MAKE_ARGS), which
-# overrides CC, CFLAGS, etc. and defeats the *_FOR_BUILD definitions
-# passed in CONFIGURE_VARS
-define Build/Compile
-	$(MAKE) $(PKG_JOBS) -C $(PKG_BUILD_DIR)/$(MAKE_PATH)
-endef
-
 define Build/InstallDev
 	$(INSTALL_DIR) \
 	  $(1)/usr/include \
@@ -69,8 +62,12 @@ define Build/InstallDev
 	  $(1)/usr/include/
 
 	$(CP) \
-	  $(PKG_INSTALL_DIR)/usr/lib/* \
+	  $(PKG_INSTALL_DIR)/usr/lib/libhdf5.settings \
 	  $(1)/usr/lib/
+
+	$(CP) \
+	  $(PKG_INSTALL_DIR)/usr/lib/libhdf5.so.310 \
+	  $(1)/usr/lib/libhdf5.so
 endef
 
 define Package/hdf5/install
