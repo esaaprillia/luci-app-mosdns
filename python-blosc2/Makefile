@@ -17,6 +17,7 @@ PKG_BUILD_DEPENDS:=python-setuptools-scm/host python-cython/host python-scikit-b
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/host-build.mk
+include $(INCLUDE_DIR)/cmake.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-host-build.mk
 
@@ -35,6 +36,9 @@ Currently Python-Blosc2 already reproduces the API of Python-Blosc, so it can be
 In addition, Python-Blosc2 aims to leverage the full C-Blosc2 functionality to support super-chunks (SChunk), multi-dimensional arrays (NDArray), metadata, serialization and other bells and whistles introduced in C-Blosc2.
 Note: Python-Blosc2 is meant to be backward compatible with Python-Blosc data. That means that it can read data generated with Python-Blosc, but the opposite is not true (i.e. there is no forward compatibility).
 endef
+
+CMAKE_OPTIONS += \
+	-DUSE_SYSTEM_BLOSC2=ON
 
 $(eval $(call Py3Package,python3-blosc2))
 $(eval $(call BuildPackage,python3-blosc2))
