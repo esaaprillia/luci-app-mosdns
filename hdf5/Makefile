@@ -65,11 +65,11 @@ define Build/InstallDev
 	  $(1)/usr/lib
 
 	$(CP) \
-	  $(PKG_INSTALL_DIR)/usr/include/*.h \
+	  $(PKG_INSTALL_DIR)/usr/include/* \
 	  $(1)/usr/include/
 
 	$(CP) \
-	  $(PKG_INSTALL_DIR)/usr/lib/{*.so*,libhdf5.settings} \
+	  $(PKG_INSTALL_DIR)/usr/lib/* \
 	  $(1)/usr/lib/
 endef
 
