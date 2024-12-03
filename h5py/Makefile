@@ -28,6 +28,12 @@ export HDF5_DIR="$(STAGING_DIR)/usr"
 export HDF5_VERSION=1.14.5
 export LD_LIBRARY_PATH=$(STAGING_DIR)/usr/lib
 
+PYTHON3_PKG_SETUP_VARS:= \
+	HDF5_DIR=$(STAGING_DIR)/usr \
+	HDF5_INCLUDEDIR=$(STAGING_DIR)/usr/include \
+	HDF5_LIBDIR=$(STAGING_DIR)/usr/lib \
+	H5PY_SETUP_REQUIRES=0
+
 define Package/h5py
   SUBMENU:=Python
   SECTION:=lang
