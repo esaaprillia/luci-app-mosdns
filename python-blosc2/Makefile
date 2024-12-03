@@ -1,23 +1,22 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-blosc2
-PKG_VERSION:=2.7.1
+PKG_VERSION:=3.0.0-rc2
 PKG_RELEASE:=1
 
 PKG_MAINTAINER:=Andy Syam <privasisource@gmail.com>
 PKG_LICENSE:=License
 PKG_LICENSE_FILES:=LICENSE.txt
 
-PYPI_NAME:=blosc2
-PKG_HASH:=34db4d41543b16e894d507d6c7d10a9a67c9dd420ff40b072f7c39185cbb8fe8
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://github.com/Blosc/python-blosc2/archive/v$(PKG_VERSION)
+PKG_HASH:=skip
 
-HOST_BUILD_DEPENDS:=python-setuptools-scm/host python-cython/host python-scikit-build/host python-distro/host numpy/host
-PKG_BUILD_DEPENDS:=python-setuptools-scm/host python-cython/host python-scikit-build/host python-distro/host numpy/host
+HOST_BUILD_DEPENDS:=python-setuptools-scm/host python-cython/host scikit-build-core/host numpy/host
+PKG_BUILD_DEPENDS:=python-setuptools-scm/host python-cython/host scikit-build-core/host numpy/host
 
-include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/host-build.mk
-include $(INCLUDE_DIR)/cmake.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-host-build.mk
 
@@ -37,8 +36,8 @@ In addition, Python-Blosc2 aims to leverage the full C-Blosc2 functionality to s
 Note: Python-Blosc2 is meant to be backward compatible with Python-Blosc data. That means that it can read data generated with Python-Blosc, but the opposite is not true (i.e. there is no forward compatibility).
 endef
 
-CMAKE_OPTIONS += \
-	-DUSE_SYSTEM_BLOSC2=ON
+PYTHON3_PKG_WHEEL_NAME:=blosc2
+PYTHON3_PKG_WHEEL_VERSION:=3.0.0rc2
 
 $(eval $(call Py3Package,python3-blosc2))
 $(eval $(call BuildPackage,python3-blosc2))
