@@ -1,7 +1,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=h5py
-PKG_VERSION:=3.12.1
+PKG_VERSION:=3.11.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
@@ -38,7 +38,7 @@ define Package/h5py/description
 endef
 
 PYTHON3_PKG_WHEEL_NAME:=h5py
-PYTHON3_PKG_WHEEL_VERSION:=3.12.1
+PYTHON3_PKG_WHEEL_VERSION:=3.11.0
 
 $(eval $(call Py3Package,h5py))
 $(eval $(call BuildPackage,h5py))
