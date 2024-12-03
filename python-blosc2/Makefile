@@ -20,6 +20,10 @@ include $(INCLUDE_DIR)/host-build.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-host-build.mk
 
+PYTHON3_PKG_SETUP_VARS:= \
+	cmake.args =-DUSE_SYSTEM_BLOSC2=ON \
+	-DUSE_SYSTEM_BLOSC2=ON
+
 define Package/python3-blosc2
   SUBMENU:=Python
   SECTION:=lang
@@ -36,8 +40,8 @@ In addition, Python-Blosc2 aims to leverage the full C-Blosc2 functionality to s
 Note: Python-Blosc2 is meant to be backward compatible with Python-Blosc data. That means that it can read data generated with Python-Blosc, but the opposite is not true (i.e. there is no forward compatibility).
 endef
 
-PYTHON3_PKG_WHEEL_NAME:=blosc2
-PYTHON3_PKG_WHEEL_VERSION:=3.0.0rc2
+#PYTHON3_PKG_WHEEL_NAME:=blosc2
+#PYTHON3_PKG_WHEEL_VERSION:=3.0.0rc2
 
 $(eval $(call Py3Package,python3-blosc2))
 $(eval $(call BuildPackage,python3-blosc2))
