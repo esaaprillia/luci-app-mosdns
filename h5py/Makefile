@@ -25,6 +25,7 @@ export LDFLAGS="$(TARGET_LDFLAGS) -L$(STAGING_DIR)/usr/lib"
 export H5PY_SYSTEM_LZF=1
 export H5PY_SETUP_REQUIRES=0
 export HDF5_DIR="$(STAGING_DIR)/usr"
+export HDF5_VERSION=1.14.5
 
 define Package/h5py
   SUBMENU:=Python
