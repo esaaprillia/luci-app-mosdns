@@ -52,11 +52,11 @@ define Build/InstallDev
 	  $(1)/usr/include/
 
 	$(CP) \
-	  $(PKG_INSTALL_DIR)/usr/lib/{pkgconfig,libhdf5.settings,libhdf5.so.310,libhdf5.so.310.5.0} \
+	  $(PKG_INSTALL_DIR)/usr/lib/{pkgconfig,libhdf5.settings} \
 	  $(1)/usr/lib/
 
 	$(CP) \
-	  $(PKG_INSTALL_DIR)/usr/lib/libhdf5.so.310 \
+	  $(PKG_INSTALL_DIR)/usr/lib/libhdf5.so.310.5.0 \
 	  $(1)/usr/lib/libhdf5.so
 
 	$(CP) \
