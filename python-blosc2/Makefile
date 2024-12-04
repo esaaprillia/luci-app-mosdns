@@ -14,11 +14,12 @@ PKG_HASH:=34db4d41543b16e894d507d6c7d10a9a67c9dd420ff40b072f7c39185cbb8fe8
 HOST_BUILD_DEPENDS:=python-setuptools-scm/host python-cython/host python-scikit-build/host python-distro/host numpy/host
 PKG_BUILD_DEPENDS:=python-setuptools-scm/host python-cython/host python-scikit-build/host python-distro/host numpy/host
 
-PKG_USE_NINJA:=1
+PKG_USE_NINJA:=0
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/host-build.mk
+include $(INCLUDE_DIR)/cmake.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-host-build.mk
 
