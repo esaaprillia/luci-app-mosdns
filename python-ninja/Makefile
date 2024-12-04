@@ -11,8 +11,8 @@ PKG_LICENSE_FILES:=LICENSE_Apache_20
 PYPI_NAME:=ninja
 PKG_HASH:=4fbd07b2b4232543726abafdd350453a2fabef4527664ca0e491c578aee5f857
 
-HOST_BUILD_DEPENDS:=python-setuptools-scm/host scikit-build-core/host
-PKG_BUILD_DEPENDS:=python-setuptools-scm/host scikit-build-core/host
+HOST_BUILD_DEPENDS:=python-setuptools-scm/host scikit-build-core/host python-hatch-fancy-pypi-readme/host
+PKG_BUILD_DEPENDS:=python-setuptools-scm/host scikit-build-core/host python-hatch-fancy-pypi-readme/host
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
