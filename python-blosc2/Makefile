@@ -20,6 +20,8 @@ include $(INCLUDE_DIR)/host-build.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-host-build.mk
 
+export CMAKE_ARGS="-DUSE_SYSTEM_BLOSC2=ON"
+
 define Package/python3-blosc2
   SUBMENU:=Python
   SECTION:=lang
