@@ -52,4 +52,3 @@ endef
 
 $(eval $(call BuildPackage,ninja))
 $(eval $(call HostBuild))
-
