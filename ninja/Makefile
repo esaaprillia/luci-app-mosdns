@@ -4,7 +4,7 @@ PKG_NAME:=ninja
 PKG_VERSION:=1.12.1
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/ninja-build/ninja/archive/v$(PKG_VERSION)
 PKG_HASH:=skip
 
