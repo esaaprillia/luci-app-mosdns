@@ -36,6 +36,9 @@ In addition, Python-Blosc2 aims to leverage the full C-Blosc2 functionality to s
 Note: Python-Blosc2 is meant to be backward compatible with Python-Blosc data. That means that it can read data generated with Python-Blosc, but the opposite is not true (i.e. there is no forward compatibility).
 endef
 
+PYTHON3_PKG_BUILD_CONFIG_SETTINGS += \
+	--config-settings=cmake.args=-DUSE_SYSTEM_BLOSC2=ON
+
 $(eval $(call Py3Package,python3-blosc2))
 $(eval $(call BuildPackage,python3-blosc2))
 $(eval $(call BuildPackage,python3-blosc2-src))
