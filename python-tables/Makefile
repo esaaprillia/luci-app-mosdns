@@ -11,8 +11,8 @@ PKG_LICENSE_FILES:=LICENSE.txt
 PYPI_NAME:=tables
 PKG_HASH:=4aa07ac734b9c037baeaf44aec64ec902ad247f57811b59f30c4e31d31f126cf
 
-HOST_BUILD_DEPENDS:=python-setuptools-scm/host python-py-cpuinfo/host python-typing-extensions/host python-cython/host python-blosc2/host numpy/host
-PKG_BUILD_DEPENDS:=python-setuptools-scm/host python-py-cpuinfo/host python-typing-extensions/host python-cython/host python-blosc2/host numpy/host
+HOST_BUILD_DEPENDS:=python-setuptools-scm/host python-py-cpuinfo/host python-typing-extensions/host python-cython/host python-blosc2/host numpy/host python-msgpack/host python-ndindex/host python-numexpr/host
+PKG_BUILD_DEPENDS:=python-setuptools-scm/host python-py-cpuinfo/host python-typing-extensions/host python-cython/host python-blosc2/host numpy/host python-msgpack/host python-ndindex/host python-numexpr/host
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
