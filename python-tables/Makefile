@@ -20,11 +20,6 @@ include $(INCLUDE_DIR)/host-build.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-host-build.mk
 
-export HDF5_DIR="$(STAGING_DIR)/usr"
-
-PYTHON3_PKG_SETUP_VARS:= \
-	HDF5_DIR="$(STAGING_DIR)/usr"
-
 define Package/python3-tables
   SUBMENU:=Python
   SECTION:=lang
@@ -41,7 +36,10 @@ endef
 
 PYTHON3_PKG_BUILD_CONFIG_SETTINGS += \
 	--build-option=build_ext \
-	--build-option=--hdf5="$(STAGING_DIR)/usr"
+	--build-option=--hdf5="$(STAGING_DIR)/usr" \
+	--build-option=--lzo="$(STAGING_DIR)/usr" \
+	--build-option=--bzip2="$(STAGING_DIR)/usr" \
+	--build-option=--blosc2="$(STAGING_DIR)/usr"
 
 $(eval $(call Py3Package,python3-tables))
 $(eval $(call BuildPackage,python3-tables))
