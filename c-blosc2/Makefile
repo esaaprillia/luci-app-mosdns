@@ -34,7 +34,8 @@ define Package/c-blosc2/description
 endef
 
 CMAKE_HOST_OPTIONS += \
-	-Wno-dev
+	-Wno-dev \
+	-DBUILD_SHARED_LIBS=OFF
 
 CMAKE_OPTIONS += \
 	-Wno-dev \
