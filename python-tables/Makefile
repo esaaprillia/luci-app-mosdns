@@ -39,6 +39,10 @@ PyTables is a package for managing hierarchical datasets and designed to efficie
 PyTables is built on top of the HDF5 library and the NumPy package and features an object-oriented interface that, combined with C-code generated from Cython sources, makes of it a fast, yet extremely easy to use tool for interactively save and retrieve large amounts of data.
 endef
 
+PYTHON3_PKG_BUILD_CONFIG_SETTINGS += \
+	--build-option=build_ext \
+	--build-option=--hdf5="$(STAGING_DIR)/usr"
+
 $(eval $(call Py3Package,python3-tables))
 $(eval $(call BuildPackage,python3-tables))
 $(eval $(call BuildPackage,python3-tables-src))
