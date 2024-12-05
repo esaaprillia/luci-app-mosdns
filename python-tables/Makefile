@@ -26,7 +26,7 @@ define Package/python3-tables
   CATEGORY:=Languages
   TITLE:=Hierarchical datasets for Python
   URL:=http://www.pytables.org/
-  DEPENDS:=+python3 +c-blosc2 +libbz2 +hdf5 +liblzo +python3-numexpr +python3-numpy +python3-packaging +python3-py-cpuinfo +python3-typing-extensions
+  DEPENDS:=+python3 +c-blosc +c-blosc2 +libbz2 +hdf5 +liblzo +python3-numexpr +python3-numpy +python3-packaging +python3-py-cpuinfo +python3-typing-extensions
 endef
 
 define Package/python3-tables/description
@@ -37,6 +37,7 @@ endef
 PYTHON3_PKG_BUILD_CONFIG_SETTINGS += \
 	--build-option=build_ext \
 	--build-option=--hdf5="$(STAGING_DIR)/usr" \
+	--build-option=--blosc="$(STAGING_DIR)/usr" \
 	--build-option=--lzo="$(STAGING_DIR)/usr" \
 	--build-option=--bzip2="$(STAGING_DIR)/usr" \
 	--build-option=--blosc2="$(STAGING_DIR)/usr"
