@@ -20,6 +20,9 @@ include $(INCLUDE_DIR)/host-build.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-host-build.mk
 
+export H5PY_SETUP_REQUIRES=0
+export CFLAGS="$CFLAGS -Wno-incompatible-pointer-types"
+
 PYTHON3_PKG_SETUP_VARS:= \
 	H5PY_SETUP_REQUIRES=0
 
