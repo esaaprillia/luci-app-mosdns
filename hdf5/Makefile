@@ -35,9 +35,10 @@ endef
 TARGET_LDFLAGS += -Wl,--gc-sections,--as-needed
 
 CONFIGURE_ARGS += \
-	--prefix=/usr \
-	--docdir=/usr/share/doc/hdf5/ \
-	--with-examplesdir=/usr/share/doc/hdf5/examples \
+	--prefix=$(CONFIGURE_PREFIX) \
+	--docdir=$(CONFIGURE_PREFIX)/share/doc/hdf5 \
+	--with-default-plugindir=$(CONFIGURE_PREFIX)/lib/hdf5/plugin \
+	--with-examplesdir=$(CONFIGURE_PREFIX)/share/doc/hdf5/examples \
 	--enable-static \
 	--disable-sharedlib-rpath \
 	--enable-build-mode=production \
