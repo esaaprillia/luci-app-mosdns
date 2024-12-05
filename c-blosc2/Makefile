@@ -35,7 +35,8 @@ endef
 
 CMAKE_HOST_OPTIONS += \
 	-Wno-dev \
-	-DBUILD_SHARED_LIBS=OFF
+	-DBUILD_SHARED=OFF \
+	-DBUILD_STATIC=ON
 
 CMAKE_OPTIONS += \
 	-Wno-dev \
