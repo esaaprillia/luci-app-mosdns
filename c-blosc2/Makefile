@@ -67,3 +67,4 @@ define Package/c-blosc2/install
 endef
 
 $(eval $(call BuildPackage,c-blosc2))
+$(eval $(call HostBuild))
