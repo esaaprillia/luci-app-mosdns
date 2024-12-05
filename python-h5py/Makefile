@@ -20,10 +20,17 @@ include $(INCLUDE_DIR)/host-build.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-host-build.mk
 
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:"$(STAGING_DIR)/usr/lib"
+export HDF5_DIR="$(STAGING_DIR)/usr"
+export HDF5_INCLUDEDIR="$(STAGING_DIR)/usr/include"
+export HDF5_LIBDIR="$(STAGING_DIR)/usr/lib"
 export H5PY_SETUP_REQUIRES=0
-export CFLAGS="$CFLAGS -Wno-incompatible-pointer-types"
+
 
 PYTHON3_PKG_SETUP_VARS:= \
+	HDF5_DIR="$(STAGING_DIR)/usr" \
+	HDF5_INCLUDEDIR="$(STAGING_DIR)/usr/include" \
+	HDF5_LIBDIR="$(STAGING_DIR)/usr/lib" \
 	H5PY_SETUP_REQUIRES=0
 
 define Package/python3-h5py
