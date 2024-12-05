@@ -45,8 +45,9 @@ CMAKE_OPTIONS += \
 define Build/InstallDev
 	$(INSTALL_DIR) $(1)/usr/include $(1)/usr/lib $(1)/usr/lib/pkgconfig
 	$(CP) $(PKG_INSTALL_DIR)/usr/include/lzo $(1)/usr/include/
+	$(CP) $(PKG_INSTALL_DIR)/usr/include/lzo/* $(1)/usr/include/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/liblzo2.{a,so*} $(1)/usr/lib/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/pkgconfig/lzo2.pc $(1)/usr/lib/pkgconfig
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/pkgconfig/lzo2.pc $(1)/usr/lib/pkgconfig/
 endef
 
 define Package/liblzo/install
