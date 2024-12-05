@@ -1,23 +1,23 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=hdf5
-PKG_VERSION:=1_10_11
+PKG_VERSION:=1.14.4-2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://github.com/HDFGroup/hdf5/releases/download/hdf5-$(PKG_VERSION)/
+PKG_SOURCE_URL:=https://github.com/HDFGroup/hdf5/releases/download/hdf5_$(PKG_VERSION)/
 PKG_HASH:=skip
 
 PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
 PKG_LICENSE:=License
 PKG_LICENSE_FILES:=LICENSE LICENSE_LBNL_HDF5
 
-CMAKE_BINARY_SUBDIR := build
+PKG_FIXUP:=libtool
 
 PKG_BUILD_PARALLEL:=1
+PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
-include $(INCLUDE_DIR)/cmake.mk
 
 define Package/hdf5
 	SECTION:=libs
@@ -32,14 +32,23 @@ define Package/hdf5/description
 	The model has been adopted across many industries, and this implementation has become a de facto data management standard in science, engineering, and research communities worldwide.
 endef
 
-CMAKE_OPTIONS += \
-	-DHDF5_ENABLE_SZIP_SUPPORT:BOOL=OFF \
-	-DHDF5_ENABLE_PARALLEL:BOOL=OFF \
-	-DHDF5_BUILD_CPP_LIB:BOOL=OFF \
-	-DLIBAEC_USE_LOCALCONTENT=OFF \
-	-DZLIB_USE_LOCALCONTENT=OFF \
-	-DHDF5_BUILD_FORTRAN:BOOL=OFF \
-	-DHDF5_BUILD_JAVA:BOOL=OFF
+TARGET_LDFLAGS += -Wl,--gc-sections,--as-needed
+
+CONFIGURE_ARGS += \
+	--prefix=/usr \
+	--docdir=/usr/share/doc/hdf5/ \
+	--with-examplesdir=/usr/share/doc/hdf5/examples \
+	--enable-static \
+	--disable-sharedlib-rpath \
+	--enable-build-mode=production \
+	--enable-hl \
+	--enable-cxx \
+	--disable-fortran \
+	--disable-java \
+	--with-pic \
+	--with-zlib \
+	--with-szlib \
+	--with-default-api-version=v18
 
 define Build/InstallDev
 	$(INSTALL_DIR) \
@@ -51,11 +60,7 @@ define Build/InstallDev
 	  $(1)/usr/include/
 
 	$(CP) \
-	  $(PKG_INSTALL_DIR)/usr/lib/{pkgconfig,*.so*} \
-	  $(1)/usr/lib/
-
-	$(CP) \
-	  $(PKG_INSTALL_DIR)/usr/cmake \
+	  $(PKG_INSTALL_DIR)/usr/lib/* \
 	  $(1)/usr/lib/
 endef
 
