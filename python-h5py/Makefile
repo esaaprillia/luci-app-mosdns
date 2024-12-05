@@ -21,6 +21,7 @@ include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-host-build.mk
 
 export HDF5_DIR="$(STAGING_DIR)/usr"
+export HDF5_MPI=OFF
 export H5PY_SETUP_REQUIRES=0
 
 
