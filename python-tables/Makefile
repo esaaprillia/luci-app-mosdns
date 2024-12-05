@@ -26,7 +26,7 @@ define Package/python3-tables
   CATEGORY:=Languages
   TITLE:=Hierarchical datasets for Python
   URL:=http://www.pytables.org/
-  DEPENDS:=+python3 +c-blosc +c-blosc2 +libbz2 +hdf5 +liblzo +python3-numexpr +python3-numpy +python3-packaging +python3-py-cpuinfo +python3-typing-extensions
+  DEPENDS:=+python3 +c-blosc +c-blosc2 +libbz2 +hdf5 +liblzo +python3-numexpr +python3-numpy +python3-packaging +python3-py-cpuinfo +python3-typing-extensions +python3-msgpack +python3-ndindex +python3-blosc2
 endef
 
 define Package/python3-tables/description
