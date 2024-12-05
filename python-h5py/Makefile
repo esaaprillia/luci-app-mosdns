@@ -27,6 +27,7 @@ export H5PY_SETUP_REQUIRES=0
 
 PYTHON3_PKG_SETUP_VARS:= \
 	HDF5_DIR="$(STAGING_DIR)/usr" \
+	HDF5_MPI=OFF \
 	H5PY_SETUP_REQUIRES=0
 
 define Package/python3-h5py
