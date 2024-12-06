@@ -16,8 +16,6 @@ PKG_FIXUP:=autoreconf
 PKG_BUILD_PARALLEL:=1
 PKG_INSTALL:=1
 
-CFLAGS += $(FPIC)
-
 include $(INCLUDE_DIR)/package.mk
 
 define Package/liblzf
@@ -33,9 +31,6 @@ define Package/liblzf/description
 	The compression algorithm is very, very fast, yet still written in portable C.
 	Last not least, it is freely usable, unlike most other compression libraries which are under the GPL, this library uses a BSD-type license, so you can include it in your programs without worrying.
 endef
-
-CONFIGURE_ARGS += \
-	--enable-shared
 
 define Build/InstallDev
 	$(INSTALL_DIR) \
