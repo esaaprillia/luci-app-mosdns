@@ -1,11 +1,11 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=hdf5
-PKG_VERSION:=1.14.4-2
+PKG_VERSION:=1.14.5
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://github.com/HDFGroup/hdf5/releases/download/hdf5_1.14.4.2/
+PKG_SOURCE_URL:=https://github.com/HDFGroup/hdf5/releases/download/hdf5_$(PKG_VERSION)/
 PKG_HASH:=skip
 
 PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
@@ -48,21 +48,10 @@ CONFIGURE_ARGS += \
 	--disable-java \
 	--with-pic \
 	--with-zlib \
-	--with-szlib \
-	--with-default-api-version=v18
+	--with-szlib
 
 define Build/InstallDev
-	$(INSTALL_DIR) \
-	  $(1)/usr/include \
-	  $(1)/usr/lib
-
-	$(CP) \
-	  $(PKG_INSTALL_DIR)/usr/include/* \
-	  $(1)/usr/include/
-
-	$(CP) \
-	  $(PKG_INSTALL_DIR)/usr/lib/* \
-	  $(1)/usr/lib/
+	$(MAKE) -C $(PKG_BUILD_DIR) install
 endef
 
 define Package/hdf5/install
