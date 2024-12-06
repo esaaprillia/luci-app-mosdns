@@ -51,9 +51,7 @@ CONFIGURE_ARGS += \
 	--with-szlib
 
 define Build/InstallDev
-	$(MAKE) -C $(PKG_BUILD_DIR) \
-		+DESTDIR="$(STAGING_DIR)" \
-		install
+	$(MAKE) -C $(PKG_BUILD_DIR) install DESTDIR="$(STAGING_DIR)"
 endef
 
 define Package/hdf5/install
