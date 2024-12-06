@@ -181,7 +181,7 @@ diff -uNr liblzf-3.6.ORIG/configure.ac liblzf-3.6/configure.ac
 +
 +
 +if test "${prefix}" = NONE ; then
-+    liblzf_prefix=/usr
++    liblzf_prefix=
 +else
 +    liblzf_prefix=${prefix}
 +fi
