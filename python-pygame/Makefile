@@ -1,11 +1,11 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-pygame
-PKG_VERSION:=2.0.0
+PKG_VERSION:=2.6.1
 PKG_RELEASE:=1
 
 PYPI_NAME:=pygame
-PKG_HASH:=63b038da116a643046181b02173fd894d87d2f85ecfd6aa7d5ece73c6ef501e9
+PKG_HASH:=56fb02ead529cee00d415c3e007f75e0780c655909aaa8e8bf616ee09c9feb1f
 
 PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
 PKG_LICENSE:=LGPL-2.1-or-later
