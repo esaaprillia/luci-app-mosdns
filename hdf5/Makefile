@@ -52,7 +52,7 @@ CONFIGURE_ARGS += \
 
 define Build/InstallDev
 	$(MAKE) -C $(PKG_BUILD_DIR) \
-		INSTALL_TOP="$(STAGING_DIR)" \
+		+DESTDIR="$(STAGING_DIR)" \
 		install
 endef
 
