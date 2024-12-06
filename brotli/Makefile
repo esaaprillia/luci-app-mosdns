@@ -1,38 +1,36 @@
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=liblzf
-PKG_VERSION:=3.6
+PKG_NAME:=brotli
+PKG_VERSION:=1.1.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://dist.schmorp.de/liblzf/
+PKG_SOURCE_URL:=https://github.com/google/brotli/archive/v$(PKG_VERSION)
 PKG_HASH:=skip
 
 PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
-PKG_LICENSE:=BSD-2-Clause
+PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
 
 CMAKE_BINARY_SUBDIR := build
 
-PKG_FIXUP:=autoreconf
 PKG_BUILD_PARALLEL:=1
-PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
 
-define Package/liblzf
+define Package/brotli
 	SECTION:=libs
 	CATEGORY:=Libraries
-	TITLE:=LibLZF is a very small data compression library.
+	TITLE:=Brotli compression format
 	DEPENDS:=
-	URL:=http://software.schmorp.de/pkg/liblzf.html
+	URL:=https://github.com/google/brotli
 endef
 
-define Package/liblzf/description
-	LibLZF is a very small data compression library. It consists of only two .c and two .h files and is very easy to incorporate into your own programs.
-	The compression algorithm is very, very fast, yet still written in portable C.
-	Last not least, it is freely usable, unlike most other compression libraries which are under the GPL, this library uses a BSD-type license, so you can include it in your programs without worrying.
+define Package/brotli/description
+	Brotli is a generic-purpose lossless compression algorithm that compresses data using a combination of a modern variant of the LZ77 algorithm,
+	Huffman coding and 2nd order context modeling, with a compression ratio comparable to the best currently available general-purpose compression methods.
+	It is similar in speed with deflate but offers more dense compression.
 endef
 
 CMAKE_OPTIONS += \
@@ -44,7 +42,7 @@ define Build/InstallDev
 	  $(1)/usr/lib
 
 	$(CP) \
-	  $(PKG_INSTALL_DIR)/usr/include/*.h \
+	  $(PKG_INSTALL_DIR)/usr/include/brotli \
 	  $(1)/usr/include/
 
 	$(CP) \
@@ -52,13 +50,13 @@ define Build/InstallDev
 	  $(1)/usr/lib/
 endef
 
-define Package/liblzf/install
+define Package/brotli/install
 	$(INSTALL_DIR) \
 	  $(1)/usr/bin \
 	  $(1)/usr/lib
 
 	$(CP) \
-	  $(PKG_INSTALL_DIR)/usr/bin/* \
+	  $(PKG_INSTALL_DIR)/usr/bin/brotli \
 	  $(1)/usr/bin/
 	
 	$(CP) \
@@ -66,4 +64,4 @@ define Package/liblzf/install
 	  $(1)/usr/lib/
 endef
 
-$(eval $(call BuildPackage,liblzf))
+$(eval $(call BuildPackage,brotli))
