@@ -32,7 +32,8 @@ define Package/hdf5/description
 	The model has been adopted across many industries, and this implementation has become a de facto data management standard in science, engineering, and research communities worldwide.
 endef
 
-TARGET_LDFLAGS += -Wl,--gc-sections,--as-needed
+TARGET_CFLAGS += \
+	$(FPIC)
 
 CONFIGURE_ARGS += \
 	--prefix=$(CONFIGURE_PREFIX) \
@@ -50,9 +51,10 @@ CONFIGURE_ARGS += \
 	--with-zlib \
 	--with-szlib
 
-define Build/InstallDev
-	$(MAKE) -C $(PKG_BUILD_DIR) install DESTDIR="$(STAGING_DIR)"
-endef
+MAKE_FLAGS += \
+	CFLAGS="$(TARGET_CFLAGS)" \
+	LDFLAGS="$(TARGET_LDFLAGS)" \
+	all
 
 define Package/hdf5/install
 	$(INSTALL_DIR) \
