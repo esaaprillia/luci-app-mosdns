@@ -32,6 +32,9 @@ define Package/portmidi/description
 	portmidi is a cross-platform MIDI input/output library
 endef
 
+CMAKE_OPTIONS += \
+	-Wno-dev
+
 define Build/InstallDev
 	$(INSTALL_DIR) \
 	  $(1)/usr/include \
