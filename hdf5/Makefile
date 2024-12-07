@@ -12,8 +12,6 @@ PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
 PKG_LICENSE:=License
 PKG_LICENSE_FILES:=LICENSE LICENSE_LBNL_HDF5
 
-PKG_FIXUP:=libtool
-
 PKG_BUILD_PARALLEL:=1
 PKG_INSTALL:=1
 
@@ -32,29 +30,24 @@ define Package/hdf5/description
 	The model has been adopted across many industries, and this implementation has become a de facto data management standard in science, engineering, and research communities worldwide.
 endef
 
-TARGET_CFLAGS += \
-	$(FPIC)
-
 CONFIGURE_ARGS += \
-	--prefix=$(CONFIGURE_PREFIX) \
-	--docdir=$(CONFIGURE_PREFIX)/share/doc/hdf5 \
-	--with-default-plugindir=$(CONFIGURE_PREFIX)/lib/hdf5/plugin \
-	--with-examplesdir=$(CONFIGURE_PREFIX)/share/doc/hdf5/examples \
-	--enable-static \
-	--disable-sharedlib-rpath \
-	--enable-build-mode=production \
-	--enable-hl \
 	--enable-cxx \
 	--disable-fortran \
-	--disable-java \
-	--with-pic \
-	--with-zlib \
-	--with-szlib
+	--disable-java
 
-MAKE_FLAGS += \
-	CFLAGS="$(TARGET_CFLAGS)" \
-	LDFLAGS="$(TARGET_LDFLAGS)" \
-	all
+define Build/InstallDev
+	$(INSTALL_DIR) \
+	  $(1)/usr/include \
+	  $(1)/usr/lib
+
+	$(CP) \
+	  $(PKG_INSTALL_DIR)/usr/include/* \
+	  $(1)/usr/include/
+
+	$(CP) \
+	  $(PKG_INSTALL_DIR)/usr/lib/* \
+	  $(1)/usr/lib/
+endef
 
 define Package/hdf5/install
 	$(INSTALL_DIR) \
