@@ -19,7 +19,7 @@ PKG_LICENSE_FILES:=LICENSES.txt
 PKG_MAINTAINER:=Alexandru Ardelean <ardeleanalex@gmail.com>
 PKG_CPE_ID:=cpe:/a:lxml:lxml
 
-HOST_BUILD_DEPENDS:=python-cython/host
+HOST_BUILD_DEPENDS:=python-cython/host libxslt/host libxml2/host
 PKG_BUILD_DEPENDS:=python-cython/host
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
