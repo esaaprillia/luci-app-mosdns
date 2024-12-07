@@ -20,14 +20,6 @@ include $(INCLUDE_DIR)/host-build.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-host-build.mk
 
-LDFLAGS += -Wl,-rpath-link=$(STAGING_DIR)/usr/lib
-
-PYTHON3_PKG_SETUP_VARS:= \
-	H5PY_SYSTEM_LZF=1 \
-	H5PY_SETUP_REQUIRES=0 \
-	HDF5_INCLUDEDIR="$(STAGING_DIR)/usr/include" \
-	HDF5_LIBDIR="$(STAGING_DIR)/usr/lib"
-
 define Package/python3-h5py
   SUBMENU:=Python
   SECTION:=lang
@@ -41,6 +33,10 @@ define Package/python3-h5py/description
   The h5py package provides both a high- and low-level interface to the HDF5 library from Python.
   The low-level interface is intended to be a complete wrapping of the HDF5 API, while the high-level component supports access to HDF5 files, datasets and groups using established Python and NumPy concepts.
 endef
+
+PYTHON3_PKG_BUILD_CONFIG_SETTINGS += \
+	--build-option=build_ext \
+	--build-option=--hdf5="$(STAGING_DIR)/usr"
 
 $(eval $(call Py3Package,python3-h5py))
 $(eval $(call BuildPackage,python3-h5py))
