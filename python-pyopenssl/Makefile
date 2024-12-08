@@ -1,3 +1,10 @@
+#
+# Copyright (C) 2015-2016, 2018-2021, 2023 Jeffery To
+#
+# This is free software, licensed under the GNU General Public License v2.
+# See /LICENSE for more information.
+#
+
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-pyopenssl
@@ -7,9 +14,9 @@ PKG_RELEASE:=1
 PYPI_NAME:=pyOpenSSL
 PKG_HASH:=6b2cba5cc46e822750ec3e5a81ee12819850b11303630d575e98108a079c2b12
 
-PKG_MAINTAINER:=Andy Syam <privasisource@gmail.com>
 PKG_LICENSE:=Apache-2.0
 PKG_LICENSE_FILES:=LICENSE
+PKG_MAINTAINER:=Jeffery To <jeffery.to@gmail.com>
 PKG_CPE_ID:=cpe:/a:pyopenssl_project:pyopenssl
 
 HOST_BUILD_DEPENDS:=python-setuptools-scm/host python-cryptography/host
