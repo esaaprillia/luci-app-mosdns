@@ -33,21 +33,8 @@ endef
 CONFIGURE_ARGS += \
 	--enable-cxx \
 	--disable-fortran \
-	--disable-java
-
-define Build/InstallDev
-	$(INSTALL_DIR) \
-	  $(1)/usr/include \
-	  $(1)/usr/lib
-
-	$(CP) \
-	  $(PKG_INSTALL_DIR)/usr/include/* \
-	  $(1)/usr/include/
-
-	$(CP) \
-	  $(PKG_INSTALL_DIR)/usr/lib/* \
-	  $(1)/usr/lib/
-endef
+	--disable-java \
+	--with-xxx="$(STAGING_DIR)/usr"
 
 define Package/hdf5/install
 	$(INSTALL_DIR) \
