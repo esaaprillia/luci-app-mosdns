@@ -35,7 +35,7 @@ define Package/python3-h5py/description
 endef
 
 PYTHON3_PKG_BUILD_CONFIG_SETTINGS += \
-	--config-settings=config.hdf5_libdirs="$(STAGING_DIR)/usr/lib"
+	--config-settings=config.hdf5_libdirs="$(STAGING_DIR)/usr/lib" \
 	--config-settings=config.hdf5_includedirs="$(STAGING_DIR)/usr/include"
 
 $(eval $(call Py3Package,python3-h5py))
