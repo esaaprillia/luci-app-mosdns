@@ -26,7 +26,7 @@ define Package/tinytuya
   SUBMENU:=Python
   TITLE:=Python API for Tuya WiFi smart devices using a direct local area network (LAN) connection or the cloud (TuyaCloud API).
   URL:=https://github.com/jasonacox/tinytuya
-  DEPENDS:=+python3-cryptography +python3-requests +python3-colorama +python3-pyaes +python3-cryptodome
+  DEPENDS:=+python3 +python3-cryptography +python3-requests +python3-colorama +python3-pyaes +python3-cryptodome
 endef
 
 define Package/tinytuya/description
