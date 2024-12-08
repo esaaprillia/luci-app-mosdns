@@ -1,0 +1,38 @@
+include $(TOPDIR)/rules.mk
+
+PKG_NAME:=python-pyjwt
+PKG_VERSION:=2.10.1
+PKG_RELEASE:=1
+
+PKG_MAINTAINER:=Andy Syam <privasisource@gmail.com>
+PKG_LICENSE:=MIT
+PKG_LICENSE_FILES:=LICENSE
+
+PYPI_NAME:=pyjwt
+PKG_HASH:=3cc5772eb20009233caf06e9d8a0577824723b44e6648ee0a2aedb6cf9381953
+
+HOST_BUILD_DEPENDS:=python-setuptools-scm/host
+
+include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
+include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/host-build.mk
+include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
+include $(TOPDIR)/feeds/packages/lang/python/python3-host-build.mk
+
+define Package/python3-pyjwt
+  SUBMENU:=Python
+  SECTION:=lang
+  CATEGORY:=Languages
+  TITLE:=JSON Web Token implementation in Python
+  URL:=https://github.com/jpadilla/pyjwt
+  DEPENDS:=+python3
+endef
+
+define Package/python3-pyjwt/description
+A Python implementation of RFC 7519. Original implementation was written by @progrium.
+endef
+
+$(eval $(call Py3Package,python3-pyjwt))
+$(eval $(call BuildPackage,python3-pyjwt))
+$(eval $(call BuildPackage,python3-pyjwt-src))
+$(eval $(call HostBuild))
