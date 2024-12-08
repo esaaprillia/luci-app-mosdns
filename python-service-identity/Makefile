@@ -11,7 +11,7 @@ PKG_MAINTAINER:=Andy Syam <privasisource@gmail.com>
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
 
-HOST_BUILD_DEPENDS:=python-setuptools-scm/host python-hatchling/host python-hatch-vcs/host python-hatch-fancy-pypi-readme/host
+HOST_BUILD_DEPENDS:=python-setuptools-scm/host python-hatchling/host python-hatch-vcs/host python-hatch-fancy-pypi-readme/host python-pyasn1/host python-pyasn1-modules/host python-attrs/host python-cryptography/host
 PKG_BUILD_DEPENDS:=python-setuptools-scm/host python-hatchling/host python-hatch-vcs/host python-hatch-fancy-pypi-readme/host
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
