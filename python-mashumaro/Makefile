@@ -11,7 +11,7 @@ PKG_LICENSE_FILES:=LICENSE
 PYPI_NAME:=mashumaro
 PKG_HASH:=32a2a38a1e942a07f2cbf9c3061cb2a247714ee53e36a5958548b66bd116d0a9
 
-HOST_BUILD_DEPENDS:=python-setuptools-scm/host python-orjson/host python-msgpack/host python-yaml/host python-tomli-w/host python-tomli/host python-typing-extensions/host
+HOST_BUILD_DEPENDS:=python-setuptools-scm/host
 PKG_BUILD_DEPENDS:=python-setuptools-scm/host
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
