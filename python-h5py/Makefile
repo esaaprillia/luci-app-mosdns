@@ -34,11 +34,16 @@ define Package/python3-h5py/description
   The low-level interface is intended to be a complete wrapping of the HDF5 API, while the high-level component supports access to HDF5 files, datasets and groups using established Python and NumPy concepts.
 endef
 
-define Build/Prepare
-	$(call Build/Prepare/Default)
-	$(INSTALL_CONF) files/hdf5.pc $(STAGING_DIR)/usr/lib/pkgconfig/
-	$(INSTALL_CONF) files/hdf5_hl.pc $(STAGING_DIR)/usr/lib/pkgconfig/
-endef
+PYTHON3_PKG_SETUP_GLOBAL_ARGS:= \
+	H5PY_SETUP_REQUIRES=0 \
+	H5PY_SYSTEM_LZF=1 \
+	HDF5_LIBDIR="$(STAGING_DIR)/usr/lib" \
+	HDF5_INCLUDEDIR="$(STAGING_DIR)/usr/include" \
+	HDF5_DIR="$(STAGING_DIR)/usr" \
+	HDF5_VERSION=1.14.5 \
+	HDF5_MPI="OFF" \
+	build \
+	build_ext
 
 $(eval $(call Py3Package,python3-h5py))
 $(eval $(call BuildPackage,python3-h5py))
