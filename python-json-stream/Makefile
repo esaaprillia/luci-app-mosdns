@@ -11,7 +11,7 @@ PKG_LICENSE_FILES:=LICENSE.txt
 PYPI_NAME:=json-stream
 PKG_HASH:=b8b450ea8e8e3c239e9e7e38d12fed934e77a353c14b297f8ee345a5ceb25b91
 
-HOST_BUILD_DEPENDS:=python-setuptools-scm/host python-setuptools-rust/host
+HOST_BUILD_DEPENDS:=python-setuptools-scm/host python-setuptools-rust/host python-json-stream-rs-tokenizer/host
 PKG_BUILD_DEPENDS:=python-setuptools-scm/host python-setuptools-rust/host
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
