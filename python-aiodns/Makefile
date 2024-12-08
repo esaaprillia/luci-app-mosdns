@@ -11,7 +11,7 @@ PKG_LICENSE_FILES:=LICENSE
 PYPI_NAME:=aiodns
 PKG_HASH:=62869b23409349c21b072883ec8998316b234c9a9e36675756e8e317e8768f72
 
-HOST_BUILD_DEPENDS:=python-setuptools-scm/host python-pycares/host
+HOST_BUILD_DEPENDS:=python-setuptools-scm/host
 PKG_BUILD_DEPENDS:=python-setuptools-scm/host
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
