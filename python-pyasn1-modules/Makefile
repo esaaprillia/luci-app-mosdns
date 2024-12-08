@@ -18,7 +18,7 @@ PKG_LICENSE:=BSD-2-Clause
 PKG_LICENSE_FILES:=LICENSE.txt
 PKG_MAINTAINER:=Jeffery To <jeffery.to@gmail.com>
 
-HOST_BUILD_DEPENDS:=python-pyasn1/host
+HOST_BUILD_DEPENDS:=python-setuptools-scm/host python-pyasn1/host
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
