@@ -26,7 +26,7 @@ define Package/python3-bleak-retry-connector
   CATEGORY:=Languages
   TITLE:=A connector for Bleak Clients that handles transient connection failures
   URL:=https://github.com/bluetooth-devices/bleak-retry-connector
-  DEPENDS:=+python3 +python3-async-timeout +python3-bleak +python-bluetooth-adapters +python3-dbus-fast
+  DEPENDS:=+python3 +python3-async-timeout +python3-bleak +python3-bluetooth-adapters +python3-dbus-fast
 endef
 
 define Package/python3-bleak-retry-connector/description
