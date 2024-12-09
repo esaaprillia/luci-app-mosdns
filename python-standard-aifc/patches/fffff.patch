@@ -1,0 +1,20 @@
+From ba9429fe7bfd3ce1f0b3ff1094c2de0c888252e6 Mon Sep 17 00:00:00 2001
+From: esaaprillia <esaapriliasalsabila@gmail.com>
+Date: Tue, 10 Dec 2024 06:24:08 +0800
+Subject: [PATCH] Update pyproject.toml
+
+---
+ pyproject.toml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pyproject.toml b/pyproject.toml
+index b926ab9..cca6344 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -25,5 +25,5 @@ find = {include = ["aifc*"]}
+ "Homepage" = "https://github.com/youknowone/python-deadlib"
+ 
+ [build-system]
+-requires = ["setuptools>=61.0"]
++requires = ["setuptools"]
+ build-backend = "setuptools.build_meta"
