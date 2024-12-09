@@ -5,7 +5,7 @@ PKG_VERSION:=3.13.0
 PKG_RELEASE:=1
 
 PKG_MAINTAINER:=Andy Syam <privasisource@gmail.com>
-PKG_LICENSE:=MIT
+PKG_LICENSE:=License
 PKG_LICENSE_FILES:=LICENSE
 
 PYPI_NAME:=standard_telnetlib
