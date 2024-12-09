@@ -1,6 +1,6 @@
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=audioop-lts
+PKG_NAME:=audioop
 PKG_VERSION:=0.2.1
 PKG_RELEASE:=1
 
@@ -20,7 +20,7 @@ include $(INCLUDE_DIR)/host-build.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
 include $(TOPDIR)/feeds/packages/lang/python/python3-host-build.mk
 
-define Package/audioop-lts
+define Package/python3-audioop-lts
   SUBMENU:=Python
   SECTION:=lang
   CATEGORY:=Languages
@@ -29,12 +29,12 @@ define Package/audioop-lts
   DEPENDS:=+python3
 endef
 
-define Package/audioop-lts/description
+define Package/python3-audioop-lts/description
 An LTS port of the Python builtin module audioop which was deprecated since version 3.11 and removed in 3.13.
 This project exists to maintain this module for future versions.
 endef
 
-$(eval $(call Py3Package,audioop-lts))
-$(eval $(call BuildPackage,audioop-lts))
-$(eval $(call BuildPackage,audioop-lts-src))
+$(eval $(call Py3Package,python3-audioop-lts))
+$(eval $(call BuildPackage,python3-audioop-lts))
+$(eval $(call BuildPackage,python3-audioop-lts-src))
 $(eval $(call HostBuild))
