@@ -11,8 +11,8 @@ PKG_LICENSE_FILES:=LICENSE
 PYPI_NAME:=standard_chunk
 PKG_HASH:=4ac345d37d7e686d2755e01836b8d98eda0d1a3ee90375e597ae43aaf064d654
 
-HOST_BUILD_DEPENDS:=python-setuptools-scm/host
-PKG_BUILD_DEPENDS:=python-setuptools-scm/host
+HOST_BUILD_DEPENDS:=python-setuptools/host
+PKG_BUILD_DEPENDS:=python-setuptools/host
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
