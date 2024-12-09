@@ -1,0 +1,24 @@
+From 0bde65c72c0d083fcea9bf9a8b67540ce19c3768 Mon Sep 17 00:00:00 2001
+From: esaaprillia <esaapriliasalsabila@gmail.com>
+Date: Tue, 10 Dec 2024 06:11:50 +0800
+Subject: [PATCH] Add files via upload
+
+---
+ audioop/_audioop.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/audioop/_audioop.c b/audioop/_audioop.c
+index a68a09f..2ff25b5 100644
+--- a/audioop/_audioop.c
++++ b/audioop/_audioop.c
+@@ -1980,8 +1980,10 @@ audioop_exec(PyObject* module)
+ 
+ static PyModuleDef_Slot audioop_slots[] = {
+     {Py_mod_exec, audioop_exec},
++#ifdef Py_GIL_DISABLED
+     {Py_mod_multiple_interpreters, Py_MOD_PER_INTERPRETER_GIL_SUPPORTED},
+     {Py_mod_gil, Py_MOD_GIL_NOT_USED},
++#endif
+     {0, NULL}
+ };
+ 
