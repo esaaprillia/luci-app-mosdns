@@ -11,8 +11,8 @@ PKG_LICENSE_FILES:=LICENSE
 PYPI_NAME:=standard_telnetlib
 PKG_HASH:=243333696bf1659a558eb999c23add82c41ffc2f2d04a56fae13b61b536fb173
 
-HOST_BUILD_DEPENDS:=python-setuptools/host
-PKG_BUILD_DEPENDS:=python-setuptools/host
+HOST_BUILD_DEPENDS:=python-setuptools-scm/host
+PKG_BUILD_DEPENDS:=python-setuptools-scm/host
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
