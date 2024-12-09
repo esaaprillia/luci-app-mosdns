@@ -26,7 +26,7 @@ define Package/python3-bluetooth-adapters
   CATEGORY:=Languages
   TITLE:=Tools to enumerate and find Bluetooth Adapters
   URL:=https://github.com/bluetooth-devices/bluetooth-adapters
-  DEPENDS:=+python3 +python3-aiooui +python3-bleak +python3-dbus-fast +python3-uart-devices +python-usb-devices
+  DEPENDS:=+python3 +python3-aiooui +python3-bleak +python3-dbus-fast +python3-uart-devices +python3-usb-devices
 endef
 
 define Package/python3-bluetooth-adapters/description
