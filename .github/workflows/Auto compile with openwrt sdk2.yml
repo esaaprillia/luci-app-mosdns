@@ -269,11 +269,11 @@ jobs:
           echo "src-git mosdns https://github.com/${{ env.mosdns }}.git;v5" >> feeds.conf.default
           echo "src-git xorg https://github.com/predators46/xorg2 feeds/packages/xorg.git" >> feeds.conf.default
           #echo "src-git xorg https://github.com/predators46/xorg feeds/packages/xorg.git" >> feeds.conf.default
-          #echo "src-git-full juci https://github.com/esaaprillia/juci-openwrt-feed.git" >> feeds.conf.default
+          echo "src-git-full python https://github.com/esaaprillia/packages" >> feeds.conf.default
 
 
           ./scripts/feeds update -a
-          ./scripts/feeds install -a -f -p mosdns
+          ./scripts/feeds install -a -f -p python
           ./scripts/feeds install -a -f -p xorg
           ./scripts/feeds install luci-app-mosdns
 
