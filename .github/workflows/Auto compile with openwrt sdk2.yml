@@ -1,0 +1,363 @@
+#
+# Copyright (c) 2022-2023 SMALLPROGRAM <https://github.com/smallprogram>
+# Description: Auto compile
+#
+name: "Auto compile with openwrt sdk"
+on:
+  repository_dispatch:
+  workflow_dispatch:
+    inputs:
+      ssh:
+        description: 'SSH connection to Actions'
+        required: false
+        default: 'false'
+  push:
+    branches:
+      - 'v5'
+    paths:
+      - 'luci-app-mosdns/Makefile'
+env:
+  TZ: Asia/Makassar
+  mosdns: ${{ github.repository }}
+  packages: esaaprillia/mosdns
+
+jobs:
+  job_check:
+    name: Check Version
+    runs-on: ubuntu-latest
+    outputs:
+      mosdns_version: ${{ steps.check_version.outputs.latest_version }}
+      has_update: ${{ steps.check_version.outputs.has_update }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+        with:
+          fetch-depth: 0
+          ref: 'v5'
+
+      - name: Check version
+        id: check_version
+        env:
+          url_release: https://api.github.com/repos/${{ env.mosdns }}/releases/latest
+        run: |
+          cd luci-app-mosdns
+          latest_version=$(awk -F ':=' '/PKG_VERSION|PKG_RELEASE/ {print $2}' Makefile | sed ':a;N;s/\n$//;s/\n/-/;ba')
+          latest_release=$(wget -qO- -t1 -T2 ${{env.url_release}} | awk -F '"' '/tag_name/{print $4}')
+          has_update=$([ "${latest_version}" != "${latest_release}" ] && echo true || echo false)
+          echo "latest_version=${latest_version}" >> $GITHUB_OUTPUT
+          echo "has_update=${has_update}" >> $GITHUB_OUTPUT
+          echo "latest_version: ${latest_version}"
+          echo "latest_release: ${latest_release}"
+          echo "has_update: ${has_update}"
+
+      - name: Prepare release
+        if: steps.check_version.outputs.has_update == 'true'
+        run: |
+          echo "## :mega:Update content" >> release.txt
+          echo "![](https://img.shields.io/github/downloads/${{ env.mosdns }}/${{steps.check_version.outputs.latest_version}}/total?style=flat-square)" >> release.txt
+          echo "### mosdns Info" >> release.txt
+          echo "**:minidisc: mosdns Version: ${{steps.check_version.outputs.latest_version}}**" >> release.txt
+          echo "**:gear: OpenWrt SDK Version: 21.02.7**" >> release.txt
+          touch release.txt
+
+      - name: Generate new tag & release
+        if: steps.check_version.outputs.has_update == 'true'
+        uses: softprops/action-gh-release@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{steps.check_version.outputs.latest_version}}
+          body_path: release.txt
+
+
+  job_build_mosdns:
+    name: Build mosdns
+    needs: job_check
+    if: needs.job_check.outputs.has_update == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install packages
+        run: |
+          docker rmi `docker images -q`
+          sudo -E rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
+          echo "Install packages"
+          sudo -E apt-get -qq update
+          sudo -E apt-get -qq install build-essential clang flex bison g++ gawk gcc-multilib g++-multilib gettext git libncurses5-dev libssl-dev python3-setuptools rsync swig unzip zlib1g-dev file wget
+          sudo -E apt-get -qq autoremove --purge
+          sudo -E apt-get -qq clean
+
+      - name: Cache openwrt SDK
+        id: cache-sdk
+        uses: actions/cache@v4
+        with:
+          path: sdk
+          key: openwrt-sdk-23.05.3-armsr-armv8
+
+      - name: Initialization environment
+        if: steps.cache-sdk.outputs.cache-hit != 'true'
+        env:
+          url_sdk: https://downloads.openwrt.org/releases/23.05.3/targets/armsr/armv8/openwrt-sdk-23.05.3-armsr-armv8_gcc-12.3.0_musl.Linux-x86_64.tar.xz
+        run: |
+          wget ${{ env.url_sdk }}
+          file_name=$(echo ${{env.url_sdk}} | awk -F/ '{print $NF}')
+          mkdir sdk && tar -xf $file_name -C ./sdk --strip-components=1
+          cd sdk
+          echo "src-git mosdns https://github.com/${{ env.mosdns }}.git;v5" >> feeds.conf.default
+          #echo "src-git xorg https://github.com/predators46/xorg2 feeds/packages/xorg.git" >> feeds.conf.default
+          #echo "src-git xorg https://github.com/predators46/xorg feeds/packages/xorg.git" >> feeds.conf.default
+          #echo "src-git node https://github.com/esaaprillia/node feeds/packages/node.git" >> feeds.conf.default
+          ./scripts/feeds update -a
+          ./scripts/feeds update node
+          ./scripts/feeds install -a -f -p xorg
+          ./scripts/feeds install -a -f -p mosdns
+          ./scripts/feeds install -a -f -p node
+          ./scripts/feeds install luci-app-mosdns
+          echo "CONFIG_PACKAGE_luci-app-mosdns=m" > .config
+          ./scripts/feeds install -d n luci-app-mosdns
+          #make download V=99
+
+      - name: Configure mosdns
+        run: |
+          cd sdk
+          ./scripts/feeds update mosdns
+          ./scripts/feeds update xorg
+          ./scripts/feeds update node
+          ./scripts/feeds install -a -f -p node
+          ./scripts/feeds install -a -f -p xorg
+          ./scripts/feeds install luci-app-mosdns
+          #echo "CONFIG_ALL_NONSHARED=n" > .config
+          #echo "CONFIG_ALL_KMODS=n" >> .config
+          #echo "CONFIG_ALL=n" >> .config
+          #echo "CONFIG_AUTOREMOVE=n" >> .config
+          echo "CONFIG_LUCI_LANG_zh_Hans=y" >> .config
+
+          echo "CONFIG_PACKAGE_luci-app-mosdns=m" >> .config
+
+          make defconfig
+
+      - name: Compile mosdns
+        id: compile
+        run: |
+          cd sdk
+          echo "make -j$(nproc) package/luci-app-mosdns/compile V=99"
+          make -j$(nproc) package/luci-app-mosdns/compile V=99
+          #make package/luci-app-mosdns/compile V=99
+          #mv bin/packages/aarch64_generic/mosdns/ ../
+          #mv bin/packages/x86_64/mosdns/ ../
+          #zip -jr mosdns_ipk.zip bin/packages/*/xorg/
+          #zip -jr mosdns_ipk.zip bin/packages/*/mosdns/
+          #zip -r mosdns_ipk.zip /home/runner/work/mosdns/mosdns/sdk/build_dir/hostpkg/telegram-tdlib-1.8.30
+          #zip -r mosdns_ipk.zip /home/runner/work/mosdns/mosdns/sdk/build_dir/target-aarch64_generic_musl/xmlto-0.0.28
+          #zip -r mosdns_ipk.zip /home/runner/work/mosdns/mosdns/sdk/build_dir/target-aarch64_generic_musl/qtbase-everywhere-src-5.15.13/
+          #mv /home/runner/work/mosdns/mosdns/sdk/build_dir/target-aarch64_generic_musl/*.zip ../
+          rm .config .config.old
+          cd ..
+          zip -r mosdns_ipk.zip /home/runner/work/mosdns/mosdns/sdk/bin/
+          echo "status=success" >> $GITHUB_OUTPUT
+          echo "FIRMWARE=$PWD" >> $GITHUB_ENV
+
+      - name: Upload mosdns ipks to release
+        uses: softprops/action-gh-release@master
+        if: steps.compile.outputs.status == 'success'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{needs.job_check.outputs.mosdns_version}}
+          files: ${{ env.FIRMWARE }}/*.zip
+
+
+  job_auto_compile:
+    if: needs.job_check.outputs.has_update == 'true'
+    needs: job_check
+    runs-on: ubuntu-latest
+    name: build (${{ matrix.platform }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: openwrt-sdk-24.10-0-rc1-x86_64
+            url_sdk: https://downloads.openwrt.org/releases/24.10-SNAPSHOT/targets/x86/64/openwrt-sdk-24.10-SNAPSHOT-x86-64_gcc-13.3.0_musl.Linux-x86_64.tar.zst
+
+          - platform: aarch64_generic-snapshots
+            url_sdk: https://downloads.openwrt.org/snapshots/targets/armsr/armv8/openwrt-sdk-armsr-armv8_gcc-13.3.0_musl.Linux-x86_64.tar.zst
+            
+          - platform: openwrt-sdk-24.10-0-rc1-armv8
+            url_sdk: https://downloads.openwrt.org/releases/24.10.0-rc1/targets/armsr/armv8/openwrt-sdk-24.10.0-rc1-armsr-armv8_gcc-13.3.0_musl.Linux-x86_64.tar.zst
+
+          - platform: aarch64_generic-23
+            url_sdk: https://downloads.openwrt.org/releases/23.05.4/targets/rockchip/armv8/openwrt-sdk-23.05.4-rockchip-armv8_gcc-12.3.0_musl.Linux-x86_64.tar.xz
+
+          - platform: aarch64_generic-21
+            url_sdk: https://downloads.openwrt.org/releases/21.02.7/targets/rockchip/armv8/openwrt-sdk-21.02.7-rockchip-armv8_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+
+          - platform: aarch64_cortex-a53
+            url_sdk: https://downloads.openwrt.org/releases/21.02.7/targets/mvebu/cortexa53/openwrt-sdk-21.02.7-mvebu-cortexa53_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+
+          - platform: aarch64_cortex-a53-22
+            url_sdk: https://downloads.openwrt.org/releases/22.03.6/targets/armvirt/64/openwrt-sdk-22.03.6-armvirt-64_gcc-11.2.0_musl.Linux-x86_64.tar.xz
+
+          - platform: aarch64_cortex-a72
+            url_sdk: https://downloads.openwrt.org/releases/21.02.7/targets/mvebu/cortexa72/openwrt-sdk-21.02.7-mvebu-cortexa72_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+
+          - platform: aarch64_cortex-a72-23
+            url_sdk: https://downloads.openwrt.org/releases/23.05.4/targets/bcm27xx/bcm2711/openwrt-sdk-23.05.4-bcm27xx-bcm2711_gcc-12.3.0_musl.Linux-x86_64.tar.xz
+
+          - platform: arm_cortex-a7
+            url_sdk: https://downloads.openwrt.org/releases/21.02.7/targets/mediatek/mt7629/openwrt-sdk-21.02.7-mediatek-mt7629_gcc-8.4.0_musl_eabi.Linux-x86_64.tar.xz
+
+          - platform: arm_cortex-a7_neon-vfpv4
+            url_sdk: https://downloads.openwrt.org/releases/21.02.7/targets/sunxi/cortexa7/openwrt-sdk-21.02.7-sunxi-cortexa7_gcc-8.4.0_musl_eabi.Linux-x86_64.tar.xz
+
+          - platform: arm_cortex-a8_vfpv3
+            url_sdk: https://downloads.openwrt.org/releases/21.02.7/targets/sunxi/cortexa8/openwrt-sdk-21.02.7-sunxi-cortexa8_gcc-8.4.0_musl_eabi.Linux-x86_64.tar.xz
+
+          - platform: arm_cortex-a9
+            url_sdk: https://downloads.openwrt.org/releases/21.02.7/targets/bcm53xx/generic/openwrt-sdk-21.02.7-bcm53xx-generic_gcc-8.4.0_musl_eabi.Linux-x86_64.tar.xz
+
+          - platform: arm_cortex-a9_neon
+            url_sdk: https://downloads.openwrt.org/releases/21.02.7/targets/zynq/generic/openwrt-sdk-21.02.7-zynq_gcc-8.4.0_musl_eabi.Linux-x86_64.tar.xz
+
+          - platform: arm_cortex-a9_vfpv3-d16
+            url_sdk: https://downloads.openwrt.org/releases/21.02.7/targets/mvebu/cortexa9/openwrt-sdk-21.02.7-mvebu-cortexa9_gcc-8.4.0_musl_eabi.Linux-x86_64.tar.xz
+
+          - platform: arm_cortex-a15_neon-vfpv4
+            url_sdk: https://downloads.openwrt.org/releases/21.02.7/targets/ipq806x/generic/openwrt-sdk-21.02.7-ipq806x-generic_gcc-8.4.0_musl_eabi.Linux-x86_64.tar.xz
+
+          - platform: mips_24kc
+            url_sdk: https://downloads.openwrt.org/releases/21.02.7/targets/ath79/generic/openwrt-sdk-21.02.7-ath79-generic_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+
+          - platform: mips_4kec
+            url_sdk: https://downloads.openwrt.org/releases/21.02.7/targets/realtek/generic/openwrt-sdk-21.02.7-realtek-generic_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+
+          - platform: mips_mips32
+            url_sdk: https://downloads.openwrt.org/releases/21.02.7/targets/bcm63xx/generic/openwrt-sdk-21.02.7-bcm63xx-generic_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+
+          - platform: mipsel_24kc
+            url_sdk: https://downloads.openwrt.org/releases/21.02.7/targets/ramips/rt288x/openwrt-sdk-21.02.7-ramips-rt288x_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+
+          - platform: mipsel_74kc
+            url_sdk: https://downloads.openwrt.org/releases/21.02.7/targets/ramips/rt3883/openwrt-sdk-21.02.7-ramips-rt3883_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+
+          - platform: mipsel_mips32
+            url_sdk: https://downloads.openwrt.org/releases/21.02.7/targets/bcm47xx/generic/openwrt-sdk-21.02.7-bcm47xx-generic_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+
+    steps:
+      - name: Initialization ${{ matrix.platform }} compile environment
+        run: |
+          docker rmi `docker images -q`
+          sudo -E rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
+          echo "install packages!!!!!!"
+          sudo -E apt-get -qq update
+          sudo -E apt-get -qq install build-essential clang flex bison g++ gawk gcc-multilib g++-multilib gettext git libncurses5-dev libssl-dev python3-setuptools rsync swig unzip zlib1g-dev file wget
+          sudo -E apt-get -qq autoremove --purge
+          sudo -E apt-get -qq clean
+
+      - name: ${{ matrix.platform }} sdk download
+        run: |
+          wget ${{ matrix.url_sdk }}
+          file_name=$(echo ${{matrix.url_sdk}} | awk -F/ '{print $NF}')
+          mkdir sdk && tar -xf $file_name -C ./sdk --strip-components=1
+          cd sdk
+
+      - name: SSH connection to Actions
+        uses: mxschmitt/action-tmate@v3.13
+        if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
+
+      - name: ${{ matrix.platform }} feeds configuration packages
+        run: |
+          cd sdk
+          echo "src-git mosdns https://github.com/${{ env.mosdns }}.git;v5" >> feeds.conf.default
+          echo "src-git xorg https://github.com/predators46/xorg2 feeds/packages/xorg.git" >> feeds.conf.default
+          #echo "src-git xorg https://github.com/predators46/xorg feeds/packages/xorg.git" >> feeds.conf.default
+          #echo "src-git-full juci https://github.com/esaaprillia/juci-openwrt-feed.git" >> feeds.conf.default
+
+
+          ./scripts/feeds update -a
+          ./scripts/feeds install -a -f -p mosdns
+          ./scripts/feeds install -a -f -p xorg
+          ./scripts/feeds install luci-app-mosdns
+
+          #echo "CONFIG_ALL_NONSHARED=n" > .config
+          #echo "CONFIG_ALL_KMODS=n" >> .config
+          #echo "CONFIG_ALL=n" >> .config
+          echo "CONFIG_AUTOREMOVE=n" >> .config
+          echo "CONFIG_PACKAGE_luci-app-mosdns=m" >> .config
+
+          make defconfig
+
+
+#      - name: ${{ matrix.platform }} download
+#        run: |
+#          cd sdk
+#          make download V=99
+#          find dl -size -1024c -exec ls -l {} \;
+
+      - name: ${{ matrix.platform }} compile
+        id: compile
+        run: |
+          cd sdk
+          make -j$(nproc) package/luci-app-mosdns/compile V=99
+          #make package/luci-app-mosdns/compile V=99
+          #make package/freeradius3/download
+          #make package/freeradius3/check
+          #make package/freeradius3/refresh
+          #make package/freeradius3/clean
+
+          echo "status=success" >> $GITHUB_OUTPUT
+
+      - name: Organize ${{ matrix.platform }} files
+        id: organize
+        if: steps.compile.outputs.status == 'success'
+        run: |
+          cd sdk
+          mkdir upload
+
+          #zip -jr upload/mosdns_ipk_${{ matrix.platform }}.zip bin/packages/*/xorg/
+          #zip -r upload/mosdns_ipk_${{ matrix.platform }}.zip bin/packages/*/mosdns/
+          #zip -r upload/mosdns_ipk_${{ matrix.platform }}.zip bin/packages/*/packages/
+          zip -r upload/mosdns_ipk_${{ matrix.platform }}.zip bin/
+          #zip -r upload/mosdns_ipk_${{ matrix.platform }}.zip /home/runner/work/mosdns/mosdns/sdk/build_dir/hostpkg/telegram-tdlib-1.8.30
+          #zip -r upload/mosdns_ipk_${{ matrix.platform }}.zip /home/runner/work/mosdns/mosdns/sdk/build_dir/target-aarch64_generic_musl/pypi/numpy-2.1.0/
+          #zip -r upload/mosdns_ipk_${{ matrix.platform }}.zip /home/runner/work/mosdns/mosdns/sdk/build_dir/target-aarch64_generic_musl/hdf5-1.14.5/ipkg-install/
+          #zip -r upload/mosdns_ipk_${{ matrix.platform }}.zip /home/runner/work/mosdns/mosdns/sdk/feeds/mosdns/
+          #zip -r upload/mosdns_ipk_${{ matrix.platform }}.zip /home/runner/work/mosdns/mosdns/sdk/feeds/juci/
+
+          echo "FIRMWARE=$PWD" >> $GITHUB_ENV
+          echo "status=success" >> $GITHUB_OUTPUT
+
+      - name: Generate release info
+        id: info
+        if: steps.compile.outputs.status == 'success'
+        run: |
+          cd sdk
+          echo "## :mega:Update content" >> release.txt
+          echo "![](https://img.shields.io/github/downloads/${{ env.mosdns }}/${{needs.job_check.outputs.mosdns_version}}/total?style=flat-square)" >> release.txt
+          echo "### mosdns Info" >> release.txt
+          echo "**:minidisc: mosdns Version: ${{needs.job_check.outputs.mosdns_version}}**" >> release.txt
+          echo "**:gear: OpenWrt SDK Version: 21.02.7**" >> release.txt
+
+          echo "### Packages Version" >> release.txt
+          echo "**package name**|**package version**" >> release.txt
+          echo "-|-" >> release.txt
+
+          pkgs=$(ls feeds/mosdns -I v2ray-geodata)
+          for pkg in $pkgs; do
+            version=$(awk -F ':=' '/PKG_VERSION:=/{print $2}' feeds/mosdns/$pkg/Makefile | sed 's/\r//g')
+            [ -z "${version}" ] && version=$(awk -F ':=' '/PKG_SOURCE_DATE:=/{print $2}' feeds/mosdns/$pkg/Makefile | sed 's/\r//g')
+            echo "**:ice_cube: $pkg**|**${version}**" >> release.txt
+          done
+          echo "**:ice_cube: v2ray-geoip**|**$(awk -F ':=' '/GEOIP_VER:=/{print $2}' feeds/mosdns/v2ray-geodata/Makefile)**" >> release.txt
+          echo "**:ice_cube: v2ray-geosite**|**$(awk -F ':=' '/GEOSITE_VER:=/{print $2}' feeds/mosdns/v2ray-geodata/Makefile)**" >> release.txt
+
+          touch release.txt
+          echo "status=success" >> $GITHUB_OUTPUT
+
+      - name: Upload firmware to release
+        uses: softprops/action-gh-release@master
+        if: steps.info.outputs.status == 'success'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{needs.job_check.outputs.mosdns_version}}
+          body_path: ${{ env.FIRMWARE }}/release.txt
+          files: ${{ env.FIRMWARE }}/upload/*
