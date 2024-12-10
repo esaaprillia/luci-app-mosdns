@@ -34,7 +34,8 @@ An LTS port of the Python builtin module audioop which was deprecated since vers
 This project exists to maintain this module for future versions.
 endef
 
-PYTHON3_HOST_BUILD_ARGS:=--no-use-pep517
+PYTHON3_HOST_WHEEL_NAME:=audioop_lts
+PYTHON3_HOST_WHEEL_VERSION:=0.2.1
 
 $(eval $(call Py3Package,audioop))
 $(eval $(call BuildPackage,audioop))
