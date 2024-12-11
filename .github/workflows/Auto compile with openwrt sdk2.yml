@@ -30,7 +30,7 @@ jobs:
       has_update: ${{ steps.check_version.outputs.has_update }}
     steps:
       - name: Checkout
-        uses: actions/checkout@main
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           ref: 'v5'
@@ -260,7 +260,7 @@ jobs:
           cd sdk
 
       - name: SSH connection to Actions
-        uses: mxschmitt/action-tmate@v3.13
+        uses: mxschmitt/action-tmate@v3.16
         if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
 
       - name: ${{ matrix.platform }} feeds configuration packages
@@ -353,7 +353,7 @@ jobs:
           echo "status=success" >> $GITHUB_OUTPUT
 
       - name: Upload firmware to release
-        uses: softprops/action-gh-release@master
+        uses: actions/upload-artifact@v4
         if: steps.info.outputs.status == 'success'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
