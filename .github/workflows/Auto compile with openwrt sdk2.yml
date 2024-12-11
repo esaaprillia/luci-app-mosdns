@@ -24,13 +24,13 @@ env:
 jobs:
   job_check:
     name: Check Version
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     outputs:
       mosdns_version: ${{ steps.check_version.outputs.latest_version }}
       has_update: ${{ steps.check_version.outputs.has_update }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@main
         with:
           fetch-depth: 0
           ref: 'v5'
@@ -169,7 +169,7 @@ jobs:
   job_auto_compile:
     if: needs.job_check.outputs.has_update == 'true'
     needs: job_check
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     name: build (${{ matrix.platform }})
     strategy:
       fail-fast: false
@@ -181,8 +181,8 @@ jobs:
           - platform: aarch64_generic-snapshots
             url_sdk: https://downloads.openwrt.org/snapshots/targets/armsr/armv8/openwrt-sdk-armsr-armv8_gcc-13.3.0_musl.Linux-x86_64.tar.zst
             
-          - platform: openwrt-sdk-24.10-0-rc1-armv8
-            url_sdk: https://downloads.openwrt.org/releases/24.10.0-rc1/targets/armsr/armv8/openwrt-sdk-24.10.0-rc1-armsr-armv8_gcc-13.3.0_musl.Linux-x86_64.tar.zst
+          - platform: openwrt-sdk-24.10-0-rc2
+            url_sdk: https://downloads.openwrt.org/releases/24.10.0-rc2/targets/armsr/armv8/openwrt-sdk-24.10.0-rc2-armsr-armv8_gcc-13.3.0_musl.Linux-x86_64.tar.zst
 
           - platform: aarch64_generic-23
             url_sdk: https://downloads.openwrt.org/releases/23.05.4/targets/rockchip/armv8/openwrt-sdk-23.05.4-rockchip-armv8_gcc-12.3.0_musl.Linux-x86_64.tar.xz
@@ -260,7 +260,7 @@ jobs:
           cd sdk
 
       - name: SSH connection to Actions
-        uses: easimon/maximize-build-space@master
+        uses: mxschmitt/action-tmate@v3.13
         if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
 
       - name: ${{ matrix.platform }} feeds configuration packages
@@ -353,7 +353,7 @@ jobs:
           echo "status=success" >> $GITHUB_OUTPUT
 
       - name: Upload firmware to release
-        uses: actions/upload-artifact@v4
+        uses: softprops/action-gh-release@v2
         if: steps.info.outputs.status == 'success'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
