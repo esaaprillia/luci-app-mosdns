@@ -25,7 +25,7 @@ define Package/python3-lru-dict
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=An Dict like LRU container.
-  URL:=https://propcache.readthedocs.io/
+  URL:=https://github.com/amitdev/lru-dict
   DEPENDS:=+python3
 endef
 
