@@ -11,8 +11,8 @@ PKG_LICENSE_FILES:=LICENSE
 PYPI_NAME:=propcache
 PKG_HASH:=3f77ce728b19cb537714499928fe800c3dda29e8d9428778fc7c186da4c09a64
 
-HOST_BUILD_DEPENDS:=python-setuptools-scm/host python-expandvars/host
-PKG_BUILD_DEPENDS:=python-setuptools-scm/host python-expandvars/host
+HOST_BUILD_DEPENDS:=python-setuptools-scm/host python-expandvars/host python-pep517/host
+PKG_BUILD_DEPENDS:=python-setuptools-scm/host python-expandvars/host python-pep517/host
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
@@ -34,7 +34,7 @@ The module provides a fast implementation of cached properties for Python 3.9+.
 endef
 
 PYTHON3_PKG_SETUP_VARS:= \
-	PROPCACHE_NO_EXTENSIONS=1
+	PROPCACHE_NO_EXTENSIONS
 
 $(eval $(call Py3Package,python3-propcache))
 $(eval $(call BuildPackage,python3-propcache))
