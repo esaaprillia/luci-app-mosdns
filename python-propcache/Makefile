@@ -33,6 +33,12 @@ define Package/python3-propcache/description
 The module provides a fast implementation of cached properties for Python 3.9+.
 endef
 
+PYTHON3_HOST_BUILD_CONFIG_SETTINGS += \
+	--config-settings=pure-python=false
+
+PYTHON3_PKG_BUILD_CONFIG_SETTINGS += \
+	--config-settings=pure-python=false
+
 $(eval $(call Py3Package,python3-propcache))
 $(eval $(call BuildPackage,python3-propcache))
 $(eval $(call BuildPackage,python3-propcache-src))
