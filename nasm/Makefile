@@ -33,6 +33,13 @@ define Package/nasm/description
   Intel x86 series of processors, with portable source.
 endef
 
+define Host/Configure
+	(cd $(HOST_BUILD_DIR); \
+		./autogen.sh \
+	);
+	$(call Host/Configure/Default)
+endef
+
 HOST_CONFIGURE_ARGS += --disable-lto --disable-werror --disable-gdb
 CONFIGURE_ARGS += --disable-lto --disable-werror --disable-gdb
 
