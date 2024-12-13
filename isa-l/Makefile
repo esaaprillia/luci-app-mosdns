@@ -4,9 +4,14 @@ PKG_NAME:=isa-l
 PKG_VERSION:=2.31.0
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://github.com/intel/isa-l/archive/v$(PKG_VERSION)
-PKG_HASH:=skip
+#PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+#PKG_SOURCE_URL:=https://github.com/intel/isa-l/archive/v$(PKG_VERSION)
+#PKG_HASH:=skip
+
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_URL:=https://github.com/rhpvorderman/isa-l.git
+PKG_SOURCE_VERSION:=e3569fb7224f071fe5ae510453f4451497385e44
+PKG_MIRROR_HASH:=skip
 
 PKG_MAINTAINER:=Esa Aprilia Salsabila <esaapriliasalsabila@gmail.com>
 PKG_LICENSE:=License
