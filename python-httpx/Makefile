@@ -26,7 +26,7 @@ define Package/python3-httpx
   CATEGORY:=Languages
   TITLE:=The next generation HTTP client.
   URL:=https://www.python-httpx.org/
-  DEPENDS:=+python3
+  DEPENDS:=+python3 +python3-certifi +python3-httpcore +python3-idna +python3-sniffio
 endef
 
 define Package/python3-httpx/description
