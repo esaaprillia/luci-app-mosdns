@@ -1,0 +1,23 @@
+From 4be96e2437d1aa010978fba54a1b76dfac520961 Mon Sep 17 00:00:00 2001
+From: Taiju Yamada <tyamada@bi.a.u-tokyo.ac.jp>
+Date: Wed, 6 Mar 2024 15:25:13 +0900
+Subject: [PATCH] Fixed isal_deflate_icf_finish_lvl1 dispatcher
+
+Signed-off-by: Taiju Yamada <tyamada@bi.a.u-tokyo.ac.jp>
+---
+ igzip/aarch64/igzip_multibinary_aarch64_dispatcher.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/igzip/aarch64/igzip_multibinary_aarch64_dispatcher.c b/igzip/aarch64/igzip_multibinary_aarch64_dispatcher.c
+index a09508fe..7b8a8811 100644
+--- a/igzip/aarch64/igzip_multibinary_aarch64_dispatcher.c
++++ b/igzip/aarch64/igzip_multibinary_aarch64_dispatcher.c
+@@ -91,7 +91,7 @@ DEFINE_INTERFACE_DISPATCHER(isal_deflate_icf_finish_lvl1)
+ 		return PROVIDER_INFO(isal_deflate_icf_finish_hash_hist_aarch64);
+ #elif defined(__APPLE__)
+ 	if (sysctlEnabled(SYSCTL_CRC32_KEY))
+-		return PROVIDER_INFO(isal_deflate_icf_body_hash_hist_aarch64);
++		return PROVIDER_INFO(isal_deflate_icf_finish_hash_hist_aarch64);
+ #endif
+ 	return PROVIDER_BASIC(isal_deflate_icf_finish_hash_hist);
+ }

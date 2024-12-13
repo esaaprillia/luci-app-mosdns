@@ -1,0 +1,52 @@
+From f1b144bbab7cd1f603565b3b7f92bfb47b86e646 Mon Sep 17 00:00:00 2001
+From: Taiju Yamada <tyamada@bi.a.u-tokyo.ac.jp>
+Date: Sun, 30 Oct 2022 18:46:04 +0900
+Subject: [PATCH] Fix mach compilation again; fold_constant has to be the same
+ section as crc16_t10dif_copy_pmull
+
+Signed-off-by: Taiju Yamada <tyamada@bi.a.u-tokyo.ac.jp>
+---
+ crc/aarch64/crc16_t10dif_copy_pmull.S | 3 ++-
+ crc/aarch64/crc16_t10dif_pmull.S      | 3 ++-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/crc/aarch64/crc16_t10dif_copy_pmull.S b/crc/aarch64/crc16_t10dif_copy_pmull.S
+index afb98f1f..37b7bf50 100644
+--- a/crc/aarch64/crc16_t10dif_copy_pmull.S
++++ b/crc/aarch64/crc16_t10dif_copy_pmull.S
+@@ -379,13 +379,14 @@ v_br1	.req	v5
+ 	.size	crc16_t10dif_copy_pmull, .-crc16_t10dif_copy_pmull
+ #endif
+ 
+-ASM_DEF_RODATA
+ 	.align	4
+ fold_constant:
+ 	.word 0x87e70000
+ 	.word 0x00000000
+ 	.word 0x371d0000
+ 	.word 0x00000000
++
++ASM_DEF_RODATA
+ .shuffle_mask_lanchor = . + 0
+ #ifndef __APPLE__
+ 	.type	shuffle_mask, %object
+diff --git a/crc/aarch64/crc16_t10dif_pmull.S b/crc/aarch64/crc16_t10dif_pmull.S
+index aa0b2068..55c68555 100644
+--- a/crc/aarch64/crc16_t10dif_pmull.S
++++ b/crc/aarch64/crc16_t10dif_pmull.S
+@@ -364,13 +364,14 @@ v_br1			.req	v5
+ 	.size	crc16_t10dif_pmull, .-crc16_t10dif_pmull
+ #endif
+ 
+-ASM_DEF_RODATA
+ 	.align	4
+ fold_constant:
+ 	.word 0x87e70000
+ 	.word 0x00000000
+ 	.word 0x371d0000
+ 	.word 0x00000000
++
++ASM_DEF_RODATA
+ .shuffle_mask_lanchor = . + 0
+ #ifndef __APPLE__
+ 	.type	shuffle_mask, %object
