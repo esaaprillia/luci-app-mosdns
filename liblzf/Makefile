@@ -35,10 +35,7 @@ endef
 CFLAGS+="$(TARGET_CFLAGS) -I$(STAGING_DIR)/usr/include"
 
 define Build/Compile
-	$(MAKE) -C $(PKG_BUILD_DIR) \
-		LDFLAGS="$(TARGET_LDFLAGS)" \
-		CFLAGS="$(TARGET_CFLAGS) $(TARGET_CPPFLAGS)" \
-		CC="$(TARGET_CC)"
+	$(MAKE) $(PKG_JOBS) -C $(PKG_BUILD_DIR)/$(MAKE_PATH)
 endef
 
 define Build/InstallDev
