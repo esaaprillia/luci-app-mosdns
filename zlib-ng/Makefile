@@ -34,8 +34,7 @@ endef
 CMAKE_OPTIONS += \
 	-Wno-dev \
 	-DWITH_GTEST=OFF \
-	-DWITH_UNALIGNED=OFF \
-	-DZLIB_COMPAT=ON
+	-DWITH_UNALIGNED=OFF
 
 define Build/InstallDev
 	$(INSTALL_DIR) \
