@@ -11,8 +11,8 @@ PKG_LICENSE_FILES:=LICENSE.md
 PYPI_NAME:=httpx
 PKG_HASH:=75e98c5f16b0f35b567856f597f06ff2270a374470a5c2392242528e3e3e42fc
 
-HOST_BUILD_DEPENDS:=python-setuptools-scm/host
-PKG_BUILD_DEPENDS:=python-setuptools-scm/host
+HOST_BUILD_DEPENDS:=python-setuptools-scm/host python-hatchling/host python-hatch-fancy-pypi-readme/host
+PKG_BUILD_DEPENDS:=python-setuptools-scm/host python-hatchling/host python-hatch-fancy-pypi-readme/host
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
