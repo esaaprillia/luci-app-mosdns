@@ -38,6 +38,8 @@ ISA-L is a collection of optimized low-level functions targeting storage applica
 • igzip - A command line application like gzip, accelerated with ISA-L.
 endef
 
+TARGET_LDFLAGS+=-L$(STAGING_DIR)/usr/lib -L$(STAGING_DIR)/lib
+
 define Build/InstallDev
 	$(INSTALL_DIR) \
 	  $(1)/usr/include \
