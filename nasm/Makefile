@@ -15,8 +15,6 @@ PKG_CPE_ID:=cpe:/a:nasm:netwide_assembler
 
 PKG_BUILD_PARALLEL:=1
 PKG_INSTALL:=1
-PKG_FIXUP:=autoreconf
-#HOST_FIXUP:=autoreconf
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/host-build.mk
@@ -31,18 +29,6 @@ endef
 define Package/nasm/description
   NASM, the Netwide Assembler: an assembler targetting the
   Intel x86 series of processors, with portable source.
-endef
-
-define Host/Prepare
-	$(call Host/Prepare/Default)
-	$(CP) $(SCRIPT_DIR)/config.{guess,sub} $(HOST_BUILD_DIR)/
-endef
-
-define Host/Configure
-	(cd $(HOST_BUILD_DIR); \
-		./autogen.sh \
-	);
-	$(call Host/Configure/Default)
 endef
 
 HOST_CONFIGURE_ARGS += --disable-lto --disable-werror --disable-gdb
