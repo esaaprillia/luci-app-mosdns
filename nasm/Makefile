@@ -33,6 +33,11 @@ define Package/nasm/description
   Intel x86 series of processors, with portable source.
 endef
 
+define Host/Prepare
+	$(call Host/Prepare/Default)
+	$(CP) $(SCRIPT_DIR)/config.{guess,sub} $(HOST_BUILD_DIR)/
+endef
+
 define Host/Configure
 	(cd $(HOST_BUILD_DIR); \
 		./autogen.sh \
