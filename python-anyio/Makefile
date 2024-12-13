@@ -11,8 +11,8 @@ PKG_LICENSE_FILES:=LICENSE
 PYPI_NAME:=anyio
 PKG_HASH:=2f834749c602966b7d456a7567cafcb309f96482b5081d14ac93ccd457f9dd48
 
-HOST_BUILD_DEPENDS:=python-setuptools-scm/host python-flit-core/host
-PKG_BUILD_DEPENDS:=python-setuptools-scm/host python-flit-core/host
+HOST_BUILD_DEPENDS:=python-setuptools-scm/host
+PKG_BUILD_DEPENDS:=python-setuptools-scm/host
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
