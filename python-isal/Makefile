@@ -11,8 +11,8 @@ PKG_LICENSE_FILES:=LICENSE
 PYPI_NAME:=isal
 PKG_HASH:=845aeff4ffb3a2ea24bde22b165f99aafb1ee92f5da3930cb23638501e8332c9
 
-HOST_BUILD_DEPENDS:=python-setuptools-scm/host python-poetry-core/host python-versioningit/host
-PKG_BUILD_DEPENDS:=python-setuptools-scm/host python-poetry-core/host python-versioningit/host
+HOST_BUILD_DEPENDS:=python-setuptools-scm/host python-poetry-core/host python-versioningit/host nasm/host
+PKG_BUILD_DEPENDS:=python-setuptools-scm/host python-poetry-core/host python-versioningit/host nasm/host
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
