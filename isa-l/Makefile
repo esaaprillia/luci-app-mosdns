@@ -13,8 +13,8 @@ PKG_LICENSE:=License
 PKG_LICENSE_FILES:=LICENSE
 
 PKG_BUILD_DEPENDS:=nasm/host
-PKG_BUILD_PARALLEL:=1
-#PKG_FIXUP:=autoreconf
+#PKG_BUILD_PARALLEL:=1
+PKG_FIXUP:=autoreconf
 
 include $(INCLUDE_DIR)/package.mk
 
