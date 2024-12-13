@@ -43,9 +43,11 @@ ISA-L is a collection of optimized low-level functions targeting storage applica
 • igzip - A command line application like gzip, accelerated with ISA-L.
 endef
 
-define Build/Configure
-	(cd $(PKG_BUILD_DIR); ./autogen.sh );
-	$(call Build/Configure/Default)
+define Build/Compile
+	$(MAKE) -C $(PKG_BUILD_DIR) \
+		LDFLAGS="$(TARGET_LDFLAGS)" \
+		CFLAGS="$(TARGET_CFLAGS) $(TARGET_CPPFLAGS)" \
+		CC="$(TARGET_CC)"
 endef
 
 define Build/InstallDev
