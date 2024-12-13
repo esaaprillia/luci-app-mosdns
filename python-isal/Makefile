@@ -29,7 +29,7 @@ define Package/python3-isal
   CATEGORY:=Languages
   TITLE:=Faster zlib and gzip compatible compression and decompression by providing python bindings for the ISA-L library.
   URL:=https://github.com/pycompression/python-isal
-  DEPENDS:=+python3
+  DEPENDS:=+python3 +isa-l
 endef
 
 define Package/python3-isal/description
