@@ -11,8 +11,8 @@ PKG_LICENSE_FILES:=LICENSE.md
 PYPI_NAME:=homeassistant
 PKG_HASH:=560a1b9822b84484f352e2166ce7399b3cc8261e2f2e7991304cdf47c934bb2e
 
-HOST_BUILD_DEPENDS:=python-setuptools-scm/host
-PKG_BUILD_DEPENDS:=python-setuptools-scm/host
+HOST_BUILD_DEPENDS:=python-setuptools-scm/host python-setuptools/host
+PKG_BUILD_DEPENDS:=python-setuptools-scm/host python-setuptools/host
 
 include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
