@@ -1,7 +1,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-homeassistant
-PKG_VERSION:=2024.12.3
+PKG_VERSION:=2024.10.4
 PKG_RELEASE:=1
 
 PKG_MAINTAINER:=Andy Syam <privasisource@gmail.com>
@@ -9,7 +9,7 @@ PKG_LICENSE:=Apache-2.0
 PKG_LICENSE_FILES:=LICENSE.md
 
 PYPI_NAME:=homeassistant
-PKG_HASH:=560a1b9822b84484f352e2166ce7399b3cc8261e2f2e7991304cdf47c934bb2e
+PKG_HASH:=6a5e39592f1222038cd93a863c8a6d654ee234c6a961483e7cad8c2e1ebc971b
 
 HOST_BUILD_DEPENDS:=python-setuptools-scm/host python-setuptools/host
 PKG_BUILD_DEPENDS:=python-setuptools-scm/host python-setuptools/host
