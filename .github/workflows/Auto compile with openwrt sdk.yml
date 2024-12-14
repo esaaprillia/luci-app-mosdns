@@ -15,7 +15,7 @@ on:
     branches:
       - 'v5'
     paths:
-      - 'luci-app-mosdns/Makefile'
+      - 'luci-app-mosdns2/Makefile'
 env:
   TZ: Asia/Makassar
   mosdns: ${{ github.repository }}
@@ -62,7 +62,7 @@ jobs:
 
       - name: Generate new tag & release
         if: steps.check_version.outputs.has_update == 'true'
-        uses: softprops/action-gh-release@master
+        uses: softprops/action-gh-release@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
