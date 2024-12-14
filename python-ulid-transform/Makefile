@@ -26,7 +26,7 @@ define Package/python3-ulid-transform
   CATEGORY:=Languages
   TITLE:=Create and transform ULIDs
   URL:=https://github.com/bdraco/ulid-transform
-  DEPENDS:=+python3
+  DEPENDS:=+python3 +libstdcpp
 endef
 
 define Package/python3-ulid-transform/description
