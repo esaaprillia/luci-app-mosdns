@@ -1,57 +1,44 @@
-#
-# Copyright (C) 2023 Jeffery To
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
-
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=python-cython
-PKG_VERSION:=3.0.11
-PKG_RELEASE:=1
+PKG_NAME:=luci-app-mosdns2
+PKG_VERSION:=1
+PKG_RELEASE:=
+PKG_LICENSE:=GPL-2.0
 
-PYPI_NAME:=cython
-PKG_HASH:=7146dd2af8682b4ca61331851e6aebce9fe5158e75300343f80c07ca80b1faff
+PKG_MAINTAINER:=
 
-PKG_LICENSE:=Apache-2.0
-PKG_LICENSE_FILES:=LICENSE.txt
-PKG_MAINTAINER:=Jeffery To <jeffery.to@gmail.com>
+PKG_BUILD_DEPENDS:=python-setuptools/host python-cython/host
+PKG_BUILD_DIR := $(BUILD_DIR)/$(PKG_NAME)
+PKG_BUILD_PARALLEL:=1
 
-PKG_HOST_ONLY:=1
-HOST_BUILD_DEPENDS:=python3/host python-build/host python-installer/host python-wheel/host
-
-include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
-include $(INCLUDE_DIR)/host-build.mk
-include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
-include $(TOPDIR)/feeds/packages/lang/python/python3-host-build.mk
 
-define Package/python3-cython
-  SECTION:=lang
-  CATEGORY:=Languages
-  SUBMENU:=Python
-  TITLE:=Cython compiler for writing C extensions
-  URL:=https://cython.org/
-  DEPENDS:=+python3
-  BUILDONLY:=1
+define Package/luci-app-mosdns2
+  SECTION:=net
+  CATEGORY:=Network
+  #DEPENDS:=perl perl-html-tagset perl-net-dns perl-ack perl-html-tree perl-net-http perl-authen-sasl perl-http-cookies perl-net-telnet perl-authen-sasl-xs perl-http-daemon perl-parse-recdescent perl-cgi perl-http-date perl-parse-yapp perl-compress-bzip2 perl-http-message perl-sub-uplevel perl-dbi perl-http-negotiate perl-test-harness perl-device-serialport perl-http-server-simple perl-test-warn perl-device-usb perl-inline perl-text-csv_xs perl-encode-locale perl-inline-c perl-try-tiny perl-file-listing perl-io-html perl-uri perl-file-next perl-lockfile-simple perl-www perl-file-rsyncp perl-lwp-mediatypes perl-www-curl perl-file-sharedir-install perl-mail-spamassassin perl-www-mechanize perl-html-form perl-netaddr-ip perl-www-robotrules perl-html-parser perl-net-cidr-lite perl-xml-parser
+  #DEPENDS:=perl perl-html-tree perl-netaddr-ip perl-ack perl-http-cookies perl-parse-recdescent perl-authen-sasl perl-http-daemon perl-parse-yapp perl-authen-sasl-xs perl-http-date perl-sub-uplevel perl-cgi perl-http-message perl-test-harness perl-compress-bzip2 perl-http-negotiate perl-test-warn perl-dbi perl-http-server-simple perl-text-csv_xs perl-device-serialport perl-inline perl-time-moment perl-device-usb perl-inline-c perl-try-tiny perl-encode-locale perl-io-html perl-uri perl-file-listing perl-lockfile-simple perl-www perl-file-next perl-lwp-mediatypes perl-www-curl perl-file-rsyncp spamassassin spamc spamc-ssl perl-www-mechanize perl-file-sharedir-install perl-net-cidr-lite perl-www-robotrules perl-html-form perl-net-dns perl-xml-parser perl-html-parser perl-net-http perl-html-tagset perl-net-telnet
+  #DEPENDS:=php7 php7-pecl-dio php7-pecl-http php7-pecl-imagick php7-pecl-krb5 php7-pecl-libevent php7-pecl-mcrypt php7-pecl-propro php7-pecl-raphf php7-pecl-redis freeradius3 mysql-server pear pear-db pear-archive-tar pear-structures-graph pear-console-getopt pear-xml-util pear-xmlrpc
+  #DEPENDS:=freeradius3 mysql-server pear pear-db pear-archive-tar pear-structures-graph pear-console-getopt pear-xml-util pear-xmlrpc
+  #DEPENDS:=python3-protobuf python3-pyperclip python3-ruamel-yaml python3-sortedcontainers python3-tornado python3-urwid python3-wsproto python3-publicsuffix2 python3-zstandard
+  #DEPENDS:=python3-homeassistant
+  TITLE:=Tools Inject xderm-mini
 endef
 
-define Package/python3-cython/description
-Cython is a language that makes writing C extensions for Python as easy
-as Python itself. Cython is based on Pyrex, but supports more cutting
-edge functionality and optimizations.
-
-The Cython language is very close to the Python language, but Cython
-additionally supports calling C functions and declaring C types on
-variables and class attributes. This allows the compiler to generate
-very efficient C code from Cython code.
-
-This makes Cython the ideal language for wrapping external C libraries,
-and for fast C modules that speed up the execution of Python code.
+define Package/luci-app-mosdns2/description
+ xderm-mini ssh v2ray trojan
 endef
 
-$(eval $(call Py3Package,python3-cython))
-$(eval $(call BuildPackage,python3-cython))
-$(eval $(call BuildPackage,python3-cython-src))
-$(eval $(call HostBuild))
+define Build/Prepare
+endef
+
+define Build/Configure
+endef
+
+define Build/Compile
+endef
+
+define Package/luci-app-mosdns2/install
+endef
+
+$(eval $(call BuildPackage,luci-app-mosdns2))
